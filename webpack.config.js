@@ -44,7 +44,7 @@ var webpackConfig = {
 						query: {
 							cacheDirectory: true,
 							presets: [['es2015', { "modules": false }], 'react', 'stage-0'],
-							plugins: ['lodash', 'transform-runtime']
+							plugins: ['lodash', 'react-css-modules', 'transform-runtime']
 						},
 						
 					}

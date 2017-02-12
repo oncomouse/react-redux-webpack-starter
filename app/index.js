@@ -1,7 +1,7 @@
 import { render } from 'react-dom';
 import React from 'react';
-import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
+import { Provider } from 'react-redux';
 import {persistStore, autoRehydrate} from 'redux-persist-immutable';
 import localForage from 'localforage';
 import {Map} from 'immutable';
@@ -15,11 +15,9 @@ import DevTools from 'containers/DevTools';
 import 'stylesheets/global.scss';
 
 const enhancer = process.env.NODE_ENV === 'production' ? compose(
-	// Middleware you want to use in development:
 	autoRehydrate(),
 	applyMiddleware(thunk, callAPIMiddleware)
 ) : compose(
-	// Middleware you want to use in production:
 	autoRehydrate(),
 	applyMiddleware(thunk, callAPIMiddleware),
 	DevTools.instrument()

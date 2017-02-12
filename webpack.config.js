@@ -1,4 +1,5 @@
 const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const path = require('path');
 
 const nodeEnv = process.env.NODE_ENV || 'development';
@@ -28,7 +29,7 @@ var webpackConfig = {
 		]
 	},
 	output: {
-		path: path.join(__dirname, 'app', 'dist', 'javascripts'),
+		path: path.join(__dirname, 'app', 'javascripts'),
 		filename: 'bundle.js',
 		publicPath: '/javascripts/'
 	},
@@ -39,11 +40,11 @@ var webpackConfig = {
 				exclude: /(node_modules|bower_components)/,
 				loaders: [
 					{
-						loader: 'babel',
+						loader: 'babel-loader',
 						query: {
 							cacheDirectory: true,
-							presets: ['es2015-native-modules', 'react', 'stage-0'],
-							plugins: ['transform-runtime']
+							presets: [['es2015', { "modules": false }], 'react', 'stage-0'],
+							plugins: ['lodash', 'transform-runtime']
 						},
 						
 					}
@@ -52,20 +53,18 @@ var webpackConfig = {
 			},
 			{
 				test: /\.css$/,
-				loaders: [
-					'style',
-					'postcss',
-					'css'
-				]
+				loader: ExtractTextPlugin.extract({fallback: 'style-loader', use: 'css-loader!postcss-loader'})
 			},
-			{
+			{ // Do module loading code for everything except global.scss
 				test: /\.scss$/,
-				loaders: [
-					'style',
-					'css',
-					'postcss',
-					'sass'
-				]
+				exclude: /global\.scss$/,
+				loader:  ExtractTextPlugin.extract({fallback: 'style-loader', use: 'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader!sass-loader'})
+			},
+			{ // Load global.scss using style-loader
+				test: /\.scss$/,
+				include: /global\.scss$/,
+				// Include everything in style.css
+				loader: ExtractTextPlugin.extract({fallback: 'style-loader', use: 'css-loader!postcss-loader!sass-loader'})
 			},
 			{test: /\.woff(2)?(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/font-woff" },
             {test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/octet-stream" },
@@ -74,35 +73,44 @@ var webpackConfig = {
 		],
 	},
 	resolve: {
-		extensions: ['', '.js', '.jsx'],
+		extensions: ['.js', '.jsx'],
 		modules: [
 			path.resolve('./app/'),
 			path.resolve('./node_modules')
 		]
 	},
 	plugins: [
+		new ExtractTextPlugin({ filename: 'style.css', allChunks: true }),
+		new webpack.optimize.OccurrenceOrderPlugin,
 		new webpack.DefinePlugin({
 			'process.env': { NODE_ENV: JSON.stringify(nodeEnv) }
+		}),
+		new webpack.LoaderOptionsPlugin({
+			test: /\.s{0,1}css$/,
+			options: {
+				context: __dirname,
+				sassLoader: {
+					includePaths: [
+						'./node_modules',
+						'./bower_components',
+						'./app/stylesheets'
+					]
+				},
+				postcss: function() {
+					return [
+						require('autoprefixer')({browsers: 'last 3 versions'}),
+						require('postcss-easings'),
+						require('css-mqpacker'),
+						require('postcss-clearfix')
+					]
+				}
+			}
 		})
 	],
 	devServer: {
 		contentBase: './app',
-		noInfo: true
-	},
-	sassLoader: {
-		includePaths: [
-			'./node_modules',
-			'./bower_components',
-			'./app/stylesheets'
-		]
-	},
-	postcss: function() {
-		return [
-			require('autoprefixer')({browsers: 'last 3 versions'}),
-			require('postcss-easings'),
-			require('css-mqpacker'),
-			require('postcss-clearfix')
-		]
+		noInfo: false,
+		historyApiFallback: true
 	}
 };
 

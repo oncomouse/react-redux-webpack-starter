@@ -32,6 +32,7 @@
     "postcss-clearfix": "^1.0.0",
     "postcss-easings": "^0.3.0",
     "postcss-loader": "^0.9.1",
+	"prop-types": "^15.5.10",
 	"ramda": "^0.24.1",
     "react": "^15.1.0",
     "react-dom": "^15.1.0",

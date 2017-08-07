@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
 import {connect} from 'react-redux'
 import {Map} from 'immutable'
@@ -21,8 +22,8 @@ class App extends React.Component {
 		samples: Map()
 	}
 	static propTypes = {
-		samples: React.PropTypes.instanceOf(Map).isRequired,
-		actions: React.PropTypes.objectOf(React.PropTypes.func).isRequired
+		samples: PropTypes.instanceOf(Map).isRequired,
+		actions: PropTypes.objectOf(React.PropTypes.func).isRequired
 	}
 	render() {
 		return(<Sample sampleRequest={this.props.actions.sampleRequest}/>);

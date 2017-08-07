@@ -4,22 +4,23 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import {persistStore, autoRehydrate} from 'redux-persist-immutable';
 import localForage from 'localforage';
+import createSagaMiddleware from 'redux-saga'
 import {Map} from 'immutable';
 import reducers from 'reducers';
-import {callAPIMiddleware} from 'middleware/APIMiddleware';
-import thunk from 'redux-thunk';
+import sagas from 'sagas'
 
 import App from 'containers/App';
 import DevTools from 'containers/DevTools';
 
 import 'stylesheets/global.scss';
 
+const sagaMiddleware = createSagaMiddleware()
 const enhancer = process.env.NODE_ENV === 'production' ? compose(
 	autoRehydrate(),
-	applyMiddleware(thunk, callAPIMiddleware)
+	applyMiddleware(sagaMiddleware)
 ) : compose(
 	autoRehydrate(),
-	applyMiddleware(thunk, callAPIMiddleware),
+	applyMiddleware(sagaMiddleware),
 	DevTools.instrument()
 );
 const initialStore = Map();
@@ -29,6 +30,7 @@ document.querySelector('body').appendChild(output);
 
 const store = createStore(reducers, initialStore, enhancer);
 persistStore(store, {storage: localForage, keyPrefix: 'mysample-app'});
+sagaMiddleware.run(sagas);
 
 render(
 	<Provider store={store}>

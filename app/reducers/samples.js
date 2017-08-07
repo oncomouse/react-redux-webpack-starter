@@ -1,6 +1,6 @@
-import { Map } from 'immutable';
-import createReducer from 'utilities/createReducer';
-import { SAMPLE_ACTION } from 'constants/ActionTypes';
+import { Map } from 'immutable'
+import createReducer from 'utilities/createReducer'
+import { SAMPLE_ACTION } from 'constants/ActionTypes'
 import {REHYDRATE} from 'redux-persist/constants'
 
 const initialState = Map();

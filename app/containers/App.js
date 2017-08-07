@@ -34,7 +34,7 @@ class App extends React.Component {
 			<div>
 				{process.env.NODE_ENV === 'production' ? null : <DevTools/>}
 				<Sample sampleRequest={this.props.actions.sampleRequest}/>
-				</div>);
+			</div>);
 	}
 }
 

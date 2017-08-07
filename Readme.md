@@ -1,6 +1,6 @@
 # react-redux-webpack-starter
 
-This is my starter app for React, Redux, and Webpack. It includes redux-thunk and middleware for making API calls to an AJAX store. It also includes support for a persistent, immutable store. You can use [CSS modules](https://github.com/css-modules/css-modules).
+This is my starter app for React, Redux, and Webpack. It includes [redux-saga](https://github.com/redux-saga/redux-saga) for side effects, including calls to APIs. It also includes support for a [persistent](https://github.com/rt2zz/redux-persist-immutable), [immutable](https://github.com/facebook/immutable-js/) store. You can use [CSS modules](https://github.com/css-modules/css-modules).
 
 This also makes use of webpack 2.
 

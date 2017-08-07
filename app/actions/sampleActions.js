@@ -1,7 +1,5 @@
 import {SAMPLE_ACTION} from 'constants/ActionTypes';
 
-export function sampleRequest() {
-	return {
-		type: SAMPLE_ACTION
-	}
-}
+export const sampleRequest = () => ({
+	type: SAMPLE_ACTION
+})

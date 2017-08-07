@@ -4,7 +4,7 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux'
 import {persistStore, autoRehydrate} from 'redux-persist-immutable'
 import localForage from 'localforage'
-import createSagaMiddleware from 'redux-saga
+import createSagaMiddleware from 'redux-saga'
 import {Map} from 'immutable'
 import reducers from 'reducers'
 import sagas from 'sagas'

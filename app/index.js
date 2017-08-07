@@ -1,4 +1,5 @@
-import { render } from 'react-dom'
+import { AppContainer } from 'react-hot-loader'
+import ReactDOM from 'react-dom'
 import React from 'react'
 import { createStore, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux'
@@ -27,15 +28,26 @@ const output = document.createElement('DIV');
 document.querySelector('body').appendChild(output);
 
 const store = createStore(reducers, initialStore, enhancer);
+if(module.hot) {
+    // Enable webpack hot module replacement for reducers
+	module.hot.accept(
+		'reducers',
+		() => store.replaceReducer(reducers)
+	);
+}
 persistStore(store, {storage: localForage, keyPrefix: APP_TITLE});
 sagaMiddleware.run(sagas);
 
-render(
+// React Hot Loading!
+const render = Component => ReactDOM.render(
 	<Provider store={store}>
-		<section>
-			<App/>
-			{process.env.NODE_ENV === 'production' ? null : <DevTools/>}
-		</section>
+		<AppContainer>
+			<div>
+				<Component/>
+				{process.env.NODE_ENV === 'production' ? null : <DevTools/>}
+			</div>
+		</AppContainer>
 	</Provider>
-,
-output);
+, output);
+render(App);
+if (module.hot) module.hot.accept('containers/App', () => render(App));

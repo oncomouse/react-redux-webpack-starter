@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const noop = require('noop-webpack-plugin');
 const path = require('path');
 
 const APP_TITLE = 'My Sample App';
@@ -8,26 +9,11 @@ const APP_TITLE = 'My Sample App';
 const nodeEnv = process.env.NODE_ENV || 'development';
 const isProd = nodeEnv === 'production';
 
-var productionPlugins = [
-	new webpack.LoaderOptionsPlugin({
-		minimize: true,
-		debug: false
-	}),
-	new webpack.optimize.UglifyJsPlugin({
-		compress: {
-			warnings: false
-		},
-		output: {
-			comments: false
-		},
-		sourceMap: false
-	})
-];
-
 var webpackConfig = {
 	devtool: isProd ? 'hidden-source-map' : 'eval',
 	entry: {
-		js: [
+		js: isProd ? ['index'] : [
+			'react-hot-loader/patch',
 			'index'
 		]
 	},
@@ -97,11 +83,27 @@ var webpackConfig = {
 				}
 			}
 		}),
+		isProd ? noop() : new webpack.HotModuleReplacementPlugin(),
+		isProd ? noop() : new webpack.NamedModulesPlugin(),
+		isProd ? noop() : new webpack.NoEmitOnErrorsPlugin(),
+		isProd ? new webpack.LoaderOptionsPlugin({
+			minimize: true,
+			debug: false
+		}) : noop(),
+		isProd ? new webpack.optimize.UglifyJsPlugin({
+			compress: {
+				warnings: false
+			},
+			output: {
+				comments: false
+			},
+			sourceMap: false
+		}) : noop(),
 		new ExtractTextPlugin({ filename: 'style.css', allChunks: true }),
 		new webpack.optimize.OccurrenceOrderPlugin,
 		new webpack.DefinePlugin({
 			'process.env': { NODE_ENV: JSON.stringify(nodeEnv) },
-			APP_TITLE
+			APP_TITLE: JSON.stringify(APP_TITLE)
 			
 		}),
 		new webpack.LoaderOptionsPlugin({
@@ -129,12 +131,9 @@ var webpackConfig = {
 	devServer: {
 		contentBase: './app',
 		noInfo: false,
-		historyApiFallback: true
+		historyApiFallback: true,
+		hot: true
 	}
 };
-
-if(isProd) {
-	webpackConfig.plugins = webpackConfig.plugins.concat(productionPlugins)
-}
 
 module.exports = webpackConfig

@@ -1,4 +1,5 @@
 const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const path = require('path');
 
@@ -29,9 +30,8 @@ var webpackConfig = {
 		]
 	},
 	output: {
-		path: path.join(__dirname, 'app', 'javascripts'),
-		filename: 'bundle.js',
-		publicPath: '/javascripts/'
+		path: path.join(__dirname, 'build'),
+		filename: 'bundle.js'
 	},
 	module: {
 		loaders: [
@@ -80,6 +80,20 @@ var webpackConfig = {
 		]
 	},
 	plugins: [
+		new HtmlWebpackPlugin({
+			files: {
+				css: ['style.css'],
+				js: ['bundle.js']
+			},
+			chunks: {
+				head: {
+					css: ['style.css']
+				},
+				main: {
+					entry: 'bundle.js'
+				}
+			}
+		}),
 		new ExtractTextPlugin({ filename: 'style.css', allChunks: true }),
 		new webpack.optimize.OccurrenceOrderPlugin,
 		new webpack.DefinePlugin({

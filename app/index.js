@@ -24,7 +24,10 @@ const enhancer = process.env.NODE_ENV === 'production' ? compose(
 );
 const initialStore = Map();
 
-let store = createStore(reducers, initialStore, enhancer);
+const output = document.createElement('DIV');
+document.querySelector('body').appendChild(output);
+
+const store = createStore(reducers, initialStore, enhancer);
 persistStore(store, {storage: localForage, keyPrefix: 'mysample-app'});
 
 render(
@@ -35,4 +38,4 @@ render(
 		</section>
 	</Provider>
 ,
-document.getElementById('react'));
+output);

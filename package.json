@@ -42,7 +42,7 @@
     "redux-devtools": "^3.3.2",
     "redux-devtools-dock-monitor": "^1.1.1",
     "redux-devtools-log-monitor": "^1.2.0",
-	"react-hot-loader": "^3.0.0-beta.7",
+    "react-hot-loader": "^3.0.0-beta.7",
     "redux-immutable": "^3.0.11",
     "redux-persist-immutable": "^4.2.0",
     "redux-saga": "^0.15.6",

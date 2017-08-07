@@ -1,17 +1,21 @@
 import React from 'react'
+import R from 'ramda'
 import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
 import {connect} from 'react-redux'
 import {Map} from 'immutable'
 import * as SampleActions from 'actions/sampleActions'
 import Sample from 'components/Sample'
+import DevTools from 'containers/DevTools'
 
 const mapStateToProps = (state, ownProps) => ({
 	samples: state.samples
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-	actions: bindActionCreators(SampleActions, dispatch)
+	actions: R.mergeAll([
+		bindActionCreators(SampleActions, dispatch)
+	])
 })
 
 class App extends React.Component {
@@ -26,7 +30,11 @@ class App extends React.Component {
 		actions: PropTypes.objectOf(PropTypes.func).isRequired
 	}
 	render() {
-		return(<Sample sampleRequest={this.props.actions.sampleRequest}/>);
+		return(
+			<div>
+				{process.env.NODE_ENV === 'production' ? null : <DevTools/>}
+				<Sample sampleRequest={this.props.actions.sampleRequest}/>
+				</div>);
 	}
 }
 

@@ -23,7 +23,7 @@ class App extends React.Component {
 	}
 	static propTypes = {
 		samples: PropTypes.instanceOf(Map).isRequired,
-		actions: PropTypes.objectOf(React.PropTypes.func).isRequired
+		actions: PropTypes.objectOf(PropTypes.func).isRequired
 	}
 	render() {
 		return(<Sample sampleRequest={this.props.actions.sampleRequest}/>);

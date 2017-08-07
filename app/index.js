@@ -29,7 +29,7 @@ const output = document.createElement('DIV');
 document.querySelector('body').appendChild(output);
 
 const store = createStore(reducers, initialStore, enhancer);
-persistStore(store, {storage: localForage, keyPrefix: 'mysample-app'});
+persistStore(store, {storage: localForage, keyPrefix: APP_TITLE});
 sagaMiddleware.run(sagas);
 
 render(

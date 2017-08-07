@@ -3,6 +3,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const path = require('path');
 
+const APP_TITLE = 'My Sample App';
+
 const nodeEnv = process.env.NODE_ENV || 'development';
 const isProd = nodeEnv === 'production';
 
@@ -85,6 +87,7 @@ var webpackConfig = {
 				css: ['style.css'],
 				js: ['bundle.js']
 			},
+			title: APP_TITLE,
 			chunks: {
 				head: {
 					css: ['style.css']
@@ -97,7 +100,9 @@ var webpackConfig = {
 		new ExtractTextPlugin({ filename: 'style.css', allChunks: true }),
 		new webpack.optimize.OccurrenceOrderPlugin,
 		new webpack.DefinePlugin({
-			'process.env': { NODE_ENV: JSON.stringify(nodeEnv) }
+			'process.env': { NODE_ENV: JSON.stringify(nodeEnv) },
+			APP_TITLE
+			
 		}),
 		new webpack.LoaderOptionsPlugin({
 			test: /\.s{0,1}css$/,

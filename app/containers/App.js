@@ -33,7 +33,7 @@ class App extends React.Component {
 		return(
 			<div>
 				{process.env.NODE_ENV === 'production' ? null : <DevTools/>}
-				<Sample samples={this.props.samples} sampleRequest={this.props.actions.sampleRequest} resetRequest={this.props.actions.resetRequest}/>
+				<Sample samples={this.props.samples} sampleAction={this.props.actions.sampleAction} resetAction={this.props.actions.resetAction}/>
 			</div>);
 	}
 }

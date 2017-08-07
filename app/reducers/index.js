@@ -1,6 +1,6 @@
 import {combineReducers} from 'redux-immutable'
-import samples from 'reducers/samples'
+import Samples from 'reducers/Samples'
 
 export default combineReducers({
-	samples
+	Samples
 });

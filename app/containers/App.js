@@ -9,7 +9,7 @@ import Sample from 'components/Sample'
 import DevTools from 'containers/DevTools'
 
 const mapStateToProps = (state, ownProps) => ({
-	samples: state.samples
+	samples: state.get('Samples')
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

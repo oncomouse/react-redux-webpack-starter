@@ -7,6 +7,7 @@ function* sampleSaga() {
 	// select from store
 	// take actions
 	// put actions to the store
+	console.log('Got a saga')
 }
 
 export default function* observeSample() {

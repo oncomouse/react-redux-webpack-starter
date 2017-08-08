@@ -4,6 +4,7 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import configStore from 'store/configStore'
 import App from 'containers/App'
+import DevTools from 'containers/DevTools'
 import 'stylesheets/global.scss'
 
 const store = configStore();
@@ -14,7 +15,10 @@ document.querySelector('body').appendChild(output);
 const render = Component => ReactDOM.render(
 	<Provider store={store}>
 		<AppContainer>
-			<Component/>
+			<div>
+				<Component/>
+				{process.env.NODE_ENV === 'production' ? null : <DevTools/>}
+			</div>
 		</AppContainer>
 	</Provider>
 , output);

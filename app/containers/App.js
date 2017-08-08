@@ -6,7 +6,6 @@ import {connect} from 'react-redux'
 import {Map} from 'immutable'
 import * as SampleActions from 'actions/sampleActions'
 import Sample from 'components/Sample'
-import DevTools from 'containers/DevTools'
 
 const mapStateToProps = (state, ownProps) => ({
 	samples: state.get('Samples')
@@ -31,10 +30,8 @@ class App extends React.Component {
 	}
 	render() {
 		return(
-			<div>
-				{process.env.NODE_ENV === 'production' ? null : <DevTools/>}
-				<Sample samples={this.props.samples} sampleAction={this.props.actions.sampleAction} resetAction={this.props.actions.resetAction}/>
-			</div>);
+			<Sample samples={this.props.samples} sampleAction={this.props.actions.sampleAction} resetAction={this.props.actions.resetAction}/>
+		);
 	}
 }
 

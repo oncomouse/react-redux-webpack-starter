@@ -22,17 +22,17 @@ var webpackConfig = {
 		filename: 'bundle.js'
 	},
 	module: {
-		loaders: [
+		rules: [
 			{
 				test: /\.(jsx|js)$/,
 				exclude: /(node_modules|bower_components)/,
-				loaders: [
+				use: [
 					{
 						loader: 'babel-loader',
-						query: {
+						options: {
 							cacheDirectory: true,
 							presets: [['es2015', { "modules": false }], 'react', 'stage-0'],
-							plugins: ['ramda', 'transform-runtime', 'tailcall-optimization']
+							plugins: ['transform-runtime', 'ramda', 'tailcall-optimization']
 						},
 						
 					}
@@ -41,23 +41,106 @@ var webpackConfig = {
 			},
 			{
 				test: /\.css$/,
-				loader: ExtractTextPlugin.extract({fallback: 'style-loader', use: 'css-loader!postcss-loader'})
+				use: isProd ? ExtractTextPlugin.extract({
+					fallback: 'style-loader',
+					use: [
+						'css-loader',
+						'postcss-loader'
+					]
+				}) : [
+					'style-loader',
+					'css-loader',
+					'postcss-loader'
+				]
 			},
 			{ // Do module loading code for everything except global.scss
 				test: /\.scss$/,
 				exclude: /global\.scss$/,
-				loader:  ExtractTextPlugin.extract({fallback: 'style-loader', use: 'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader!sass-loader'})
+				use: isProd ? ExtractTextPlugin.extract({
+					fallback: 'style-loader', use: [
+						{
+							loader: 'css-loader',
+							options: {
+								modules: true,
+								importLoaders: 1,
+								localIdentName: '[name]__[local]___[hash:base64:5]'
+							}
+						},
+						'postcss-loader',
+						'sass-loader'
+					]
+				}) : [
+					'style-loader',
+					{
+						loader: 'css-loader',
+						options: {
+							modules: true,
+							importLoaders: 1,
+							localIdentName: '[name]__[local]___[hash:base64:5]'
+						}
+					},
+					'postcss-loader',
+					'sass-loader'
+				]
 			},
 			{ // Load global.scss using style-loader
 				test: /\.scss$/,
 				include: /global\.scss$/,
 				// Include everything in style.css
-				loader: ExtractTextPlugin.extract({fallback: 'style-loader', use: 'css-loader!postcss-loader!sass-loader'})
+				use: isProd ? ExtractTextPlugin.extract({
+					fallback: 'style-loader',
+					use: [
+						'css-loader',
+						'postcss-loader',
+						'sass-loader'
+					]
+				}) : [
+					'style-loader',
+					'css-loader',
+					'postcss-loader',
+					'sass-loader'
+				]
 			},
-			{test: /\.woff(2)?(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/font-woff" },
-            {test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/octet-stream" },
-            {test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file" },
-            {test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=image/svg+xml" }
+			{
+				test: /\.woff(2)?(\?v=\d+\.\d+\.\d+)?$/,
+				use: [
+					{
+						loader: 'url-loader',
+						options: {
+							limit: 10000,
+							mimetype: 'application/font-woff'
+						}
+					}
+				]
+			},
+			{
+				test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
+				use: [
+					{
+						loader: 'url-loader',
+						options: {
+							limit: 10000,
+							mimetype: 'application/octet-stream'
+						}
+					}
+				]
+			},
+			{
+				test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
+				use: 'file-loader'
+			},
+			{
+				test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+				use: [
+					{
+						loader: 'url-loader',
+						options: {
+							limit: 10000,
+							mimetype: 'application/svg-xml'
+						}
+					}
+				]
+			}
 		],
 	},
 	resolve: {
@@ -76,7 +159,7 @@ var webpackConfig = {
 			title: APP_TITLE,
 			chunks: {
 				head: {
-					css: ['style.css']
+					css: isProd ? ['style.css'] : []
 				},
 				main: {
 					entry: 'bundle.js'
@@ -99,8 +182,8 @@ var webpackConfig = {
 			},
 			sourceMap: false
 		}) : noop(),
-		new ExtractTextPlugin({ filename: 'style.css', allChunks: true }),
-		new webpack.optimize.OccurrenceOrderPlugin,
+		isProd ? new ExtractTextPlugin({ filename: 'style.css', allChunks: true }) : noop(),
+		isProd ? new webpack.optimize.OccurrenceOrderPlugin : noop(),
 		new webpack.DefinePlugin({
 			'process.env': { NODE_ENV: JSON.stringify(nodeEnv) },
 			APP_TITLE: JSON.stringify(APP_TITLE)

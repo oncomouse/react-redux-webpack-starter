@@ -144,6 +144,7 @@ var webpackConfig = {
 		]
 	},
 	plugins: [
+		// Build the HTML file without having to include it in the app:
 		new HtmlWebpackPlugin({
 			files: {
 				css: isProd ? ['style.css'] : [],
@@ -159,9 +160,11 @@ var webpackConfig = {
 				}
 			}
 		}),
+		// Hot Module Replacement (HMR) plugins. They only load in development:
 		isProd ? noop() : new webpack.HotModuleReplacementPlugin(),
 		isProd ? noop() : new webpack.NamedModulesPlugin(),
 		isProd ? noop() : new webpack.NoEmitOnErrorsPlugin(),
+		// Production plugins:
 		isProd ? new webpack.LoaderOptionsPlugin({
 			minimize: true,
 			debug: false
@@ -182,6 +185,7 @@ var webpackConfig = {
 			APP_TITLE: JSON.stringify(APP_TITLE)
 			
 		}),
+		// Loader option plugin for SASS and PostCSS:
 		new webpack.LoaderOptionsPlugin({
 			test: /\.s{0,1}css$/,
 			options: {

@@ -27,19 +27,17 @@ export default () => {
 	if(module.hot) {
 	    // Enable webpack hot module replacement for reducers
 		module.hot.accept(
-			'../reducers',
+			'reducers',
 			() => store.replaceReducer(require('reducers').default)
 		);
 		module.hot.accept(
-			'../sagas',
-			() => {
-				store.dispatch({
+			'sagas',
+			() => store.dispatch({
 					type: START_SAGAS,
 					sagas: [
 						...require('sagas').default()
 					]
 				})
-			}
 		)
 	}
 	return store;

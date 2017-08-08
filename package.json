@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "repository": {
-	  "type": "git",
-	  "url": "https://github.com/oncomouse/react-redux-webpack-starter.git"
+    "type": "git",
+    "url": "https://github.com/oncomouse/react-redux-webpack-starter.git"
   },
   "main": "app/index.js",
   "scripts": {

@@ -57,7 +57,8 @@ var webpackConfig = {
 				test: /\.scss$/,
 				exclude: /global\.scss$/,
 				use: isProd ? ExtractTextPlugin.extract({
-					fallback: 'style-loader', use: [
+					fallback: 'style-loader',
+					use: [
 						{
 							loader: 'css-loader',
 							options: {

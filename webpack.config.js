@@ -4,6 +4,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const noop = require('noop-webpack-plugin');
 const path = require('path');
 
+// Set APP_TITLE to the title of your application. You can install and change this variable using react-helmet, if you need.
 const APP_TITLE = 'My Sample App';
 
 const nodeEnv = process.env.NODE_ENV || 'development';
@@ -39,6 +40,11 @@ var webpackConfig = {
 				],
 
 			},
+			/*
+				Loader code for .css files. We use style-loader in
+				development to get HMR support. In production, we use
+				ExtractTextPlugin to get a pre-built CSS file.
+			*/
 			{
 				test: /\.css$/,
 				use: isProd ? ExtractTextPlugin.extract({
@@ -53,7 +59,17 @@ var webpackConfig = {
 					'postcss-loader'
 				]
 			},
-			{ // Do module loading code for everything except global.scss
+			/*
+				SASS loader code for the module files (in
+				app/stylesheets/components). These are intended to be
+				styles for individual React components, which will have a
+				unique name space.
+			
+				As above (with the CSS loader), we use style-loader for
+				HMR support in development and switch to ExtractTextPlugin
+				for production.
+			*/
+			{
 				test: /\.scss$/,
 				exclude: /global\.scss$/,
 				use: isProd ? ExtractTextPlugin.extract({
@@ -84,7 +100,17 @@ var webpackConfig = {
 					'sass-loader'
 				]
 			},
-			{ // Load global.scss using style-loader
+			/*
+				Loader code for a universal SCSS file. These styles will
+				be (as long as you remember to import them into
+				app/index.js) loaded for every component and are not
+				uniquely namespaced as the module SCSS code above is.
+			
+				This file lives in app/stylesheets/global.scss. As above,
+				we use style-loader for HMR in development and
+				ExtractTextPlugin in production.
+			*/
+			{
 				test: /\.scss$/,
 				include: /global\.scss$/,
 				// Include everything in style.css
@@ -102,46 +128,12 @@ var webpackConfig = {
 					'sass-loader'
 				]
 			},
-			{
-				test: /\.woff(2)?(\?v=\d+\.\d+\.\d+)?$/,
-				use: [
-					{
-						loader: 'url-loader',
-						options: {
-							limit: 10000,
-							mimetype: 'application/font-woff'
-						}
-					}
-				]
-			},
-			{
-				test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-				use: [
-					{
-						loader: 'url-loader',
-						options: {
-							limit: 10000,
-							mimetype: 'application/octet-stream'
-						}
-					}
-				]
-			},
-			{
-				test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-				use: 'file-loader'
-			},
-			{
-				test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-				use: [
-					{
-						loader: 'url-loader',
-						options: {
-							limit: 10000,
-							mimetype: 'application/svg-xml'
-						}
-					}
-				]
-			}
+			/*
+				Webfont loaders for Bootsrap and the like.
+			*/
+			{test: /\.woff(2)?(\?v=\d+\.\d+\.\d+)?$/,use: [{loader: 'url-loader',options: {limit: 10000,mimetype: 'application/font-woff'}}]},
+			{test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,use: [{loader: 'url-loader',options: {limit: 10000,mimetype: 'application/octet-stream'}}]},
+			{test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,use: 'file-loader'},{test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,use: [{loader: 'url-loader',options: {limit: 10000,mimetype: 'application/svg-xml'}}]}
 		],
 	},
 	resolve: {
@@ -154,7 +146,7 @@ var webpackConfig = {
 	plugins: [
 		new HtmlWebpackPlugin({
 			files: {
-				css: ['style.css'],
+				css: isProd ? ['style.css'] : [],
 				js: ['bundle.js']
 			},
 			title: APP_TITLE,

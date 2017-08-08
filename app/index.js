@@ -23,4 +23,4 @@ const render = Component => ReactDOM.render(
 	</Provider>
 , output);
 render(App);
-if (module.hot) module.hot.accept('containers/App', () => render(App));
+if (module.hot) module.hot.accept(['containers/App', 'containers/DevTools'], () => render(App));

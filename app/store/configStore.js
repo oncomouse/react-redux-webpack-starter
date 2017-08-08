@@ -1,4 +1,4 @@
-import { createStore, applyMiddleware, compose } from 'redux'
+import {createStore, applyMiddleware, compose} from 'redux'
 import {persistStore, autoRehydrate} from 'redux-persist-immutable'
 import localForage from 'localforage'
 import createSagaMiddleware from 'redux-saga'

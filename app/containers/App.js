@@ -1,7 +1,7 @@
 import React from 'react'
 import R from 'ramda'
 import PropTypes from 'prop-types'
-import { bindActionCreators } from 'redux'
+import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {Map} from 'immutable'
 import * as SampleActions from 'actions/sampleActions'

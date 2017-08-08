@@ -160,6 +160,7 @@ var webpackConfig = {
 				}
 			}
 		}),
+		new webpack.optimize.ModuleConcatenationPlugin(),
 		// Hot Module Replacement (HMR) plugins. They only load in development:
 		isProd ? noop() : new webpack.HotModuleReplacementPlugin(),
 		isProd ? noop() : new webpack.NamedModulesPlugin(),

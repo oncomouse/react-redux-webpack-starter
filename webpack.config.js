@@ -1,4 +1,5 @@
 const webpack = require('webpack');
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
@@ -35,7 +36,7 @@ var webpackConfig = {
 						options: {
 							cacheDirectory: true,
 							presets: [['es2015', { "modules": false }], 'react', 'stage-0'],
-							plugins: ['transform-runtime', 'ramda', 'tailcall-optimization']
+							plugins: ['transform-runtime', 'ramda', 'tailcall-optimization', 'lodash'] // Lodash plugin included because React loads lodash.
 						},
 						
 					}
@@ -152,6 +153,7 @@ var webpackConfig = {
 			analyzerPort: 8888,
 			openAnalyzer: true
 		}) : noop(),
+		new LodashModuleReplacementPlugin,
 		new webpack.optimize.CommonsChunkPlugin({
 			name: 'common',
 			filename: 'common.js'

@@ -11,7 +11,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server",
     "build": "env NODE_ENV=production webpack -p",
-	"analyze": "env ANALYZE=1 webpack"
+    "analyze": "env ANALYZE=1 NODE_ENV=production webpack"
   },
   "author": "Andrew Pilsch <apilsch@tamu.edu> (https://andrew.pilsch.com)",
   "license": "ISC",
@@ -19,6 +19,7 @@
     "autoprefixer": "^6.3.6",
     "babel-core": "^6.10.4",
     "babel-loader": "^7.1.1",
+    "babel-plugin-lodash": "^3.2.11",
     "babel-plugin-ramda": "^1.2.0",
     "babel-plugin-tailcall-optimization": "^1.0.11",
     "babel-plugin-transform-runtime": "^6.9.0",
@@ -33,6 +34,7 @@
     "immutable": "^3.8.1",
     "imports-loader": "^0.6.5",
     "localforage": "^1.4.3",
+    "lodash-webpack-plugin": "^0.11.4",
     "node-sass": "^4.5.3",
     "noop-webpack-plugin": "^1.0.1",
     "postcss-clearfix": "^1.0.0",
@@ -53,6 +55,7 @@
     "redux-saga": "^0.15.6",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.13.1",
+    "uglifyjs-webpack-plugin": "^0.4.6",
     "url-loader": "^0.5.7",
     "webpack": "^3.5.1",
     "webpack-bundle-analyzer": "^2.9.0",

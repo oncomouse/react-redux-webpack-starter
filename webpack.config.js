@@ -1,11 +1,13 @@
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const noop = require('noop-webpack-plugin');
 const path = require('path');
 
 // Set APP_TITLE to the title of your application. You can install and change this variable using react-helmet, if you need.
 const APP_TITLE = 'My Sample App';
+const {ANALYZE} = process.env;
 
 const nodeEnv = process.env.NODE_ENV || 'development';
 const isProd = nodeEnv === 'production';
@@ -144,6 +146,12 @@ var webpackConfig = {
 		]
 	},
 	plugins: [
+		ANALYZE ? new BundleAnalyzerPlugin({
+			analyzerMode: 'server',
+			analyzerHost: '127.0.0.1',
+			analyzerPort: 8888,
+			openAnalyzer: true
+		}) : noop(),
 		// Build the HTML file without having to include it in the app:
 		new HtmlWebpackPlugin({
 			files: {

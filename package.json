@@ -9,8 +9,9 @@
   "main": "app/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node_modules/.bin/webpack-dev-server",
-    "build": "env NODE_ENV=production node_modules/.bin/webpack -p"
+    "start": "webpack-dev-server",
+    "build": "env NODE_ENV=production webpack -p",
+	"analyze": "env ANALYZE=1 webpack"
   },
   "author": "Andrew Pilsch <apilsch@tamu.edu> (https://andrew.pilsch.com)",
   "license": "ISC",
@@ -54,6 +55,7 @@
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
     "webpack": "^3.5.1",
+    "webpack-bundle-analyzer": "^2.9.0",
     "webpack-dev-server": "^2.1.0-beta.0"
   }
 }

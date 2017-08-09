@@ -152,11 +152,15 @@ var webpackConfig = {
 			analyzerPort: 8888,
 			openAnalyzer: true
 		}) : noop(),
+		new webpack.optimize.CommonsChunkPlugin({
+			name: 'common',
+			filename: 'common.js'
+		}),
 		// Build the HTML file without having to include it in the app:
 		new HtmlWebpackPlugin({
 			files: {
 				css: isProd ? ['style.css'] : [],
-				js: ['bundle.js']
+				js: ['common.js', 'bundle.js']
 			},
 			title: APP_TITLE,
 			chunks: {
@@ -164,7 +168,7 @@ var webpackConfig = {
 					css: isProd ? ['style.css'] : []
 				},
 				main: {
-					entry: 'bundle.js'
+					entry: ['common.js', 'bundle.js']
 				}
 			}
 		}),

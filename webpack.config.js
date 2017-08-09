@@ -3,6 +3,7 @@ const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 const noop = require('noop-webpack-plugin');
 const path = require('path');
 
@@ -165,6 +166,7 @@ var webpackConfig = {
 				js: ['common.js', 'bundle.js']
 			},
 			title: APP_TITLE,
+			chunksSortMode: 'dependency',
 			chunks: {
 				head: {
 					css: isProd ? ['style.css'] : []
@@ -184,16 +186,21 @@ var webpackConfig = {
 			minimize: true,
 			debug: false
 		}) : noop(),
-		isProd ? new webpack.optimize.UglifyJsPlugin({
-			compress: {
-				warnings: false
-			},
-			output: {
-				comments: false
+		isProd ? new UglifyJSPlugin({
+			uglifyOptions: {
+				compress: {
+					warnings: false
+				},
+				output: {
+					comments: false
+				}
 			},
 			sourceMap: false
 		}) : noop(),
-		isProd ? new ExtractTextPlugin({ filename: 'style.css', allChunks: true }) : noop(),
+		isProd ? new ExtractTextPlugin({
+			filename: 'style.css',
+			allChunks: true
+		}) : noop(),
 		isProd ? new webpack.optimize.OccurrenceOrderPlugin : noop(),
 		new webpack.DefinePlugin({
 			'process.env': { NODE_ENV: JSON.stringify(nodeEnv) },

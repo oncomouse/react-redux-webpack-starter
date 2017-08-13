@@ -10,8 +10,7 @@ import 'stylesheets/global.scss'
 const store = configStore();
 
 // React Hot Loading!
-const output = document.createElement('DIV');
-document.querySelector('body').appendChild(output);
+const output = document.getElementById('react');
 const render = Component => ReactDOM.render(
 	<Provider store={store}>
 		<AppContainer>

@@ -166,6 +166,7 @@ var webpackConfig = {
 				js: ['common.js', 'bundle.js']
 			},
 			title: APP_TITLE,
+			template: "./app/template/index.ejs",
 			chunksSortMode: 'dependency',
 			chunks: {
 				head: {

@@ -34,9 +34,11 @@ export default () => {
 			'sagas',
 			() => store.dispatch({
 					type: START_SAGAS,
-					sagas: [
-						...require('sagas').default()
-					]
+					payload: {
+						sagas: [
+							...require('sagas').default()
+						]
+					}
 				})
 		)
 	}

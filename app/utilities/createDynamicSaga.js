@@ -14,7 +14,7 @@ export function createDynamicSaga (changeActionType, startingSagas) {
     let rootTask = yield fork(_start, startingSagas)
     while (action = yield take(changeActionType)) {
       yield cancel(rootTask)
-      rootTask = yield fork(_start, action.sagas)
+      rootTask = yield fork(_start, action.payload.sagas)
     }
   }
 }

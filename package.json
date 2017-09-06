@@ -39,7 +39,7 @@
     "noop-webpack-plugin": "^1.0.1",
     "postcss-clearfix": "^1.0.0",
     "postcss-easings": "^0.3.0",
-    "postcss-loader": "^0.9.1",
+    "postcss-loader": "^2.0.6",
     "prop-types": "^15.5.10",
     "ramda": "^0.24.1",
     "react": "^15.1.0",

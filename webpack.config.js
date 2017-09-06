@@ -14,6 +14,15 @@ const {ANALYZE} = process.env;
 const nodeEnv = process.env.NODE_ENV || 'development';
 const isProd = nodeEnv === 'production';
 
+const postCSSplugins = function() {
+	return [
+		require('autoprefixer')({browsers: 'last 3 versions'}),
+		require('postcss-easings'),
+		require('css-mqpacker'),
+		require('postcss-clearfix')
+	]
+}
+
 var webpackConfig = {
 	devtool: isProd ? 'hidden-source-map' : 'eval',
 	entry: {
@@ -53,12 +62,22 @@ var webpackConfig = {
 					fallback: 'style-loader',
 					use: [
 						'css-loader',
-						'postcss-loader'
+						{
+							loader: 'postcss-loader',
+							options: {
+								plugins: postCSSplugins
+							}
+						}
 					]
 				}) : [
 					'style-loader',
 					'css-loader',
-					'postcss-loader'
+					{
+						loader: 'postcss-loader',
+						options: {
+							plugins: postCSSplugins
+						}
+					}
 				]
 			},
 			/*
@@ -85,7 +104,12 @@ var webpackConfig = {
 								localIdentName: '[name]__[local]___[hash:base64:5]'
 							}
 						},
-						'postcss-loader',
+						{
+							loader: 'postcss-loader',
+							options: {
+								plugins: postCSSplugins
+							}
+						},
 						'sass-loader'
 					]
 				}) : [
@@ -98,7 +122,12 @@ var webpackConfig = {
 							localIdentName: '[name]__[local]___[hash:base64:5]'
 						}
 					},
-					'postcss-loader',
+					{
+						loader: 'postcss-loader',
+						options: {
+							plugins: postCSSplugins
+						}
+					},
 					'sass-loader'
 				]
 			},
@@ -120,13 +149,23 @@ var webpackConfig = {
 					fallback: 'style-loader',
 					use: [
 						'css-loader',
-						'postcss-loader',
+						{
+							loader: 'postcss-loader',
+							options: {
+								plugins: postCSSplugins
+							}
+						},
 						'sass-loader'
 					]
 				}) : [
 					'style-loader',
 					'css-loader',
-					'postcss-loader',
+					{
+						loader: 'postcss-loader',
+						options: {
+							plugins: postCSSplugins
+						}
+					},
 					'sass-loader'
 				]
 			},
@@ -216,14 +255,6 @@ var webpackConfig = {
 						'./node_modules',
 						'./bower_components',
 						'./app/stylesheets'
-					]
-				},
-				postcss: function() {
-					return [
-						require('autoprefixer')({browsers: 'last 3 versions'}),
-						require('postcss-easings'),
-						require('css-mqpacker'),
-						require('postcss-clearfix')
 					]
 				}
 			}

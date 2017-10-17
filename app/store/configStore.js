@@ -1,12 +1,11 @@
 import {createStore, applyMiddleware, compose} from 'redux'
-import {persistStore, autoRehydrate} from 'redux-persist-immutable'
-import localForage from 'localforage'
+import {autoRehydrate} from 'redux-persist-immutable'
 import createSagaMiddleware from 'redux-saga'
 import {Map} from 'immutable'
 import reducers from 'reducers'
 import sagas from 'sagas'
 import {START_SAGAS, createDynamicSaga} from 'utilities/createDynamicSaga'
-import DevTools from 'containers/DevTools'
+import logger from 'redux-logger'
 
 export default () => {
 	const sagaMiddleware = createSagaMiddleware()
@@ -15,13 +14,11 @@ export default () => {
 		applyMiddleware(sagaMiddleware)
 	) : compose(
 		autoRehydrate(),
-		applyMiddleware(sagaMiddleware),
-		DevTools.instrument()
+		applyMiddleware(sagaMiddleware, logger)
 	);
 	const initialStore = Map();
 
 	const store = createStore(reducers, initialStore, enhancer);
-	persistStore(store, {storage: localForage, keyPrefix: APP_TITLE});
 	sagaMiddleware.run(createDynamicSaga(START_SAGAS, sagas()))
 
 	if(module.hot) {

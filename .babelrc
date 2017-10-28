@@ -7,5 +7,5 @@
 		},
 		"useBuiltIns": true
 	}], "react", "stage-0"],
-	"plugins": ["transform-runtime", "ramda", "tailcall-optimization", "lodash"]
+	"plugins": ["add-module-exports", "transform-runtime", "ramda", "tailcall-optimization", "lodash"]
 }

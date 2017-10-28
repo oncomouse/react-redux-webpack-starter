@@ -1,7 +1,6 @@
 import {createStore, applyMiddleware, compose} from 'redux'
-import {autoRehydrate} from 'redux-persist-immutable'
+import {autoRehydrate} from 'redux-persist'
 import createSagaMiddleware from 'redux-saga'
-import {Map} from 'immutable'
 import reducers from 'reducers'
 import sagas from 'sagas'
 import {START_SAGAS, createDynamicSaga} from 'utilities/createDynamicSaga'
@@ -15,7 +14,7 @@ export default () => {
 		autoRehydrate(),
 		applyMiddleware(sagaMiddleware, require('redux-logger').default) // Only include redux-logger if we are in development
 	);
-	const initialStore = Map();
+	const initialStore = {};
 
 	const store = createStore(reducers, initialStore, enhancer);
 	sagaMiddleware.run(createDynamicSaga(START_SAGAS, sagas()))

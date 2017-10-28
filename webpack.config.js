@@ -239,6 +239,7 @@ var webpackConfig = {
 			filename: 'style.css',
 			allChunks: true
 		}) : noop(),
+		isProd ? new webpack.optimize.AggressiveMergingPlugin() : noop(),
 		isProd ? new webpack.optimize.OccurrenceOrderPlugin : noop(),
 		new webpack.DefinePlugin({
 			'process.env': { NODE_ENV: JSON.stringify(nodeEnv) },

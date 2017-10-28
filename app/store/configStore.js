@@ -5,7 +5,6 @@ import {Map} from 'immutable'
 import reducers from 'reducers'
 import sagas from 'sagas'
 import {START_SAGAS, createDynamicSaga} from 'utilities/createDynamicSaga'
-import logger from 'redux-logger'
 
 export default () => {
 	const sagaMiddleware = createSagaMiddleware()
@@ -14,7 +13,7 @@ export default () => {
 		applyMiddleware(sagaMiddleware)
 	) : compose(
 		autoRehydrate(),
-		applyMiddleware(sagaMiddleware, logger)
+		applyMiddleware(sagaMiddleware, require('redux-logger').default) // Only include redux-logger if we are in development
 	);
 	const initialStore = Map();
 

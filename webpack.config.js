@@ -182,7 +182,14 @@ var webpackConfig = {
 		modules: [
 			path.resolve('./app/'),
 			path.resolve('./node_modules')
-		]
+		],
+		alias: {
+			'preact-compat': 'preact-compat/dist/preact-compat',
+      "react": "preact-compat",
+      "react-dom": "preact-compat",
+      // Not necessary unless you consume a module using `createClass`
+      "create-react-class": "preact-compat/lib/create-react-class"
+		}
 	},
 	plugins: [
 		ANALYZE ? new BundleAnalyzerPlugin({

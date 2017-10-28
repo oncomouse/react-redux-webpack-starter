@@ -11,3 +11,9 @@ Run `npm install` to install packages. `npm run start` starts webpack-dev-server
 ## Customizing
 
 In `webpack.config.js`, set the variable `APP_TITLE` to the name of the application. This will set the cache key for redux persistence and the HTML title for the landing page (which you can change using [react-helmet](https://github.com/nfl/react-helmet), if you install it).
+
+## Debugging
+
+`npm run analyze`
+
+Also: `env NODE_ENV=production webpack --json > stats.json` and upload to [Webpack Visualizer](https://chrisbateman.github.io/webpack-visualizer/)

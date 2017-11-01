@@ -1,11 +1,19 @@
 {
-	"presets": [["env", {
-		"modules": false,
-		"targets": {
-			"node": "current",
-			"browsers": "> 5%"
-		},
-		"useBuiltIns": true
-	}], "react", "stage-0"],
-	"plugins": ["transform-runtime", "ramda", "tailcall-optimization", "lodash"]
+	"presets": [
+		["env", {
+			"modules": false,
+			"targets": {
+				"node": "current",
+				"browsers": "> 5%"
+			},
+			"useBuiltIns": true
+		}],
+		"react",
+		"stage-0"
+	],
+	"plugins": [
+		"transform-runtime",
+		"ramda",
+		"tailcall-optimization"
+	]
 }

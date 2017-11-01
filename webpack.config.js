@@ -1,5 +1,4 @@
 const webpack = require('webpack');
-const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
@@ -198,7 +197,6 @@ var webpackConfig = {
 			analyzerPort: 8888,
 			openAnalyzer: true
 		}) : noop(),
-		new LodashModuleReplacementPlugin,
 		new webpack.optimize.CommonsChunkPlugin({
 			name: 'common',
 			filename: 'common.js'

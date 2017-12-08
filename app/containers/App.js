@@ -4,8 +4,8 @@ import PropTypes from 'prop-types'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {Map} from 'immutable'
-import * as SampleActions from 'actions/sampleActions'
-import Sample from 'components/Sample'
+import * as SampleActions from '../actions/sampleActions'
+import Sample from '../components/Sample'
 
 const mapStateToProps = (state, ownProps) => ({
 	samples: state.get('Samples')

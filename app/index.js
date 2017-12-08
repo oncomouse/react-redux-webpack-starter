@@ -4,11 +4,11 @@ import React from 'react'
 import {Provider} from 'react-redux'
 import {persistStore} from 'redux-persist-immutable'
 import localForage from 'localforage'
-import configStore from 'store/configStore'
-import App from 'containers/App'
+import configStore from './store/configStore'
+import App from './containers/App'
 import 'babel-polyfill'
-//import DevTools from 'containers/DevTools'
-import 'stylesheets/global.scss'
+//import DevTools from './containers/DevTools'
+import './stylesheets/global.scss'
 
 const store = configStore();
 

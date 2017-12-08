@@ -1,5 +1,5 @@
 import {takeEvery} from 'redux-saga/effects'
-import {SAMPLE_ACTION} from 'constants/ActionTypes'
+import {SAMPLE_ACTION} from '../constants/ActionTypes'
 
 function* sampleSaga() {
 	// Do saga-y stuff here:

@@ -1,6 +1,6 @@
 import R from 'ramda'
-import createReducer from 'utilities/createReducer'
-import {SAMPLE_ACTION, RESET_STATE} from 'constants/ActionTypes'
+import createReducer from '../utilities/createReducer'
+import {SAMPLE_ACTION, RESET_STATE} from '../constants/ActionTypes'
 import {REHYDRATE} from 'redux-persist/constants'
 
 const initialState = {};

@@ -1,4 +1,4 @@
-import Samples from 'reducers/Samples'
+import Samples from '../reducers/Samples'
 
 export default {
 	Samples

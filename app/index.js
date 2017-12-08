@@ -7,7 +7,6 @@ import localForage from 'localforage'
 import configStore from './store/configStore'
 import App from './containers/App'
 import 'babel-polyfill'
-//import DevTools from 'containers/DevTools'
 import './stylesheets/global.scss'
 
 const store = configStore();

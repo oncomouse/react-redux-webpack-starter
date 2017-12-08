@@ -1,5 +1,5 @@
 import {createStore, applyMiddleware, compose, combineReducers} from 'redux'
-import {autoRehydrate} from 'redux-persist
+import {autoRehydrate} from 'redux-persist'
 import createSagaMiddleware from 'redux-saga'
 import reducers from '../reducers'
 import sagas from '../sagas'

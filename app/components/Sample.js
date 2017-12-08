@@ -16,7 +16,7 @@ const Button = styled.button`
 export default ({samples, sampleAction, resetAction}) => (
 	<div>
 		<ul>{
-			samples.map((sample,id) => (<li key={id}>{sample}</li>)).toArray()
+			samples.valueSeq().map((sample,id) => (<li key={id}>{sample}</li>)).toArray()
 		}</ul>
 		<Button onClick={sampleAction}>Click Me!</Button>
 		<Button onClick={resetAction}>Reset List</Button>

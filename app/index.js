@@ -37,7 +37,7 @@ class AppProvider extends React.Component {
 			</Provider>
 		)
 	}
-} // Add this back in if DevTools ever starts working again: {process.env.NODE_ENV === 'production' ? null : <DevTools/>}
+}
 
 // React Hot Loading!
 const output = document.getElementById('react');

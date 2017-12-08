@@ -3,9 +3,9 @@ import {autoRehydrate} from 'redux-persist-immutable'
 import {combineReducers} from 'redux-immutable'
 import createSagaMiddleware from 'redux-saga'
 import {Map} from 'immutable'
-import reducers from 'reducers'
-import sagas from 'sagas'
-import {START_SAGAS, createDynamicSaga} from 'utilities/createDynamicSaga'
+import reducers from '../reducers'
+import sagas from '../sagas'
+import {START_SAGAS, createDynamicSaga} from '../utilities/createDynamicSaga'
 
 export default () => {
 	const sagaMiddleware = createSagaMiddleware()

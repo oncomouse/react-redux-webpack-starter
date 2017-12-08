@@ -41,7 +41,9 @@ class AppProvider extends React.Component {
 // React Hot Loading!
 const output = document.getElementById('react');
 const render = Component => ReactDOM.render(
-	<Component/>
+	<AppContainer>
+		<Component/>
+	</AppContainer>
 , output);
 render(AppProvider);
 if (module.hot) module.hot.accept(['containers/App'], () => render(AppProvider));

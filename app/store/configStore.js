@@ -1,7 +1,6 @@
 import {createStore, applyMiddleware, compose, combineReducers} from 'redux'
-import {autoRehydrate} from 'redux-persist-immutable'
+import {autoRehydrate} from 'redux-persist'
 import createSagaMiddleware from 'redux-saga'
-import {Map} from 'immutable'
 import reducers from 'reducers'
 import sagas from 'sagas'
 import {START_SAGAS, createDynamicSaga} from 'utilities/createDynamicSaga'

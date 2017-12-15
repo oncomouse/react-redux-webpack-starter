@@ -6,7 +6,7 @@ import {persistStore} from 'redux-persist'
 import localForage from 'localforage'
 import configStore from './store/configStore'
 import App from './containers/App'
-import 'babel-polyfill'
+import loadPolyfills from './utilities/loadPolyfills'
 import './stylesheets/global.scss'
 
 const store = configStore();
@@ -45,5 +45,5 @@ const render = Component => ReactDOM.render(
 		<Component/>
 	</AppContainer>
 , output);
-render(AppProvider);
+loadPolyfills.then(_ => render(AppProvider));
 if (module.hot) module.hot.accept(['containers/App'], () => render(AppProvider));

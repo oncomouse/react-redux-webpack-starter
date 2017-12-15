@@ -12,7 +12,6 @@
 		"stage-0"
 	],
 	"plugins": [
-		"transform-runtime",
 		"ramda",
 		"tailcall-optimization"
 	]

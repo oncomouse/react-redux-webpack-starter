@@ -45,5 +45,5 @@ const render = Component => ReactDOM.render(
 		<Component/>
 	</AppContainer>
 , output);
-loadPolyfills.then(_ => render(AppProvider));
+loadPolyfills().then(_ => render(AppProvider));
 if (module.hot) module.hot.accept(['containers/App'], () => render(AppProvider));

@@ -11,7 +11,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server",
     "build": "env NODE_ENV=production webpack",
-    "analyze": "env ANALYZE=1 NODE_ENV=production webpack"
+    "analyze": "env ANALYZE=1 NODE_ENV=production webpack",
+    "lint": "eslint app/"
   },
   "author": "Andrew Pilsch <apilsch@tamu.edu> (https://andrew.pilsch.com)",
   "license": "ISC",
@@ -27,6 +28,8 @@
     "babel-preset-stage-0": "^6.5.0",
     "css-loader": "^0.23.1",
     "css-mqpacker": "^5.0.1",
+    "eslint": "^4.13.1",
+    "eslint-plugin-react": "^7.5.1",
     "extract-text-webpack-plugin": "^3.0.0",
     "file-loader": "^0.9.0",
     "html-webpack-plugin": "^2.30.1",

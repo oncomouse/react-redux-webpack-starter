@@ -13,12 +13,20 @@ const Button = styled.button`
 	border: 2px solid mediumseagreen;
 `
 
-export default ({samples, sampleAction, resetAction}) => (
-	<div>
-		<ul>{
-			samples.map((sample,id) => (<li key={id}>{sample}</li>)).toArray()
-		}</ul>
-		<Button onClick={sampleAction}>Click Me!</Button>
-		<Button onClick={resetAction}>Reset List</Button>
-	</div>
+export default ({ samples, sampleAction, resetAction }) => (
+  <div>
+    <ul>
+      {
+        samples.map((sample, id) => (<li key={id}>
+          {sample}
+        </li>)).toArray()
+      }
+    </ul>
+    <Button onClick={sampleAction}>
+Click Me!
+    </Button>
+    <Button onClick={resetAction}>
+Reset List
+    </Button>
+  </div>
 )

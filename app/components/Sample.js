@@ -17,9 +17,12 @@ export default ({ samples, sampleAction, resetAction }) => (
   <div>
     <ul>
       {
-        samples.map((sample, id) => (<li key={id}>
-          {sample}
-        </li>)).toArray()
+        R.compose(
+          R.values,
+          R.mapObjIndexed((sample, id) => (<li key={id}>
+            {sample}
+          </li>))
+        )(samples)
       }
     </ul>
     <Button onClick={sampleAction}>

@@ -1,4 +1,4 @@
-import {takeEvery} from 'redux-saga/effects'
+import {takeEvery,put} from 'redux-saga/effects'
 import {SAMPLE_ACTION} from '../constants/ActionTypes'
 
 function* sampleSaga() {
@@ -7,7 +7,9 @@ function* sampleSaga() {
 	// select from store
 	// take actions
 	// put actions to the store
-	console.log('Got a saga')
+	yield put({
+		action: 'NOOP'
+	})
 }
 
 export default function* observeSample() {

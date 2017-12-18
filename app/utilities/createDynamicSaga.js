@@ -6,7 +6,7 @@ export function createDynamicSaga (changeActionType, startingSagas) {
     try {
 		yield all(sagas)
     } catch (e) {
-      console.error('error', e)
+      throw new Error(e)
     }
   }
   return function* dynamicSaga () {

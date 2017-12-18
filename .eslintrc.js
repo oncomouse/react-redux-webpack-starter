@@ -31,6 +31,10 @@ module.exports = {
     , 'camelcase': [
       'error'
     ]
+    , 'comma-dangle': [
+      'error'
+      , 'never'
+    ]
     , 'comma-spacing': [
       'error'
       , {

@@ -1,3 +1,5 @@
+const INDENT_SPACES = 2;
+
 module.exports = {
   'env': {
     'browser': true
@@ -49,18 +51,18 @@ module.exports = {
       , 'first'
       , {
       'exceptions': {
-          'ArrayExpression': false
-          , 'ArrayPattern': false
-          , 'ArrowFunctionExpression': false
-          , 'CallExpression': false
-          , 'FunctionDeclaration': false
-          , 'FunctionExpression': false
-          , 'ImportDeclaration': false
-          , 'ObjectExpression': false
-          , 'ObjectPattern': false
-          , 'VariableDeclaration': false
-        }
+        'ArrayExpression': false
+        , 'ArrayPattern': false
+        , 'ArrowFunctionExpression': false
+        , 'CallExpression': false
+        , 'FunctionDeclaration': false
+        , 'FunctionExpression': false
+        , 'ImportDeclaration': false
+        , 'ObjectExpression': false
+        , 'ObjectPattern': false
+        , 'VariableDeclaration': false
       }
+  }
     ]
     , 'eol-last': [
       'error'
@@ -72,7 +74,7 @@ module.exports = {
     ]
     , 'indent': [
       'error'
-      , 2
+      , INDENT_SPACES
     ]
     , 'jsx-quotes': [
       'error'
@@ -141,7 +143,7 @@ module.exports = {
     ]
     , 'react/jsx-indent': [
       'error'
-      , 2
+      , INDENT_SPACES
     ]
     , 'react/jsx-max-props-per-line': [
       'error',

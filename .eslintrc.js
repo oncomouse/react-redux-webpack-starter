@@ -47,6 +47,20 @@ module.exports = {
     , 'comma-style': [
       'error'
       , 'first'
+      , {
+      'exceptions': {
+          'ArrayExpression': false
+          , 'ArrayPattern': false
+          , 'ArrowFunctionExpression': false
+          , 'CallExpression': false
+          , 'FunctionDeclaration': false
+          , 'FunctionExpression': false
+          , 'ImportDeclaration': false
+          , 'ObjectExpression': false
+          , 'ObjectPattern': false
+          , 'VariableDeclaration': false
+        }
+      }
     ]
     , 'eol-last': [
       'error'

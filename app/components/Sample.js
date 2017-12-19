@@ -19,8 +19,8 @@ export default ({ samples, sampleAction, resetAction }) => (
     <ul>
       {
         R.compose(
-          R.values,
-          R.mapObjIndexed((sample, id) => (<li key={id}>
+          R.values
+          , R.mapObjIndexed((sample, id) => (<li key={id}>
             {sample}
           </li>))
         )(samples)

@@ -24,6 +24,7 @@ module.exports = {
       'pragma': 'React'
     }
   }
+  , 'parser': 'babel-eslint'
   , 'rules': {
     'array-callback-return': [
       'error'

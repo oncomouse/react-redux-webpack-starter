@@ -19,8 +19,8 @@
   "devDependencies": {
     "autoprefixer": "^6.3.6",
     "babel-core": "^6.26.0",
+    "babel-eslint": "^8.0.3",
     "babel-loader": "^7.1.1",
-		"babel-eslint": "^8.0.3",
     "babel-plugin-ramda": "^1.2.0",
     "babel-plugin-tailcall-optimization": "^1.0.11",
     "babel-polyfill": "^6.26.0",

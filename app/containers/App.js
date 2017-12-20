@@ -17,6 +17,13 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 })
 
 class App extends React.Component {
+  static defaultProps = {
+    samples: {}
+  }
+  static propTypes = {
+    samples: PropTypes.object.isRequired
+    , actions: PropTypes.objectOf(PropTypes.func).isRequired
+  }
   constructor(props) {
     super(props)
   }
@@ -27,13 +34,6 @@ class App extends React.Component {
         resetAction={this.props.actions.resetAction} />
     )
   }
-}
-App.defaultProps = {
-  samples: {}
-}
-App.propTypes = {
-  samples: PropTypes.object.isRequired
-  , actions: PropTypes.objectOf(PropTypes.func).isRequired
 }
 
 export default connect(

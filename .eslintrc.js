@@ -1,4 +1,9 @@
-const INDENT_SPACES = 2;
+const INDENT_SPACES = 2
+const LINE_LENGTH = 80
+const PROPS_PER_LINE = 1
+const OFF = 0
+const WARNING = 1
+const ERROR = 2
 
 module.exports = {
   'env': {
@@ -28,18 +33,14 @@ module.exports = {
   }
   , 'parser': 'babel-eslint'
   , 'rules': {
-    'array-callback-return': [
-      'error'
-    ]
-    , 'camelcase': [
-      'error'
-    ]
+    'array-callback-return': ERROR
+    , 'camelcase': ERROR
     , 'comma-dangle': [
-      'error'
+      ERROR
       , 'never'
     ]
     , 'comma-spacing': [
-      'error'
+      ERROR
       , {
         'before': false
         , 'after': true
@@ -47,7 +48,7 @@ module.exports = {
     ]
     // I prefer commas at the start of lists; disable to turn off:
     , 'comma-style': [
-      'error'
+      ERROR
       , 'first'
       , {
       'exceptions': {
@@ -65,38 +66,34 @@ module.exports = {
   }
     ]
     , 'eol-last': [
-      'error'
+      ERROR
       , 'never'
     ]
     , 'generator-star-spacing': [
-      'error',
+      ERROR,
       'after'
     ]
     , 'indent': [
-      'error'
+      ERROR
       , INDENT_SPACES
     ]
     , 'jsx-quotes': [
-      'error'
+      ERROR
       , 'prefer-double'
     ]
     , 'linebreak-style': [
-      'error'
+      ERROR
       , 'unix'
     ]
     // Enforce a max line-length of 80 chars:
     , 'max-len': [
-      'error'
-      , { 'code': 80 }
+      ERROR
+      , { 'code': LINE_LENGTH }
     ]
-    , 'no-array-constructor': [
-      'error'
-    ]
-    , 'no-extra-bind': [
-      'error'
-    ]
+    , 'no-array-constructor': ERROR
+    , 'no-extra-bind': ERROR
     , 'no-extra-parens': [
-      'error'
+      ERROR
       , 'all'
       , {
         'conditionalAssign': false
@@ -105,104 +102,60 @@ module.exports = {
         , 'returnAssign': false
       }
     ]
-    , 'no-implicit-coercion': [
-      'error'
-    ]
-    , 'no-implicit-globals': [
-      'error'
-    ]
+    , 'no-implicit-coercion': ERROR
+    , 'no-implicit-globals': ERROR
     , 'no-magic-numbers': [
-      'error'
+      ERROR
       , {
         'ignore': [0, 1]
         , 'ignoreArrayIndexes': true
       }
     ]
-    , 'no-prototype-builtins': [
-      'error'
-    ]
-    , 'no-template-curly-in-string': [
-      'error'
-    ]
-    , 'no-trailing-spaces': [
-      'error'
-    ]
+    , 'no-prototype-builtins': ERROR
+    , 'no-template-curly-in-string': ERROR
+    , 'no-trailing-spaces': ERROR
     , 'object-curly-spacing': [
-      'error'
+      ERROR
       , 'always'
     ]
-    , 'prefer-const': [
-      'error'
-    ]
-    , 'prefer-spread': [
-      'error'
-    ]
+    , 'prefer-const': ERROR
+    , 'prefer-spread': ERROR
     , 'quotes': [
-      'error'
+      ERROR
       , 'single'
     ]
     , 'react/jsx-indent': [
-      'error'
+      ERROR
       , INDENT_SPACES
     ]
     , 'react/jsx-max-props-per-line': [
-      'error',
+      ERROR,
       {
-        'maximum': 1
+        'maximum': PROPS_PER_LINE
         , 'when': 'always'
       }
     ]
-    , 'react/jsx-one-expression-per-line': [
-      'error'
-    ]
-    , 'react/jsx-pascal-case': [
-      'error'
-    ]
-    , 'react/jsx-tag-spacing': [
-      'error'
-    ]
-    , 'react/jsx-uses-react': [
-      'error'
-    ]
-    , 'react/jsx-uses-vars': [
-      'error'
-    ]
-    , 'react/no-direct-mutation-state': [
-      'error'
-    ]
-    , 'react/no-typos': [
-      'error'
-    ]
-    , 'react/no-unknown-property': [
-      'error'
-    ]
-    , 'react/no-unused-state': [
-      'error'
-    ]
-    , 'react/prefer-stateless-function': [
-      'error'
-    ]
-    , 'react/react-in-jsx-scope': [
-      'error'
-    ]
-    , 'react/require-render-return': [
-      'error'
-    ]
-    , 'react/self-closing-comp': [
-      'error'
-    ]
-    , 'react/style-prop-object': [
-      'error'
-    ]
-    , 'react/void-dom-elements-no-children': [
-      'error'
-    ]
+    , 'react/jsx-one-expression-per-line': ERROR
+    , 'react/jsx-pascal-case': ERROR
+    , 'react/jsx-tag-spacing': ERROR
+    , 'react/jsx-uses-react': ERROR
+    , 'react/jsx-uses-vars': ERROR
+    , 'react/no-direct-mutation-state': ERROR
+    , 'react/no-typos': ERROR
+    , 'react/no-unknown-property': ERROR
+    , 'react/no-unused-state': ERROR
+    , 'react/prefer-stateless-function': ERROR
+    , 'react/react-in-jsx-scope': ERROR
+    , 'react/require-render-return': ERROR
+    , 'react/self-closing-comp': ERROR
+    , 'react/style-prop-object': ERROR
+    , 'react/void-dom-elements-no-children': ERROR
     , 'rest-spread-spacing': [
-      'error'
+      ERROR
       , 'never'
     ]
     , 'semi': [
-      'error'
+      ERROR
       , 'never'
     ]
   }

@@ -1,6 +1,6 @@
 # react-redux-webpack-starter
 
-This is my starter app for React, Redux, and Webpack. It includes [redux-saga](https://github.com/redux-saga/redux-saga) for side effects, including calls to APIs. It also includes support for a [persistent](https://github.com/rt2zz/redux-persist) store. You can use [CSS modules](https://github.com/css-modules/css-modules) or [styled-components](https://www.styled-components.com/).
+This is my starter app for React, Redux, and Webpack. It includes [redux-saga](https://github.com/redux-saga/redux-saga) for side effects, including calls to APIs. It also includes support for a [persistent](https://github.com/rt2zz/redux-persist) store. You can use [CSS modules](https://github.com/css-modules/css-modules) or [tachyons](https://www.tachyons.io/).
 
 There are branches available for developing with an [immutable](, [immutable](https://github.com/facebook/immutable-js/) store (`react-immutable`), with [preact](https://preactjs.com/) (`preact`) for faster sites, and for preact and Immutable (`preact-immutable`).
 

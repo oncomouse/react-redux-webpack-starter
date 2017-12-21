@@ -6,7 +6,6 @@ import { PersistGate } from 'redux-persist/lib/integration/react'
 import configStore from './store/configStore'
 import App from './containers/App'
 import loadPolyfills from './utilities/loadPolyfills'
-import './stylesheets/global.scss'
 
 const { store, persistor } = configStore()
 

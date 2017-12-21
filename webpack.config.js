@@ -29,6 +29,7 @@ var webpackConfig = {
   , entry: {
     js: isProd ? ['index'] : [
       'react-hot-loader/patch'
+      , 'stylesheets/global.scss'
       , 'index'
     ]
   }

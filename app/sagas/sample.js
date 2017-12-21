@@ -8,7 +8,7 @@ function* sampleSaga() {
   // take actions
   // put actions to the store
   yield put({
-    action: 'NOOP'
+    type: 'NOOP'
   })
 }
 

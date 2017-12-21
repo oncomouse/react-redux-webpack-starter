@@ -12,11 +12,13 @@ const { store, persistor } = configStore()
 // React Hot Loading!
 const output = document.getElementById('react')
 const render = Component => ReactDOM.render(
-  <PersistGate persistor={persistor}>
-    <Provider store={store}>
-      <Component />
-    </Provider>
-  </PersistGate>
+  <AppContainer>
+    <PersistGate persistor={persistor}>
+      <Provider store={store}>
+        <Component />
+      </Provider>
+    </PersistGate>
+  </AppContainer>
   , output)
 loadPolyfills().then(() => render(App))
 if (module.hot) module.hot.accept(['containers/App'], () => render(App))

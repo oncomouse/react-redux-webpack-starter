@@ -47,7 +47,7 @@
     "ramda": "^0.25",
     "react": "^16",
     "react-dom": "^16",
-    "react-hot-loader": "^3.0.0-beta.7",
+    "react-hot-loader": "^3.1.1",
     "react-redux": "^4.4.5",
     "redux": "^3.7.2",
     "redux-logger": "^3.0.6",
@@ -56,10 +56,10 @@
     "sass-loader": "^6.0.6",
     "style-loader": "^0.13.1",
     "tachyons-sass": "^4.9.0",
-    "uglifyjs-webpack-plugin": "^1.0.0-beta.2",
+    "uglifyjs-webpack-plugin": "^1.1.6",
     "url-loader": "^0.5.7",
     "webpack": "^3.5.1",
     "webpack-bundle-analyzer": "^2.9.0",
-    "webpack-dev-server": "^2.1.0-beta.0"
+    "webpack-dev-server": "^2.11.0"
   }
 }

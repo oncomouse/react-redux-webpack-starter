@@ -8,7 +8,7 @@
   },
   "main": "app/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "webpack-dev-server",
     "build": "env NODE_ENV=production webpack",
     "analyze": "env ANALYZE=1 NODE_ENV=production webpack",
@@ -20,12 +20,20 @@
     "autoprefixer": "^6.3.6",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.0.3",
+<<<<<<< HEAD
+=======
+    "babel-jest": "^22.1.0",
+>>>>>>> 3d427d6b473eaede6fb92f2f59fa9c95fcd8bd8b
     "babel-loader": "^7.1.1",
     "babel-plugin-ramda": "^1.2.0",
     "babel-plugin-tailcall-optimization": "^1.0.11",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.0",
+<<<<<<< HEAD
     "babel-preset-react": "^6.24.1",
+=======
+    "babel-preset-react": "^6.5.0",
+>>>>>>> 3d427d6b473eaede6fb92f2f59fa9c95fcd8bd8b
     "babel-preset-stage-2": "^6.24.1",
     "css-loader": "^0.23.1",
     "css-mqpacker": "^5.0.1",
@@ -34,19 +42,36 @@
     "extract-text-webpack-plugin": "^3.0.0",
     "file-loader": "^0.9.0",
     "html-webpack-plugin": "^2.30.1",
+<<<<<<< HEAD
     "imports-loader": "^0.6.5",
     "isomorphic-fetch": "^2.2.1",
+=======
+    "identity-obj-proxy": "^3.0.0",
+    "imports-loader": "^0.6.5",
+    "isomorphic-fetch": "^2.2.1",
+    "jest": "^22.1.4",
+    "localforage": "^1.4.3",
+>>>>>>> 3d427d6b473eaede6fb92f2f59fa9c95fcd8bd8b
     "node-sass": "^4.5.3",
     "noop-webpack-plugin": "^1.0.1",
     "postcss-clearfix": "^1.0.0",
     "postcss-easings": "^0.3.0",
     "postcss-loader": "^2.0.6",
+<<<<<<< HEAD
     "preact": "^8.2.6",
     "preact-compat": "^3.17.0",
     "promise-polyfill": "^6.1.0",
     "prop-types": "^15.5.10",
     "ramda": "^0.25",
     "react-hot-loader": "^3.0.0-beta.7",
+=======
+    "promise-polyfill": "^6.1.0",
+    "prop-types": "^15.5.10",
+    "ramda": "^0.25",
+    "react": "^16",
+    "react-dom": "^16",
+    "react-hot-loader": "^3.1.1",
+>>>>>>> 3d427d6b473eaede6fb92f2f59fa9c95fcd8bd8b
     "react-redux": "^4.4.5",
     "redux": "^3.7.2",
     "redux-logger": "^3.0.6",
@@ -54,11 +79,24 @@
     "redux-saga": "^0.15.6",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.13.1",
+<<<<<<< HEAD
 		"tachyons-sass": "^4.9.0",
     "uglifyjs-webpack-plugin": "^1.0.0-beta.2",
+=======
+    "tachyons-sass": "^4.9.0",
+    "uglifyjs-webpack-plugin": "^1.1.6",
+>>>>>>> 3d427d6b473eaede6fb92f2f59fa9c95fcd8bd8b
     "url-loader": "^0.5.7",
     "webpack": "^3.5.1",
     "webpack-bundle-analyzer": "^2.9.0",
-    "webpack-dev-server": "^2.1.0-beta.0"
+    "webpack-dev-server": "^2.11.0"
+  },
+  "jest": {
+    "moduleFileExtensions": ["js", "jsx"],
+    "moduleDirectories": ["node_modules"],
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+      "\\.(css|scss)$": "identity-obj-proxy"
+    }
   }
 }

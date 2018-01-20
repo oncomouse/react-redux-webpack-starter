@@ -5,14 +5,36 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 const noop = require('noop-webpack-plugin')
 const path = require('path')
+<<<<<<< HEAD
 
 /* Set APP_TITLE to the title of your application.
    You can install and change this variable using react-helmet, if you need.*/
+=======
+const fs = require('fs')
+
+/* Set APP_TITLE to the title of your application.
+   You can install and change this variable using react-helmet, if you need.
+ */
+>>>>>>> 3d427d6b473eaede6fb92f2f59fa9c95fcd8bd8b
 const APP_TITLE = 'My Sample App'
 const { ANALYZE } = process.env
 
 const nodeEnv = process.env.NODE_ENV || 'development'
 const isProd = nodeEnv === 'production'
+<<<<<<< HEAD
+=======
+
+const packageJSON = JSON.parse(
+  fs.readFileSync(
+    path.join('.', 'package.json')
+  )
+)
+
+const publicUrl = (
+  isProd
+  && Object.prototype.hasOwnProperty.call(packageJSON, 'homepage')
+) ? packageJSON['homepage'] : undefined
+>>>>>>> 3d427d6b473eaede6fb92f2f59fa9c95fcd8bd8b
 
 const postCSSplugins = function() {
   return [
@@ -46,11 +68,18 @@ var webpackConfig = {
             loader: 'babel-loader'
             , options: {
               cacheDirectory: true
+<<<<<<< HEAD
             },
 
           }
         ],
 
+=======
+            }
+          }
+        ],
+
+>>>>>>> 3d427d6b473eaede6fb92f2f59fa9c95fcd8bd8b
       }
       /*
 				Loader code for .css files. We use style-loader in
@@ -184,6 +213,7 @@ var webpackConfig = {
       path.resolve('./app/')
       , path.resolve('./node_modules')
     ]
+<<<<<<< HEAD
     , alias: {
       'preact-compat': 'preact-compat/dist/preact-compat'
       , 'react': 'preact-compat'
@@ -191,6 +221,8 @@ var webpackConfig = {
       // Not necessary unless you consume a module using `createClass`
       , 'create-react-class': 'preact-compat/lib/create-react-class'
     }
+=======
+>>>>>>> 3d427d6b473eaede6fb92f2f59fa9c95fcd8bd8b
   }
   , plugins: [
     ANALYZE ? new BundleAnalyzerPlugin({
@@ -249,7 +281,14 @@ var webpackConfig = {
     , isProd ? new webpack.optimize.AggressiveMergingPlugin() : noop()
     , isProd ? new webpack.optimize.OccurrenceOrderPlugin : noop()
     , new webpack.DefinePlugin({
+<<<<<<< HEAD
       'process.env': { NODE_ENV: JSON.stringify(nodeEnv) }
+=======
+      'process.env': {
+        NODE_ENV: JSON.stringify(nodeEnv)
+        , PUBLIC_URL: JSON.stringify(publicUrl)
+      }
+>>>>>>> 3d427d6b473eaede6fb92f2f59fa9c95fcd8bd8b
       , APP_TITLE: JSON.stringify(APP_TITLE)
 
     })

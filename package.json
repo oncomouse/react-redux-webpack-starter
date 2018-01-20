@@ -8,7 +8,7 @@
   },
   "main": "app/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "webpack-dev-server",
     "build": "env NODE_ENV=production webpack",
     "analyze": "env ANALYZE=1 NODE_ENV=production webpack",
@@ -20,6 +20,7 @@
     "autoprefixer": "^6.3.6",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.0.3",
+    "babel-jest": "^22.1.0",
     "babel-loader": "^7.1.1",
     "babel-plugin-ramda": "^1.2.0",
     "babel-plugin-tailcall-optimization": "^1.0.11",
@@ -34,8 +35,10 @@
     "extract-text-webpack-plugin": "^3.0.0",
     "file-loader": "^0.9.0",
     "html-webpack-plugin": "^2.30.1",
+    "identity-obj-proxy": "^3.0.0",
     "imports-loader": "^0.6.5",
     "isomorphic-fetch": "^2.2.1",
+    "jest": "^22.1.4",
     "localforage": "^1.4.3",
     "node-sass": "^4.5.3",
     "noop-webpack-plugin": "^1.0.1",
@@ -61,5 +64,13 @@
     "webpack": "^3.5.1",
     "webpack-bundle-analyzer": "^2.9.0",
     "webpack-dev-server": "^2.11.0"
+  },
+  "jest": {
+    "moduleFileExtensions": ["js", "jsx"],
+    "moduleDirectories": ["node_modules"],
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+      "\\.(css|scss)$": "identity-obj-proxy"
+    }
   }
 }

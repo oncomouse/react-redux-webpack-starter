@@ -1,4 +1,4 @@
-const INDENT_SPACES = 2
+const INDENT_SPACES = 4
 const LINE_LENGTH = 80
 const PROPS_PER_LINE = 1
 const OFF = 0

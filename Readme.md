@@ -12,6 +12,13 @@ Run `npm install` to install packages. `npm run start` starts webpack-dev-server
 
 In `webpack.config.js`, set the variable `APP_TITLE` to the name of the application. This will set the cache key for redux persistence and the HTML title for the landing page (which you can change using [react-helmet](https://github.com/nfl/react-helmet), if you install it).
 
+## Deploying
+
+Run `yarn build` or `npm run build` to build an optimized, production version of your app. It will be in the `build/` directory.
+
+If you add a `homepage` key to `package.json` and set it equal to the root URL of your application, the React app will set up a ServiceWorker to cache resources and greatly speed up your app.
+
+
 ## Debugging
 
 `npm run analyze`

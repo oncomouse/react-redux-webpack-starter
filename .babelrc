@@ -14,9 +14,6 @@
 	"plugins": [
 		"ramda",
 		"tailcall-optimization"
-<<<<<<< HEAD
-	]
-=======
 	],
 	"env": {
 		"test": {
@@ -33,5 +30,4 @@
 			]
 		}
 	}
->>>>>>> 3d427d6b473eaede6fb92f2f59fa9c95fcd8bd8b
 }

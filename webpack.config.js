@@ -5,6 +5,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 const noop = require('noop-webpack-plugin')
 const path = require('path')
+const fs = require('fs')
 
 /* Set APP_TITLE to the title of your application.
    You can install and change this variable using react-helmet, if you need.
@@ -14,6 +15,17 @@ const { ANALYZE } = process.env
 
 const nodeEnv = process.env.NODE_ENV || 'development'
 const isProd = nodeEnv === 'production'
+
+const packageJSON = JSON.parse(
+  fs.readFileSync(
+    path.join('.', 'package.json')
+  )
+)
+
+const publicUrl = (
+  isProd
+  && Object.prototype.hasOwnProperty.call(packageJSON, 'homepage')
+) ? packageJSON['homepage'] : undefined
 
 const postCSSplugins = function() {
   return [
@@ -242,7 +254,10 @@ var webpackConfig = {
     , isProd ? new webpack.optimize.AggressiveMergingPlugin() : noop()
     , isProd ? new webpack.optimize.OccurrenceOrderPlugin : noop()
     , new webpack.DefinePlugin({
-      'process.env': { NODE_ENV: JSON.stringify(nodeEnv) }
+      'process.env': {
+        NODE_ENV: JSON.stringify(nodeEnv)
+        , PUBLIC_URL: JSON.stringify(publicUrl)
+      }
       , APP_TITLE: JSON.stringify(APP_TITLE)
 
     })

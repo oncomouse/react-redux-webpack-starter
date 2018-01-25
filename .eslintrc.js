@@ -10,7 +10,7 @@ module.exports = {
     'browser': true
     , 'commonjs': true
     , 'es6': true
-	, 'jest': true
+	, 'mocha': true
   }
   , 'extends': 'eslint:recommended'
   , 'globals': {

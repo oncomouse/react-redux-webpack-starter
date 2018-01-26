@@ -6,10 +6,10 @@ import { shallow } from 'enzyme'
 const NUMBER_OF_BUTTONS = 2
 
 describe('<Sample/>', () => {
-	var wrapper
-	beforeEach(() => {
-		wrapper = shallow(<Sample />)
-	})
+    var wrapper
+    beforeEach(() => {
+        wrapper = shallow(<Sample />)
+    })
     it('should render without crashing', () => {
         expect(wrapper.is('div')).to.equal(true)
     })

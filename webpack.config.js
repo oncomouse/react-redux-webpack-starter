@@ -36,7 +36,7 @@ const postCSSplugins = function() {
 }
 
 var webpackConfig = {
-  devtool: isProd ? 'hidden-source-map' : 'eval'
+  devtool: isProd ? undefined : 'eval'
   , entry: {
     js: isProd ? ['index'] : [
       'react-hot-loader/patch'

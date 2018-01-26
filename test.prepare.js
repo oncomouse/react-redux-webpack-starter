@@ -2,6 +2,10 @@ const Enzyme = require('enzyme');
 const Adapter = require('enzyme-adapter-react-16');
 const {JSDOM} = require('jsdom');
 
+// Configure Enzyme for React 16:
+Enzyme.configure({ adapter: new Adapter() });
+
+// Configure JSDOM:
 function copyProps(src, target) {
   const props = Object.getOwnPropertyNames(src)
     .filter(prop => typeof target[prop] === 'undefined')
@@ -11,8 +15,6 @@ function copyProps(src, target) {
     }), {});
   Object.defineProperties(target, props);
 }
-
-Enzyme.configure({ adapter: new Adapter() });
 const dom = new JSDOM('<!doctype html><html><body></body></html>');
 global.window = dom.window;
 global.document = dom.window.document;

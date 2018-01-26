@@ -36,9 +36,12 @@ const postCSSplugins = function() {
 }
 
 var webpackConfig = {
-  devtool: isProd ? undefined : 'eval'
+  devtool: isProd ? 'hidden-source-map' : 'eval'
   , entry: {
-    js: isProd ? ['index'] : [
+    js: isProd ? [
+			'stylesheets/global.scss'
+			, 'index'
+		] : [
       'react-hot-loader/patch'
       , 'stylesheets/global.scss'
       , 'index'
@@ -69,7 +72,7 @@ var webpackConfig = {
 			*/
       , {
         test: /\.css$/
-        , use: isProd ? ExtractTextPlugin.extract({
+        , use: ExtractTextPlugin.extract({
           fallback: 'style-loader'
           , use: [
             'css-loader'
@@ -80,16 +83,7 @@ var webpackConfig = {
               }
             }
           ]
-        }) : [
-          'style-loader'
-          , 'css-loader'
-          , {
-            loader: 'postcss-loader'
-            , options: {
-              plugins: postCSSplugins
-            }
-          }
-        ]
+        })
       }
       /*
 				SASS loader code for the module files (in
@@ -104,7 +98,7 @@ var webpackConfig = {
       , {
         test: /\.scss$/
         , exclude: /global\.scss$/
-        , use: isProd ? ExtractTextPlugin.extract({
+        , use: ExtractTextPlugin.extract({
           fallback: 'style-loader'
           , use: [
             {
@@ -123,24 +117,7 @@ var webpackConfig = {
             }
             , 'sass-loader'
           ]
-        }) : [
-          'style-loader'
-          , {
-            loader: 'css-loader'
-            , options: {
-              modules: true
-              , importLoaders: 1
-              , localIdentName: '[name]__[local]___[hash:base64:5]'
-            }
-          }
-          , {
-            loader: 'postcss-loader'
-            , options: {
-              plugins: postCSSplugins
-            }
-          }
-          , 'sass-loader'
-        ]
+        })
       }
       /*
 				Loader code for a universal SCSS file. These styles will
@@ -155,8 +132,7 @@ var webpackConfig = {
       , {
         test: /\.scss$/
         , include: /global\.scss$/
-        // Include everything in style.css
-        , use: isProd ? ExtractTextPlugin.extract({
+        , use: ExtractTextPlugin.extract({
           fallback: 'style-loader'
           , use: [
             'css-loader'
@@ -168,17 +144,7 @@ var webpackConfig = {
             }
             , 'sass-loader'
           ]
-        }) : [
-          'style-loader'
-          , 'css-loader'
-          , {
-            loader: 'postcss-loader'
-            , options: {
-              plugins: postCSSplugins
-            }
-          }
-          , 'sass-loader'
-        ]
+        })
       }
       /*
 				Webfont loaders for Bootsrap and the like.
@@ -255,10 +221,10 @@ var webpackConfig = {
       }
       , sourceMap: false
     }) : noop()
-    , isProd ? new ExtractTextPlugin({
+    , new ExtractTextPlugin({
       filename: 'style.css'
       , allChunks: true
-    }) : noop()
+    })
     , isProd ? new webpack.optimize.AggressiveMergingPlugin() : noop()
     , isProd ? new webpack.optimize.OccurrenceOrderPlugin : noop()
     , new webpack.DefinePlugin({

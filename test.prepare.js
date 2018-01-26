@@ -1,13 +1,22 @@
-var prepare = require('mocha-prepare');
-var Enzyme = require('enzyme');
-var Adapter = require('enzyme-adapter-react-16');
+const Enzyme = require('enzyme');
+const Adapter = require('enzyme-adapter-react-16');
+const {JSDOM} = require('jsdom');
 
-prepare(function (done) {
-    // called before loading of test cases
-    Enzyme.configure({ adapter: new Adapter() });
-	console.log('Prepared')
-	done();
-}, function (done) {
-    // called after all test completes (regardless of errors)
+function copyProps(src, target) {
+  const props = Object.getOwnPropertyNames(src)
+    .filter(prop => typeof target[prop] === 'undefined')
+    .reduce((result, prop) => ({
+      ...result,
+      [prop]: Object.getOwnPropertyDescriptor(src, prop),
+    }), {});
+  Object.defineProperties(target, props);
+}
 
-});
+Enzyme.configure({ adapter: new Adapter() });
+const dom = new JSDOM('<!doctype html><html><body></body></html>');
+global.window = dom.window;
+global.document = dom.window.document;
+global.navigator = {
+	userAgent: 'node.js'
+};
+copyProps(window, global);

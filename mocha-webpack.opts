@@ -1,2 +1,1 @@
---require test.prepare
 --webpack-config webpack.config.test.js

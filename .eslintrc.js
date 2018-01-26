@@ -10,7 +10,7 @@ module.exports = {
     'browser': true
     , 'commonjs': true
     , 'es6': true
-	, 'jest': true
+	, 'mocha': true
   }
   , 'extends': 'eslint:recommended'
   , 'globals': {
@@ -89,7 +89,13 @@ module.exports = {
     // Enforce a max line-length of 80 chars:
     , 'max-len': [
       ERROR
-      , { 'code': LINE_LENGTH }
+      , {
+          'code': LINE_LENGTH
+          , 'ignoreComments': true
+          , 'ignoreTrailingComments': true
+          , 'ignoreUrls': true
+          , 'ignoreTemplateLiterals': true
+      }
     ]
     , 'no-array-constructor': ERROR
     , 'no-extra-bind': ERROR

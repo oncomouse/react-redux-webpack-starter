@@ -2,9 +2,17 @@ import React from 'react'
 import Sample from './Sample'
 import { expect } from 'chai'
 import { shallow } from 'enzyme'
+import { times } from 'ramda'
 
 const NUMBER_OF_BUTTONS = 2
-
+const SAMPLE_LENGTH = 36
+const STRING_LENGTH = 8
+const randomString = () => Math.random()
+    .toString(SAMPLE_LENGTH)
+    .replace(/[^a-z]+/g, '')
+    .substr(0, STRING_LENGTH - 1)
+const randomInteger = (min, max) =>
+    Math.floor(Math.random() * (max - min + 1)) + min
 describe('<Sample/>', () => {
     var wrapper
     beforeEach(() => {
@@ -18,5 +26,14 @@ describe('<Sample/>', () => {
     })
     it(`should render ${NUMBER_OF_BUTTONS} buttons`, () => {
         expect(wrapper.find('button')).to.have.length(NUMBER_OF_BUTTONS)
+    })
+    it('should render an object of strings as <li>', () => {
+        const samples = {}
+        times(() => {
+            const r = randomString()
+            samples[r] = r
+        }, randomInteger(8, 24)) // eslint-disable-line no-magic-numbers
+        wrapper = shallow(<Sample samples={samples} />)
+        expect(wrapper.find('li')).to.have.length(Object.keys(samples).length)
     })
 })

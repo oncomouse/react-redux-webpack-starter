@@ -7,9 +7,6 @@ const noop = require('noop-webpack-plugin')
 const path = require('path')
 const fs = require('fs')
 
-/* Set APP_TITLE to the title of your application.
-   You can install and change this variable using react-helmet, if you need.
- */
 const { ANALYZE } = process.env
 
 const nodeEnv = process.env.NODE_ENV || 'development'
@@ -197,6 +194,16 @@ var webpackConfig = {
       path.resolve('./app/')
       , path.resolve('./node_modules')
     ]
+    // Uncomment to use preact-compat
+    // Don't forget to install preact and preact-compat
+    // (and uninstall react and react-dom)
+    /*, alias: {
+      'preact-compat': 'preact-compat/dist/preact-compat'
+      , 'react': 'preact-compat'
+      , 'react-dom': 'preact-compat'
+      // Not necessary unless you consume a module using `createClass`
+      , 'create-react-class': 'preact-compat/lib/create-react-class'
+    }*/
   }
   , plugins: [
     ANALYZE ? new BundleAnalyzerPlugin({

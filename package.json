@@ -7,6 +7,7 @@
     "url": "https://github.com/oncomouse/react-redux-webpack-starter.git"
   },
   "main": "app/index.js",
+	"title": "Sample React-Redux App",
   "scripts": {
     "test": "yon lint",
     "start": "webpack-dev-server",

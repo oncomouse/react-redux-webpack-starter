@@ -10,7 +10,6 @@ const fs = require('fs')
 /* Set APP_TITLE to the title of your application.
    You can install and change this variable using react-helmet, if you need.
  */
-const APP_TITLE = 'My Sample App'
 const { ANALYZE } = process.env
 
 const nodeEnv = process.env.NODE_ENV || 'development'
@@ -22,10 +21,13 @@ const packageJSON = JSON.parse(
   )
 )
 
-const publicUrl = (
+const PUBLIC_URL = (
   isProd
   && Object.prototype.hasOwnProperty.call(packageJSON, 'homepage')
 ) ? packageJSON['homepage'] : undefined
+const APP_TITLE = (
+  Object.prototype.hasOwnProperty.call(packageJSON, 'title')
+) ? packageJSON['title'] : 'My Sample App'
 
 const postCSSplugins = function() {
   return [
@@ -255,7 +257,7 @@ var webpackConfig = {
     , new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify(nodeEnv)
-        , PUBLIC_URL: JSON.stringify(publicUrl)
+        , PUBLIC_URL: JSON.stringify(PUBLIC_URL)
       }
       , APP_TITLE: JSON.stringify(APP_TITLE)
 

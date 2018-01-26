@@ -5,12 +5,12 @@ const isCoverage = process.env.NODE_ENV === 'coverage';
 
 const config = {}
 config.module = {
-	rules:[
+	rules: [
 		isCoverage ? {
 		  test: /\.(js)/
 		  , include: path.resolve('app') // instrument only testing sources with Istanbul, after ts-loader runs
 		  , loader: 'istanbul-instrumenter-loader'
-		}: []
+	  }: {}
 		, {
 			test: /\.scss$/
 			, use: ['style-loader', 'css-loader?modules', 'sass-loader']

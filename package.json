@@ -9,7 +9,8 @@
   "main": "app/index.js",
   "title": "Sample React-Redux App",
   "scripts": {
-		"mocha:watch": "yon mocha -- --watch",
+    "cover": "cross-env BABEL_ENV=test NODE_ENV=coverage nyc yon mocha",
+    "mocha:watch": "yon mocha -- --watch",
     "mocha": "mocha-webpack test.prepare.js \"app/**/*.spec.js\"",
     "test": "yon lint && yon mocha",
     "start": "webpack-dev-server",
@@ -45,6 +46,7 @@
     "identity-obj-proxy": "^3.0.0",
     "imports-loader": "^0.6.5",
     "isomorphic-fetch": "^2.2.1",
+    "istanbul-instrumenter-loader": "^3.0.0",
     "jest": "^22.1.4",
     "jsdom": "^11.6.1",
     "localforage": "^1.4.3",
@@ -52,6 +54,7 @@
     "mocha-webpack": "^1.0.1",
     "node-sass": "^4.5.3",
     "noop-webpack-plugin": "^1.0.1",
+    "nyc": "^11.4.1",
     "postcss-clearfix": "^1.0.0",
     "postcss-easings": "^0.3.0",
     "postcss-loader": "^2.0.6",
@@ -78,5 +81,15 @@
     "webpack-dev-server": "^2.11.0",
     "webpack-node-externals": "^1.6.0",
     "yarn-or-npm": "^2.0.4"
+  },
+  "nyc": {
+    "include": [
+      "app/**/*.js"
+    ],
+		"exclude": [
+			"app/**/*.spec.js"
+		],
+    "instrument": false,
+    "sourceMap": false
   }
 }

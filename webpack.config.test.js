@@ -1,11 +1,17 @@
 const path = require('path')
 const nodeExternals = require('webpack-node-externals')
-//const config = require('./webpack.config')
+
+const isCoverage = process.env.NODE_ENV === 'coverage';
 
 const config = {}
 config.module = {
 	rules:[
-		{
+		isCoverage ? {
+		  test: /\.(js)/
+		  , include: path.resolve('app') // instrument only testing sources with Istanbul, after ts-loader runs
+		  , loader: 'istanbul-instrumenter-loader'
+		}: []
+		, {
 			test: /\.scss$/
 			, use: ['style-loader', 'css-loader?modules', 'sass-loader']
 		}
@@ -38,5 +44,6 @@ config.module = {
 }*/
 config.target = 'node'
 config.externals = [nodeExternals()]
+config.devtool = "inline-cheap-module-source-map"
 
 module.exports = config

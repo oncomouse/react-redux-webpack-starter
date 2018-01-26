@@ -27,7 +27,7 @@ describe('<Sample/>', () => {
     it(`should render ${NUMBER_OF_BUTTONS} buttons`, () => {
         expect(wrapper.find('button')).to.have.length(NUMBER_OF_BUTTONS)
     })
-    it('should render an object of strings as <li>', () => {
+    it('should render an object of random strings as <li>', () => {
         const samples = {}
         times(() => {
             const r = randomString()

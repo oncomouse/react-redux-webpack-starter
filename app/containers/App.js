@@ -6,37 +6,37 @@ import { connect } from 'react-redux'
 import * as SampleActions from '../actions/sampleActions'
 import Sample from '../components/Sample'
 
-const mapStateToProps = (state, ownProps) => ({
-  samples: state.Samples
+const mapStateToProps = (state, ownProps) => ({ // eslint-disable-line no-unused-vars
+    samples: state.Samples
 })
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  actions: R.mergeAll([
-    bindActionCreators(SampleActions, dispatch)
-  ])
+const mapDispatchToProps = (dispatch, ownProps) => ({ // eslint-disable-line no-unused-vars
+    actions: R.mergeAll([
+        bindActionCreators(SampleActions, dispatch)
+    ])
 })
 
-class App extends React.Component {
+class App extends React.Component { // eslint-disable-line react/prefer-stateless-function
   static defaultProps = {
-    samples: {}
+      samples: {}
   }
   static propTypes = {
-    samples: PropTypes.object.isRequired
-    , actions: PropTypes.objectOf(PropTypes.func).isRequired
+      samples: PropTypes.object.isRequired
+      , actions: PropTypes.objectOf(PropTypes.func).isRequired
   }
   constructor(props) {
-    super(props)
+      super(props)
   }
   render() {
-    return(
-      <Sample samples={this.props.samples}
-        sampleAction={this.props.actions.sampleAction}
-        resetAction={this.props.actions.resetAction} />
-    )
+      return(
+          <Sample samples={this.props.samples}
+              sampleAction={this.props.actions.sampleAction}
+              resetAction={this.props.actions.resetAction} />
+      )
   }
 }
 
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+    mapStateToProps
+    , mapDispatchToProps
 )(App)

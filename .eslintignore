@@ -1,3 +1,1 @@
-app/containers/App.js
-app/reducers/Samples.js
 app/utilities/registerServiceWorker.js

@@ -9,7 +9,7 @@
   "main": "app/index.js",
   "title": "Sample React-Redux App",
   "scripts": {
-		"mocha:watch": "mocha-webpack test.prepare.js \"app/**/*.spec.js\" --watch",
+		"mocha:watch": "yon mocha -- --watch",
     "mocha": "mocha-webpack test.prepare.js \"app/**/*.spec.js\"",
     "test": "yon lint && yon mocha",
     "start": "webpack-dev-server",

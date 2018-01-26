@@ -95,6 +95,7 @@ module.exports = {
           , 'ignoreTrailingComments': true
           , 'ignoreUrls': true
           , 'ignoreTemplateLiterals': true
+          , 'ignoreStrings': true
       }
     ]
     , 'no-array-constructor': ERROR

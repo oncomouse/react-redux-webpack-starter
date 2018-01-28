@@ -85,9 +85,6 @@
     "include": [
       "app/**/*.js"
     ],
-		"exclude": [
-			"app/**/*.spec.js"
-		],
     "instrument": false,
     "sourceMap": false
   }

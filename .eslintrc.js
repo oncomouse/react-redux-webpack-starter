@@ -1,9 +1,69 @@
 const INDENT_SPACES = 4
 const LINE_LENGTH = 80
 const PROPS_PER_LINE = 1
-const OFF = 0
-const WARNING = 1
-const ERROR = 2
+const OFF = 'off'
+const WARN = 'warn'
+const ERROR = 'error'
+const RESTRICTED_GLOBALS = [
+  'addEventListener',
+  'blur',
+  'close',
+  'closed',
+  'confirm',
+  'defaultStatus',
+  'defaultstatus',
+  'event',
+  'external',
+  'find',
+  'focus',
+  'frameElement',
+  'frames',
+  'history',
+  'innerHeight',
+  'innerWidth',
+  'length',
+  'location',
+  'locationbar',
+  'menubar',
+  'moveBy',
+  'moveTo',
+  'name',
+  'onblur',
+  'onerror',
+  'onfocus',
+  'onload',
+  'onresize',
+  'onunload',
+  'open',
+  'opener',
+  'opera',
+  'outerHeight',
+  'outerWidth',
+  'pageXOffset',
+  'pageYOffset',
+  'parent',
+  'print',
+  'removeEventListener',
+  'resizeBy',
+  'resizeTo',
+  'screen',
+  'screenLeft',
+  'screenTop',
+  'screenX',
+  'screenY',
+  'scroll',
+  'scrollbars',
+  'scrollBy',
+  'scrollTo',
+  'scrollX',
+  'scrollY',
+  'self',
+  'status',
+  'statusbar',
+  'stop',
+  'toolbar',
+  'top',
+];
 
 module.exports = {
   'env': {
@@ -26,6 +86,9 @@ module.exports = {
   }
   , 'plugins': [
     'react'
+    , 'jsx-a11y'
+	, 'import'
+	//, 'flowtype'
   ]
   , 'settings': {
     'react': {
@@ -86,9 +149,8 @@ module.exports = {
       ERROR
       , 'unix'
     ]
-    // Enforce a max line-length of 80 chars:
     , 'max-len': [
-      ERROR
+      WARN
       , {
           'code': LINE_LENGTH
           , 'ignoreComments': true
@@ -119,6 +181,7 @@ module.exports = {
         , 'ignoreArrayIndexes': true
       }
     ]
+	, 'no-restricted-globals': [ERROR].concat(RESTRICTED_GLOBALS)
     , 'no-prototype-builtins': ERROR
     , 'no-template-curly-in-string': ERROR
     , 'no-trailing-spaces': ERROR
@@ -126,38 +189,12 @@ module.exports = {
       ERROR
       , 'always'
     ]
-    , 'prefer-const': ERROR
-    , 'prefer-spread': ERROR
+    , 'prefer-const': WARN
+    , 'prefer-spread': WARN
     , 'quotes': [
       ERROR
       , 'single'
     ]
-    , 'react/jsx-indent': [
-      ERROR
-      , INDENT_SPACES
-    ]
-    , 'react/jsx-max-props-per-line': [
-      ERROR,
-      {
-        'maximum': PROPS_PER_LINE
-        , 'when': 'always'
-      }
-    ]
-    , 'react/jsx-one-expression-per-line': ERROR
-    , 'react/jsx-pascal-case': ERROR
-    , 'react/jsx-tag-spacing': ERROR
-    , 'react/jsx-uses-react': ERROR
-    , 'react/jsx-uses-vars': ERROR
-    , 'react/no-direct-mutation-state': ERROR
-    , 'react/no-typos': ERROR
-    , 'react/no-unknown-property': ERROR
-    , 'react/no-unused-state': ERROR
-    , 'react/prefer-stateless-function': ERROR
-    , 'react/react-in-jsx-scope': ERROR
-    , 'react/require-render-return': ERROR
-    , 'react/self-closing-comp': ERROR
-    , 'react/style-prop-object': ERROR
-    , 'react/void-dom-elements-no-children': ERROR
     , 'rest-spread-spacing': [
       ERROR
       , 'never'
@@ -166,5 +203,61 @@ module.exports = {
       ERROR
       , 'never'
     ]
+	// Plugins
+	// =====================================
+	/*, 'flowtype/define-flow-type': WARN
+    , 'flowtype/require-valid-file-annotation': WARN
+    , 'flowtype/use-flow-type': WARN*/
+	, 'jsx-a11y/accessible-emoji': WARN
+	, 'jsx-a11y/alt-text': WARN
+	, 'jsx-a11y/anchor-has-content': WARN
+	, 'jsx-a11y/aria-activedescendant-has-tabindex': WARN
+	, 'jsx-a11y/aria-props': WARN
+	, 'jsx-a11y/aria-proptypes': WARN
+	, 'jsx-a11y/aria-role': WARN
+	, 'jsx-a11y/aria-unsupported-elements': WARN
+	, 'jsx-a11y/heading-has-content': WARN
+    , 'jsx-a11y/anchor-is-valid': [
+        ERROR, {
+            'aspects': ['invalidHref']
+        }
+    ]
+	, 'jsx-a11y/iframe-has-title': WARN
+	, 'jsx-a11y/img-redundant-alt': WARN
+	, 'jsx-a11y/no-access-key': WARN
+	, 'jsx-a11y/no-distracting-elements': WARN
+	, 'jsx-a11y/no-redundant-roles': WARN
+	, 'jsx-a11y/role-has-required-aria-props': WARN
+	, 'jsx-a11y/role-supports-aria-props': WARN
+	, 'jsx-a11y/scope': WARN
+	, 'import/first': ERROR
+	, 'import/no-amd': ERROR
+	, 'import/no-webpack-loader-syntax': ERROR
+	, 'react/jsx-max-props-per-line': [
+	  ERROR,
+	  {
+		'maximum': PROPS_PER_LINE
+		, 'when': 'always'
+	  }
+	]
+	, 'react/jsx-indent': [
+	  ERROR
+	  , INDENT_SPACES
+	]
+	, 'react/jsx-one-expression-per-line': ERROR
+	, 'react/jsx-pascal-case': ERROR
+	, 'react/jsx-tag-spacing': ERROR
+	, 'react/jsx-uses-react': ERROR
+	, 'react/jsx-uses-vars': ERROR
+	, 'react/no-direct-mutation-state': ERROR
+	, 'react/no-typos': ERROR
+	, 'react/no-unknown-property': ERROR
+	, 'react/no-unused-state': ERROR
+	, 'react/prefer-stateless-function': WARN
+	, 'react/react-in-jsx-scope': ERROR
+	, 'react/require-render-return': ERROR
+	, 'react/self-closing-comp': ERROR
+	, 'react/style-prop-object': ERROR
+	, 'react/void-dom-elements-no-children': ERROR
   }
 };

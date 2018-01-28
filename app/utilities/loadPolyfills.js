@@ -47,6 +47,6 @@ export default function loadPolyfills() {
     return Promise.all([
         fillCoreJs()
         , fillFetch()
-    //, fillIntl()
+    	//, fillIntl()
     ])
 }

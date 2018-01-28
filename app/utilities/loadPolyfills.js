@@ -10,7 +10,7 @@ export default function loadPolyfills() {
         if ('fetch' in window) return resolve()
 
         require.ensure([], () => {
-            require('isomorphic-fetch')
+            require('whatwg-fetch')
 
             resolve()
         }, 'fetch')

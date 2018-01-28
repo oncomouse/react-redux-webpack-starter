@@ -21,6 +21,7 @@
   "author": "Andrew Pilsch <apilsch@tamu.edu> (https://andrew.pilsch.com)",
   "license": "ISC",
   "devDependencies": {
+    "@oncomouse/eslint-config": "oncomouse/eslint-config",
     "autoprefixer": "^6.3.6",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.0.3",

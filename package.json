@@ -76,6 +76,7 @@
     "eslint-plugin-react": "^7.5.1",
     "istanbul-instrumenter-loader": "^3.0.0",
     "jsdom": "^11.6.1",
+    "jsdom-global": "^3.0.2",
     "mocha": "^5.0.0",
     "mocha-webpack": "^1.0.1",
     "nyc": "^11.4.1",

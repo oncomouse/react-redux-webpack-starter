@@ -22,5 +22,9 @@ const render = Component => ReactDOM.render(
     </AppContainer>
     , output
 )
-loadPolyfills().then(() => render(App)).then(() => registerServiceWorker())
+//loadPolyfills().then(() => render(App)).then(() => registerServiceWorker())
+loadPolyfills(() => {
+    render(App)
+    registerServiceWorker()
+})
 if (module.hot) module.hot.accept(['containers/App'], () => render(App))

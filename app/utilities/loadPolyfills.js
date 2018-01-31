@@ -1,11 +1,4 @@
-import PolyfilledPromise from 'promise-polyfill'
-
-// To add to window
-if (!window.Promise) {
-    window.Promise = PolyfilledPromise
-}
-
-export default function loadPolyfills() {
+export default function loadPolyfills(cb) {
     const fillFetch = () => new Promise((resolve) => {
         if ('fetch' in window) return resolve()
 
@@ -44,9 +37,22 @@ export default function loadPolyfills() {
         }, 'core-js')
     })
 
-    return Promise.all([
+    const doIt = () => Promise.all([
         fillCoreJs()
         , fillFetch()
-    	//, fillIntl()
-    ])
+        //, fillIntl()
+    ]).then()
+
+    if (!window.Promise) {
+        // Load Promise
+        require.ensure([], () => {
+            const PolyfilledPromise = require('promise-polyfill')
+
+            window.Promise = PolyfilledPromise
+
+            doIt().then(cb)
+        }, 'promises')
+    } else {
+        doIt().then(cb)
+    }
 }

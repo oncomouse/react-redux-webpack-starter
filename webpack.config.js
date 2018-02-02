@@ -200,12 +200,12 @@ var webpackConfig = {
         }
       }
     })
-    , isProd ? noop() : new webpack.optimize.ModuleConcatenationPlugin()
     // Hot Module Replacement (HMR) plugins. They only load in development:
     , isProd ? noop() : new webpack.HotModuleReplacementPlugin()
     , isProd ? noop() : new webpack.NamedModulesPlugin()
     , isProd ? noop() : new webpack.NoEmitOnErrorsPlugin()
     // Production plugins:
+    , isProd ? new webpack.optimize.ModuleConcatenationPlugin() : noop()
     , isProd ? new webpack.LoaderOptionsPlugin({
       minimize: true
       , debug: false

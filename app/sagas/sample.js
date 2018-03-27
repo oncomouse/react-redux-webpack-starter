@@ -1,17 +1,20 @@
 import { takeEvery, put } from 'redux-saga/effects'
 import { SAMPLE_ACTION } from '../constants/ActionTypes'
 
-function* sampleSaga() {
-    // Do saga-y stuff here:
-    // fetch from APIs
-    // select from store
-    // take actions
-    // put actions to the store
+/*
+  This is the body of the saga. You can fetch APIs or anything
+  else that is asynchronous.
+*/
+function* saga() {
     yield put({
         type: 'NOOP'
     })
 }
 
-export default function* observeSample() {
-    yield takeEvery(SAMPLE_ACTION, sampleSaga)
+/*
+    This is the saga's origin. It just needs to be a collection
+    of takeEvery calls for each action the saga will be observing.
+*/
+export default function* observe() {
+    yield takeEvery(SAMPLE_ACTION, saga)
 }

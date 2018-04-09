@@ -4,7 +4,7 @@ import R from 'ramda'
 //import styles from '../stylesheets/components/Sample.scss'
 
 const BUTTON_STYLE = ' f6 link dim br3 ba ph3 pv2 mh1 mb2 dib  green b--green'
-export default ({ samples, sampleAction, resetAction }) => (
+const Sample = ({ samples, sampleAction, resetAction }) => (
     <div>
         <ul>
             {
@@ -26,3 +26,6 @@ export default ({ samples, sampleAction, resetAction }) => (
         </button>
     </div>
 )
+Sample.displayName = 'Sample' // Useful for testing with enzyme
+
+export default Sample

@@ -91,6 +91,10 @@
     "include": [
       "app/**/*.js"
     ],
+    "exclude": [
+      "**/*.spec.js",
+      "build"
+    ],
     "instrument": false,
     "sourceMap": false
   }

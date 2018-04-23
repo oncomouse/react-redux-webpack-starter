@@ -1,5 +1,5 @@
-import sampleSaga from '../sagas/sample'
+import sampleSaga from '../sagas/sample';
 
 export default () => [
-    sampleSaga()
-]
+  sampleSaga(),
+];

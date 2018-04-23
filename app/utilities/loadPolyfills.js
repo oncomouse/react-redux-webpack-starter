@@ -10,24 +10,24 @@ export default function loadPolyfills(cb) {
     })
 
     /*const fillIntl = () => new Promise((resolve) => {
-		if ('Intl' in window) return resolve();
+    if ('Intl' in window) return resolve();
 
-		require.ensure([], () => {
-			require('intl');
-			require('intl/locale-data/jsonp/en.js');
+    require.ensure([], () => {
+      require('intl');
+      require('intl/locale-data/jsonp/en.js');
 
-			resolve();
-		}, 'Intl');
-	});*/
+      resolve();
+    }, 'Intl');
+  });*/
 
     const fillCoreJs = () => new Promise((resolve) => {
         if (
             'startsWith' in String.prototype &&
-			'endsWith' in String.prototype &&
-			'includes' in Array.prototype &&
-			'Symbol' in window &&
-			'assign' in Object &&
-			'keys' in Object
+      'endsWith' in String.prototype &&
+      'includes' in Array.prototype &&
+      'Symbol' in window &&
+      'assign' in Object &&
+      'keys' in Object
         ) return resolve()
 
         require.ensure([], () => {

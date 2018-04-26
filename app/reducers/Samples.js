@@ -1,4 +1,6 @@
-import R from 'ramda'
+import {
+    assoc
+} from 'ramda'
 import createReducer from '../utilities/createReducer'
 import { SAMPLE_ACTION, RESET_STATE } from '../constants/ActionTypes'
 //import { REHYDRATE } from 'redux-persist/constants'
@@ -13,7 +15,7 @@ const actionMaps = {
             .toString(SAMPLE_LENGTH)
             .replace(/[^a-z]+/g, '')
             .substr(0, STRING_LENGTH - 1)
-        state = R.assoc(randomString, randomString, state)
+        state = assoc(randomString, randomString, state)
         return state
     }
     , [RESET_STATE]: (state, action) => { // eslint-disable-line no-unused-vars

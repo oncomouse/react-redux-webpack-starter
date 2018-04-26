@@ -1,5 +1,9 @@
 import React from 'react'
-import R from 'ramda'
+import {
+    compose
+    , values
+    , mapObjIndexed
+}
 // You can use CSS Modules if you prefer:
 //import styles from '../stylesheets/components/Sample.scss'
 
@@ -8,9 +12,9 @@ const Sample = ({ samples, sampleAction, resetAction }) => (
     <div>
         <ul>
             {
-                R.compose(
-                    R.values
-                    , R.mapObjIndexed((sample, id) => (<li key={id}>
+                compose(
+                    values
+                    , mapObjIndexed((sample, id) => (<li key={id}>
                         {sample}
                     </li>))
                 )(samples)

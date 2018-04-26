@@ -1,5 +1,7 @@
 import React from 'react'
-import R from 'ramda'
+import {
+    mergeAll
+} from 'ramda'
 import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -11,7 +13,7 @@ const mapStateToProps = (state, ownProps) => ({ // eslint-disable-line no-unused
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({ // eslint-disable-line no-unused-vars
-    actions: R.mergeAll([
+    actions: mergeAll([
         bindActionCreators(SampleActions, dispatch)
     ])
 })

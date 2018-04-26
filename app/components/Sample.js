@@ -3,7 +3,8 @@ import {
     compose
     , values
     , mapObjIndexed
-}
+} from 'ramda'
+import PropTypes from 'prop-types'
 // You can use CSS Modules if you prefer:
 //import styles from '../stylesheets/components/Sample.scss'
 
@@ -30,6 +31,11 @@ const Sample = ({ samples, sampleAction, resetAction }) => (
         </button>
     </div>
 )
+Sample.propTypes = {
+    samples: PropTypes.object.isRequired
+    , sampleAction: PropTypes.func.isRequired
+    , resetAction: PropTypes.func.isRequired
+}
 Sample.displayName = 'Sample' // Useful for testing with enzyme
 
 export default Sample

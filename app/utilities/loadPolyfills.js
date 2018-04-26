@@ -2,10 +2,10 @@ export default function loadPolyfills(cb) {
     const fillFetch = () => new Promise((resolve) => {
         if ('fetch' in window) return resolve()
 
-        require.ensure([], () => {
+        return require.ensure([], () => {
             require('whatwg-fetch')
 
-            resolve()
+            return resolve()
         }, 'fetch')
     })
 
@@ -30,10 +30,10 @@ export default function loadPolyfills(cb) {
       'keys' in Object
         ) return resolve()
 
-        require.ensure([], () => {
+        return require.ensure([], () => {
             require('core-js')
 
-            resolve()
+            return resolve()
         }, 'core-js')
     })
 
@@ -50,7 +50,7 @@ export default function loadPolyfills(cb) {
 
             window.Promise = PolyfilledPromise
 
-            doIt().then(cb)
+            return doIt().then(cb)
         }, 'promises')
     } else {
         doIt().then(cb)

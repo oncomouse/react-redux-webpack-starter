@@ -2,7 +2,7 @@ import { take, fork, cancel, all } from 'redux-saga/effects'
 
 export const START_SAGAS = Symbol('START_SAGAS')
 export function createDynamicSaga (changeActionType, startingSagas) {
-    function* _start (sagas) {
+    function* start (sagas) {
         try {
             yield all(sagas)
         } catch (e) {
@@ -11,10 +11,10 @@ export function createDynamicSaga (changeActionType, startingSagas) {
     }
     return function* dynamicSaga () {
         let action
-        let rootTask = yield fork(_start, startingSagas)
+        let rootTask = yield fork(start, startingSagas)
         while ((action = yield take(changeActionType))) {
             yield cancel(rootTask)
-            rootTask = yield fork(_start, action.payload.sagas)
+            rootTask = yield fork(start, action.payload.sagas)
         }
     }
 }

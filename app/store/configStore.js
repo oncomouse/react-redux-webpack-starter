@@ -6,6 +6,18 @@ import reducers from '../reducers'
 import sagas from '../sagas'
 import { START_SAGAS, createDynamicSaga } from '../utilities/createDynamicSaga'
 
+/*
+    Change this to combineReducers (imported from redux)
+    and remove config if you don't need to persist Redux.
+*/
+const makeReducer = reducers => persistCombineReducers(
+    {
+        key: APP_TITLE
+        , storage
+    }
+    , reducers
+)
+
 export default () => {
     const sagaMiddleware = createSagaMiddleware()
     const enhancer =
@@ -17,13 +29,7 @@ export default () => {
                 , require('redux-logger').default
             ) // Only include redux-logger if we are in development
         )
-    const reducer = persistCombineReducers(
-        {
-            key: APP_TITLE
-            , storage
-        }
-        , reducers
-    )
+    const reducer = makeReducer(reducers)
     const initialStore = {}
 
     const store = createStore(reducer, initialStore, enhancer)
@@ -32,14 +38,17 @@ export default () => {
 
     if (module.hot) {
     // Enable webpack hot module replacement for reducers
-        module.hot.accept('reducers', () =>
-            store.replaceReducer(require('reducers').default)
+    
+        module.hot.accept('../reducers/index', () =>
+            store.replaceReducer(
+                makeReducer(require('../reducers/index').default)
+            )
         )
-        module.hot.accept('sagas', () =>
+        module.hot.accept('../sagas', () =>
             store.dispatch({
                 type: START_SAGAS
                 , payload: {
-                    sagas: [...require('sagas').default()]
+                    sagas: [...require('../sagas').default()]
                 }
             })
         )

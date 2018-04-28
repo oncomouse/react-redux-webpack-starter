@@ -15,8 +15,7 @@ const actionMaps = {
             .toString(SAMPLE_LENGTH)
             .replace(/[^a-z]+/g, '')
             .substr(0, STRING_LENGTH - 1)
-        state = assoc(randomString, randomString, state)
-        return state
+        return assoc(randomString, randomString, state)
     }
     , [RESET_STATE]: (state, action) => { // eslint-disable-line no-unused-vars
         return initialState

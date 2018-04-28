@@ -37,8 +37,6 @@ export default () => {
     sagaMiddleware.run(createDynamicSaga(START_SAGAS, sagas()))
 
     if (module.hot) {
-    // Enable webpack hot module replacement for reducers
-    
         module.hot.accept('../reducers/index', () =>
             store.replaceReducer(
                 makeReducer(require('../reducers/index').default)

@@ -33,7 +33,7 @@ const Sample = ({ samples, sampleAction, resetAction }) => (
 );
 Sample.displayName = 'Sample'; // Useful for testing with enzyme
 Sample.propTypes = {
-  samples: PropTypes.arrayOf(PropTypes.object).isRequired,
+  samples: PropTypes.object.isRequired,
   sampleAction: PropTypes.func.isRequired,
   resetAction: PropTypes.func.isRequired,
 };

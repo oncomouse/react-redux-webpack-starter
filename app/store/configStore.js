@@ -18,17 +18,18 @@ const makeReducer = reducers => persistCombineReducers(
     , reducers
 )
 
+// Only include redux-logger if we are in development
+const noopMiddleware = () => next => action => next(action)
+const loggerMiddleware = process.env.NODE_ENV !== 'production' ? require('redux-logger').default : noopMiddleware
+
 export default () => {
     const sagaMiddleware = createSagaMiddleware()
-    const enhancer =
-    process.env.NODE_ENV === 'production'
-        ? compose(applyMiddleware(sagaMiddleware))
-        : compose(
-            applyMiddleware(
-                sagaMiddleware
-                , require('redux-logger').default
-            ) // Only include redux-logger if we are in development
+    const enhancer = compose(
+        applyMiddleware(
+            sagaMiddleware
+            , loggerMiddleware
         )
+    )
     const reducer = makeReducer(reducers)
     const initialStore = {}
 

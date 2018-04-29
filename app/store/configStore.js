@@ -10,12 +10,12 @@ import { START_SAGAS, createDynamicSaga } from '../utilities/createDynamicSaga'
     Change this to combineReducers (imported from redux)
     and remove config if you don't need to persist Redux.
 */
-const makeReducer = reducers => persistCombineReducers(
+const makeReducer = reducerObject => persistCombineReducers(
     {
         key: APP_TITLE
         , storage
     }
-    , reducers
+    , reducerObject
 )
 
 // Only include redux-logger if we are in development

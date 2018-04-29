@@ -19,12 +19,14 @@ const persistConfig = {
 // Dynamically load redux-saga if it is required for this project:
 const createSagaMiddleware = SAGAS ? require('redux-saga').default : always(noopReduxMiddleware)
 const sagas = SAGAS ? require('../sagas').default : always({})
-const { START_SAGAS, createDynamicSaga } = SAGAS ? require('../utilities/createDynamicSaga') : {START_SAGAS: 'START_SAGAS', createDynamicSaga: always(null)}
+const { START_SAGAS, createDynamicSaga } = SAGAS ? require('../utilities/createDynamicSaga') : { START_SAGAS: 'START_SAGAS', createDynamicSaga: always(null) }
 
 // Only include redux-logger if we are in development
 const loggerMiddleware = process.env.NODE_ENV !== 'production' ? require('redux-logger').default : noopReduxMiddleware
 
-const makeReducer = PERSIST ? reducerObject => combiner(persistConfig, reducerObject) : reducerObject => combiner(reducerObject)
+const makeReducer = PERSIST ?
+    reducerObject => combiner(persistConfig, reducerObject)
+    : reducerObject => combiner(reducerObject)
 
 export default () => {
     const sagaMiddleware = createSagaMiddleware()

@@ -9,7 +9,9 @@ import registerServiceWorker from './utilities/registerServiceWorker'
 
 const { store, persistor } = configStore()
 
-const noopReactComponent = ({children}) => (<span>{children}</span>)
+const noopReactComponent = ({ children }) => (<span>
+    {children}
+</span>)
 
 // Load HMR and Error Handling dev tooling:
 const AppContainer = process.env.NODE_ENV !== 'production' ? require('react-hot-loader').AppContainer : noopReactComponent

@@ -6,24 +6,27 @@ import reducers from '../reducers';
 import sagas from '../sagas';
 import { START_SAGAS, createDynamicSaga } from '../utilities/createDynamicSaga';
 
+/*
+    Change this to combineReducers (imported from redux)
+    and remove config if you don't need to persist Redux.
+*/
+const makeReducer = reducerObject => persistCombineReducers(
+  {
+    key: APP_TITLE,
+    storage,
+  }
+  , reducerObject,
+);
+
+const loggerMiddleware = process.env.NODE_ENV !== 'production' ? require('redux-logger').default : () => next => action => next(action); // eslint-disable-line import/no-extraneous-dependencies
+
 export default () => {
   const sagaMiddleware = createSagaMiddleware();
-  const enhancer =
-    process.env.NODE_ENV === 'production'
-      ? compose(applyMiddleware(sagaMiddleware))
-      : compose(applyMiddleware(
-        sagaMiddleware
-        // eslint-disable-next-line global-require,import/no-extraneous-dependencies
-        , require('redux-logger').default,
-      )); // Only include redux-logger if we are in development
-
-  const reducer = persistCombineReducers(
-    {
-      key: APP_TITLE,
-      storage,
-    }
-    , reducers,
-  );
+  const enhancer = compose(applyMiddleware(
+    sagaMiddleware,
+    loggerMiddleware,
+  ));
+  const reducer = makeReducer(reducers);
   const initialStore = {};
 
   const store = createStore(reducer, initialStore, enhancer);
@@ -31,16 +34,13 @@ export default () => {
   sagaMiddleware.run(createDynamicSaga(START_SAGAS, sagas()));
 
   if (module.hot) {
-    // Enable webpack hot module replacement for reducers
-    module.hot.accept('reducers', () =>
-      // eslint-disable-next-line global-require,import/no-extraneous-dependencies
-      store.replaceReducer(require('../reducers').default));
-    module.hot.accept('sagas', () =>
+    module.hot.accept('../reducers/index', () =>
+      store.replaceReducer(makeReducer(require('../reducers/index').default))); // eslint-disable-line global-require
+    module.hot.accept('../sagas', () =>
       store.dispatch({
         type: START_SAGAS,
         payload: {
-          // eslint-disable-next-line global-require,import/no-extraneous-dependencies
-          sagas: [...require('../sagas').default()],
+          sagas: [...require('../sagas').default()], // eslint-disable-line global-require
         },
       }));
   }

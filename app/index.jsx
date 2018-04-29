@@ -20,7 +20,7 @@ const PersistGate = PERSIST ? require('redux-persist/lib/integration/react').Per
 // React Hot Loading!
 const output = document.getElementById('react')
 const render = Component => ReactDOM.render(
-    <AppContainer>
+    <AppContainer errorReporter={RedBox}>
         <PersistGate persistor={persistor}>
             <Provider store={store}>
                 <Component />

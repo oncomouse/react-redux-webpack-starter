@@ -2,13 +2,17 @@ import { AppContainer } from 'react-hot-loader'
 import ReactDOM from 'react-dom'
 import React from 'react'
 import { Provider } from 'react-redux'
-import { PersistGate } from 'redux-persist/lib/integration/react'
+import { PERSIST } from './features'
 import configStore from './store/configStore'
 import App from './containers/App'
 import loadPolyfills from './utilities/loadPolyfills'
 import registerServiceWorker from './utilities/registerServiceWorker'
 
 const { store, persistor } = configStore()
+
+const noopReactComponent = ({children}) => (<span>{children}</span>)
+
+const PersistGate = PERSIST ? require('redux-persist/lib/integration/react').PersistGate : noopReactComponent
 
 // React Hot Loading!
 const output = document.getElementById('react')

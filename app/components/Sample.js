@@ -5,10 +5,10 @@ import {
     , mapObjIndexed
 } from 'ramda'
 import PropTypes from 'prop-types'
+import { AddButton, ResetButton } from './Buttons'
 // You can use CSS Modules if you prefer:
 //import styles from '../stylesheets/components/Sample.scss'
 
-const BUTTON_STYLE = ' f6 link dim br3 ba ph3 pv2 mh1 mb2 dib  green b--green'
 const Sample = ({ samples, sampleAction, resetAction }) => (
     <div>
         <ul>
@@ -21,18 +21,12 @@ const Sample = ({ samples, sampleAction, resetAction }) => (
                 )(samples)
             }
         </ul>
-        <button className={BUTTON_STYLE}
-            onClick={sampleAction}>
-      Click Me!
-        </button>
-        <button className={BUTTON_STYLE}
-            onClick={resetAction}>
-      Reset List
-        </button>
+        <AddButton action={sampleAction} />
+        <ResetButton action={resetAction} />
     </div>
 )
 Sample.propTypes = {
-    samples: PropTypes.object.isRequired
+    samples: PropTypes.objectOf(PropTypes.string).isRequired
     , sampleAction: PropTypes.func.isRequired
     , resetAction: PropTypes.func.isRequired
 }

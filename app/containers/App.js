@@ -23,7 +23,7 @@ class App extends React.Component { // eslint-disable-line react/prefer-stateles
       samples: {}
   }
   static propTypes = {
-      samples: PropTypes.object.isRequired
+      samples: PropTypes.objectOf(PropTypes.string).isRequired
       , actions: PropTypes.objectOf(PropTypes.func).isRequired
   }
   constructor(props) {

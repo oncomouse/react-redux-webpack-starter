@@ -1,4 +1,3 @@
-import { AppContainer } from 'react-hot-loader'
 import ReactDOM from 'react-dom'
 import React from 'react'
 import { Provider } from 'react-redux'
@@ -11,6 +10,10 @@ import registerServiceWorker from './utilities/registerServiceWorker'
 const { store, persistor } = configStore()
 
 const noopReactComponent = ({children}) => (<span>{children}</span>)
+
+// Load HMR and Error Handling dev tooling:
+const AppContainer = process.env.NODE_ENV !== 'production' ? require('react-hot-loader').AppContainer : noopReactComponent
+const RedBox = process.env.NODE_ENV !== 'production' ? require('redbox-react').default : noopReactComponent
 
 const PersistGate = PERSIST ? require('redux-persist/lib/integration/react').PersistGate : noopReactComponent
 

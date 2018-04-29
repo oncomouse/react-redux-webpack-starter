@@ -1,5 +1,5 @@
 import React from 'react';
-import R from 'ramda';
+import { compose, mapObjIndexed, values } from 'ramda';
 import PropTypes from 'prop-types';
 // You can use CSS Modules if you prefer:
 // import styles from '../stylesheets/components/Sample.scss'
@@ -9,9 +9,9 @@ const Sample = ({ samples, sampleAction, resetAction }) => (
   <div>
     <ul>
       {
-        R.compose(
-          R.values
-          , R.mapObjIndexed((sample, id) => (
+        compose(
+          values
+          , mapObjIndexed((sample, id) => (
             <li key={id}>{sample}</li>
           )),
         )(samples)
@@ -33,7 +33,7 @@ const Sample = ({ samples, sampleAction, resetAction }) => (
 );
 Sample.displayName = 'Sample'; // Useful for testing with enzyme
 Sample.propTypes = {
-  samples: PropTypes.object.isRequired,
+  samples: PropTypes.objectOf(PropTypes.string).isRequired,
   sampleAction: PropTypes.func.isRequired,
   resetAction: PropTypes.func.isRequired,
 };

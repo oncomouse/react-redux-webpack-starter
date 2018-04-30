@@ -3,7 +3,6 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 import { mount } from 'enzyme';
 import configureStore from 'redux-mock-store';
-import { always } from 'ramda';
 import App from './App';
 import { sampleAction, resetAction } from '../actions/sampleActions';
 
@@ -24,7 +23,7 @@ describe('<App/>', () => {
     });
     wrapper = mount(<App
       store={store}
-      actions={{ sampleAction: always({}), resetAction: always({}) }}
+      actions={{ sampleAction, resetAction }}
     />);
   });
   it('should render without crashing', () => {

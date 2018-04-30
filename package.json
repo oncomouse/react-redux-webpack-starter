@@ -11,7 +11,7 @@
   "scripts": {
     "cover": "cross-env BABEL_ENV=test NODE_ENV=coverage nyc -r text -r lcov yon run mocha",
     "mocha:watch": "yon run mocha -- --watch",
-    "mocha": "mocha-webpack test.prepare.js \"app/**/*.spec.js\"",
+    "mocha": "mocha-webpack test.prepare.js \"app/**/*.spec.js\" \"app/**/*.spec.jsx\"",
     "test": "yon run lint && yon run mocha",
     "start": "webpack-dev-server",
     "build": "cross-env NODE_ENV=production webpack",

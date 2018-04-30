@@ -2,17 +2,21 @@ import React from 'react'
 import { expect } from 'chai'
 import { mount } from 'enzyme'
 import sinon from 'sinon'
-import { times } from 'ramda'
 import { ResetButton, AddButton } from './Buttons'
+
+const NUMBER_OF_BUTTONS = 2
 
 describe('<Button/>', () => {
     var wrapper, action
     beforeEach(() => {
         action = sinon.spy()
-        wrapper = mount(<div><AddButton action={action}/><ResetButton action={action}/></div>)
+        wrapper = mount(<div>
+            <AddButton action={action} />
+            <ResetButton action={action} />
+        </div>)
     })
     it('should render two <Button/>', () => {
-        expect(wrapper.find('Button')).to.have.length(2)
+        expect(wrapper.find('Button')).to.have.length(NUMBER_OF_BUTTONS)
     })
     it('should respond to being clicked (first button)', () => {
         wrapper.find('Button').at(0).simulate('click')

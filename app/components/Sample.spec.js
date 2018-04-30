@@ -16,7 +16,9 @@ const randomInteger = (min, max) =>
 describe('<Sample/>', () => {
     var wrapper
     beforeEach(() => {
-        wrapper = mount(<Sample samples={{}} sampleAction={identity} resetAction={identity}/>)
+        wrapper = mount(<Sample samples={{}}
+            sampleAction={identity}
+            resetAction={identity} />)
     })
     it('should render without crashing', () => {
         expect(wrapper.is('Sample')).to.equal(true)
@@ -36,7 +38,7 @@ describe('<Sample/>', () => {
             const r = randomString()
             samples[r] = r
         }, randomInteger(8, 24)) // eslint-disable-line no-magic-numbers
-        wrapper.setProps({samples})
+        wrapper.setProps({ samples })
         expect(wrapper.find('li')).to.have.length(Object.keys(samples).length)
     })
 })

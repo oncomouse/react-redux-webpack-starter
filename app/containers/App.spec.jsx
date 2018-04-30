@@ -12,17 +12,20 @@ describe('<App/>', () => {
   let wrapper;
   let mockStore;
   after(() => {
-	App.prototype.componentDidMount.restore();
-  })
+    App.prototype.componentDidMount.restore();
+  });
   before(() => {
     mockStore = configureStore();
     sinon.spy(App.prototype, 'componentDidMount');
   });
   beforeEach(() => {
     store = mockStore({
-		Samples: {}
-	});
-    wrapper = mount(<App store={store} actions={{sampleAction: always({}), resetAction: always({})}} />);
+      Samples: {},
+    });
+    wrapper = mount(<App
+      store={store}
+      actions={{ sampleAction: always({}), resetAction: always({}) }}
+    />);
   });
   it('should render without crashing', () => {
     expect(App.prototype.componentDidMount.calledOnce).to.equal(true);

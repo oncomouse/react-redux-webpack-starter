@@ -1,8 +1,8 @@
 import React from 'react'
 import Sample from './Sample'
 import { expect } from 'chai'
-import { shallow } from 'enzyme'
-import { times } from 'ramda'
+import { mount } from 'enzyme'
+import { identity, times } from 'ramda'
 
 const NUMBER_OF_BUTTONS = 2
 const SAMPLE_LENGTH = 36
@@ -16,16 +16,19 @@ const randomInteger = (min, max) =>
 describe('<Sample/>', () => {
     var wrapper
     beforeEach(() => {
-        wrapper = shallow(<Sample />)
+        wrapper = mount(<Sample samples={{}} sampleAction={identity} resetAction={identity}/>)
     })
     it('should render without crashing', () => {
-        expect(wrapper.is('div')).to.equal(true)
+        expect(wrapper.is('Sample')).to.equal(true)
     })
-    it('should render a ul as the first child', () => {
-        expect(wrapper.childAt(0).type()).to.equal('ul')
+    it('should render a div as the first child', () => {
+        expect(wrapper.childAt(0).type()).to.equal('div')
+    })
+    it('should render a ul as the first child of the first child div', () => {
+        expect(wrapper.childAt(0).childAt(0).type()).to.equal('ul')
     })
     it(`should render ${NUMBER_OF_BUTTONS} buttons`, () => {
-        expect(wrapper.find('button')).to.have.length(NUMBER_OF_BUTTONS)
+        expect(wrapper.find('Button')).to.have.length(NUMBER_OF_BUTTONS)
     })
     it('should render an object of random strings as <li>', () => {
         const samples = {}
@@ -33,7 +36,7 @@ describe('<Sample/>', () => {
             const r = randomString()
             samples[r] = r
         }, randomInteger(8, 24)) // eslint-disable-line no-magic-numbers
-        wrapper = shallow(<Sample samples={samples} />)
+        wrapper.setProps({samples})
         expect(wrapper.find('li')).to.have.length(Object.keys(samples).length)
     })
 })

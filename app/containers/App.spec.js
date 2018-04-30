@@ -1,9 +1,10 @@
 import React from 'react'
-import App from './App'
 import { expect } from 'chai'
 import sinon from 'sinon'
 import { mount } from 'enzyme'
 import configureStore from 'redux-mock-store'
+import { always } from 'ramda'
+import App from './App'
 import { sampleAction, resetAction } from '../actions/sampleActions'
 
 describe('<App/>', () => {
@@ -13,8 +14,18 @@ describe('<App/>', () => {
         sinon.spy(App.prototype, 'componentDidMount')
     })
     beforeEach(() => {
-        store = mockStore({})
-        wrapper = mount(<App store={store} />)
+        store = mockStore({
+            Samples: {}
+        })
+        wrapper = mount(
+            <App
+                store={store}
+                actions={{resetAction, sampleAction}}
+            />
+        )
+    })
+    after(() => {
+        App.prototype.componentDidMount.restore()
     })
     it('should render without crashing', () => {
         expect(App.prototype.componentDidMount.calledOnce).to.equal(true)

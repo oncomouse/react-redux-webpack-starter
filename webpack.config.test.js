@@ -32,16 +32,6 @@ config.module = {
 		}
 	]
 }
-// Uncomment for preact:
-/*config.resolve = {
-	alias: {
-      'preact-compat': 'preact-compat/dist/preact-compat'
-      , 'react': 'preact-compat'
-      , 'react-dom': 'preact-compat'
-      // Not necessary unless you consume a module using `createClass`
-      , 'create-react-class': 'preact-compat/lib/create-react-class'
-    }
-}*/
 config.target = 'node'
 config.externals = [nodeExternals()]
 config.devtool = "inline-cheap-module-source-map"

@@ -7,7 +7,7 @@ const config = {}
 config.module = {
 	rules: [
 		isCoverage ? {
-		  test: /\.(js|jsx)/
+		  test: /\.(js|jsx)$/
 		  , include: path.resolve('app') // instrument only testing sources with Istanbul, after ts-loader runs
 		  , loader: 'istanbul-instrumenter-loader'
 	  }: {}
@@ -32,21 +32,11 @@ config.module = {
 		}
 	]
 }
-// Uncomment for preact:
-/*config.resolve = {
-	alias: {
-      'preact-compat': 'preact-compat/dist/preact-compat'
-      , 'react': 'preact-compat'
-      , 'react-dom': 'preact-compat'
-      // Not necessary unless you consume a module using `createClass`
-      , 'create-react-class': 'preact-compat/lib/create-react-class'
-    }
-}*/
 config.target = 'node'
 config.externals = [nodeExternals()]
-config.devtool = "inline-cheap-module-source-map"
+config.devtool = "cheap-module-source-map"
 config.resolve = {
-  extensions: ['.js', '.jsx']
+    extensions: ['.js', '.jsx']
 }
 
 module.exports = config

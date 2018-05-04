@@ -1,3 +1,15 @@
-// Customize any Tachyons variables here:
-@import "~tachyons-sass/tachyons.scss";
-// Also, you can only include the partials you are using for smaller file sizes
+@import "~normalize-scss/sass/normalize";
+@include normalize();
+@import "variables";
+
+html {
+	font-family: $base-font;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: $header-font;
+}

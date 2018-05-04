@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import style from '../stylesheets/components/Button.scss';
 
-const BUTTON_STYLE = ' f6 link dim br3 ba ph3 pv2 mh1 mb2 dib  green b--green';
 export const AddButton = ({ action }) => (
   <Button action={action}>
         Click Me!
@@ -20,7 +20,7 @@ ResetButton.propTypes = {
 };
 const Button = ({ action, children }) => (
   <button
-    className={BUTTON_STYLE}
+    className={style.button}
     onClick={action}
   >
     {children}

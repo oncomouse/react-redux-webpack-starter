@@ -27,7 +27,7 @@ describe('<App/>', () => {
     />);
   });
   it('should render without crashing', () => {
-    expect(App.prototype.componentDidMount.calledOnce).to.equal(true);
+    expect(App.prototype.componentDidMount.calledOnce).to.be.true;
   });
   it('should trigger a sampleAction when first button clicked', () => {
     const expectedPayload = sampleAction();

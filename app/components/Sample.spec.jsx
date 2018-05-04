@@ -19,7 +19,7 @@ describe('<Sample/>', () => {
     wrapper = mount(<Sample samples={{}} sampleAction={identity} resetAction={identity} />);
   });
   it('should render without crashing', () => {
-    expect(wrapper.is('Sample')).to.equal(true);
+    expect(wrapper.is('Sample')).to.be.true;
   });
   it('should render a div as the first child', () => {
     expect(wrapper.childAt(0).type()).to.equal('div');

@@ -16,11 +16,11 @@ describe('<Button/>', () => {
   });
   it('should respond to being clicked (first button)', () => {
     wrapper.find('Button').at(0).simulate('click');
-    expect(action.calledOnce).to.equal(true);
+    expect(action.calledOnce).to.be.true;
   });
   it('should respond to being clicked (second button)', () => {
     wrapper.find('Button').at(1).simulate('click');
-    expect(action.calledOnce).to.equal(true);
+    expect(action.calledOnce).to.be.true;
   });
   it('should contain the proper text', () => {
     expect(wrapper.find('Button').at(0).text()).to.equal('Click Me!');

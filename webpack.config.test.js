@@ -34,7 +34,7 @@ config.module = {
 }
 config.target = 'node'
 config.externals = [nodeExternals()]
-config.devtool = "inline-cheap-module-source-map"
+config.devtool = "cheap-module-source-map"
 config.resolve = {
     extensions: ['.js', '.jsx']
 }

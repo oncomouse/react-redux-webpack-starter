@@ -27,14 +27,14 @@ const PersistGate = PERSIST ? require('redux-persist/lib/integration/react').Per
 // React Hot Loading!
 const output = document.getElementById('react')
 const render = (Component) => {
-	ReactDOM.render(
-		<ErrorBoundary>
-			<PersistGate persistor={persistor}>
-				<Provider store={store}>
-					<Component />
-				</Provider>
-			</PersistGate>
-		</ErrorBoundary>
+    ReactDOM.render(
+        <ErrorBoundary>
+            <PersistGate persistor={persistor}>
+                <Provider store={store}>
+                    <Component />
+                </Provider>
+            </PersistGate>
+        </ErrorBoundary>
         , output
     )
 }
@@ -44,5 +44,5 @@ loadPolyfills(() => {
     registerServiceWorker()
 })
 if (module.hot) {
-	module.hot.accept(['containers/App'], () => render(require('./containers/App').default))
+    module.hot.accept(['containers/App'], () => render(require('./containers/App').default))
 }

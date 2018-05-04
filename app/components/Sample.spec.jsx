@@ -1,8 +1,8 @@
 import React from 'react'
-import Sample from './Sample'
 import { expect } from 'chai'
 import { mount } from 'enzyme'
 import { identity, times } from 'ramda'
+import Sample from './Sample'
 
 const NUMBER_OF_BUTTONS = 2
 const SAMPLE_LENGTH = 36
@@ -12,13 +12,15 @@ const randomString = () => Math.random()
     .replace(/[^a-z]+/g, '')
     .substr(0, STRING_LENGTH - 1)
 const randomInteger = (min, max) =>
-    Math.floor(Math.random() * (max - min + 1)) + min
+    Math.floor(Math.random() * (max - (min + 1))) + min
 describe('<Sample/>', () => {
-    var wrapper
+    let wrapper
     beforeEach(() => {
-        wrapper = mount(<Sample samples={{}}
+        wrapper = mount(<Sample
+            samples={{}}
             sampleAction={identity}
-            resetAction={identity} />)
+            resetAction={identity}
+        />)
     })
     it('should render without crashing', () => {
         expect(wrapper.is('Sample')).to.equal(true)

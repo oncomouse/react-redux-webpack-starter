@@ -1,5 +1,6 @@
 import ReactDOM from 'react-dom'
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Provider } from 'react-redux'
 import { PERSIST } from './features'
 import configStore from './store/configStore'
@@ -9,9 +10,13 @@ import registerServiceWorker from './utilities/registerServiceWorker'
 
 const { store, persistor } = configStore()
 
-const noopReactComponent = ({ children }) => (<span>
-    {children}
-</span>)
+const noopReactComponent = ({ children }) => (<span>{children}</span>)
+noopReactComponent.propTypes = {
+    children: PropTypes.oneOfType([
+        PropTypes.arrayOf(PropTypes.node)
+        , PropTypes.node
+    ]).isRequired
+}
 
 // Load HMR and Error Handling dev tooling:
 const AppContainer = process.env.NODE_ENV !== 'production' ? require('react-hot-loader').AppContainer : noopReactComponent
@@ -22,17 +27,19 @@ const PersistGate = PERSIST ? require('redux-persist/lib/integration/react').Per
 
 // React Hot Loading!
 const output = document.getElementById('react')
-const render = Component => ReactDOM.render(
-    <AppContainer errorReporter={RedBox}>
-        <PersistGate persistor={persistor}>
-            <Provider store={store}>
-                <Component />
-            </Provider>
-        </PersistGate>
-    </AppContainer>
-    , output
-)
-//loadPolyfills().then(() => render(App)).then(() => registerServiceWorker())
+const render = (Component) => {
+    ReactDOM.render(
+        <AppContainer errorReporter={RedBox}>
+            <PersistGate persistor={persistor}>
+                <Provider store={store}>
+                    <Component />
+                </Provider>
+            </PersistGate>
+        </AppContainer>
+        , output
+    )
+}
+// loadPolyfills().then(() => render(App)).then(() => registerServiceWorker())
 loadPolyfills(() => {
     render(App)
     registerServiceWorker()

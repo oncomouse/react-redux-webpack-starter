@@ -7,13 +7,16 @@ import { ResetButton, AddButton } from './Buttons'
 const NUMBER_OF_BUTTONS = 2
 
 describe('<Button/>', () => {
-    var wrapper, action
+    let wrapper
+    let action
     beforeEach(() => {
         action = sinon.spy()
-        wrapper = mount(<div>
-            <AddButton action={action} />
-            <ResetButton action={action} />
-        </div>)
+        wrapper = mount(
+            <div>
+                <AddButton action={action} />
+                <ResetButton action={action} />
+            </div>
+        )
     })
     it('should render two <Button/>', () => {
         expect(wrapper.find('Button')).to.have.length(NUMBER_OF_BUTTONS)

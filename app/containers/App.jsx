@@ -19,21 +19,17 @@ const mapDispatchToProps = (dispatch, ownProps) => ({ // eslint-disable-line no-
 })
 
 class App extends React.Component { // eslint-disable-line react/prefer-stateless-function
-  static defaultProps = {
-      samples: {}
-  }
   static propTypes = {
       samples: PropTypes.objectOf(PropTypes.string).isRequired
       , actions: PropTypes.objectOf(PropTypes.func).isRequired
   }
-  constructor(props) {
-      super(props)
-  }
   render() {
-      return(
-          <Sample samples={this.props.samples}
+      return (
+          <Sample
+              samples={this.props.samples}
               sampleAction={this.props.actions.sampleAction}
-              resetAction={this.props.actions.resetAction} />
+              resetAction={this.props.actions.resetAction}
+          />
       )
   }
 }

@@ -7,7 +7,9 @@ import App from './App'
 import { sampleAction, resetAction } from '../actions/sampleActions'
 
 describe('<App/>', () => {
-    var store, wrapper, mockStore
+    let store
+        , wrapper
+        , mockStore
     before(() => {
         mockStore = configureStore()
         sinon.spy(App.prototype, 'componentDidMount')

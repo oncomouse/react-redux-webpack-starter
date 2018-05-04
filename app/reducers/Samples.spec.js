@@ -1,6 +1,6 @@
+import { expect } from 'chai'
 import reducer from './Samples'
 import { sampleAction, resetAction } from '../actions/sampleActions'
-import { expect } from 'chai'
 
 describe('reducers/Samples', () => {
     const initialState = {}

@@ -9,7 +9,7 @@ export default function loadPolyfills(cb) {
         }, 'fetch')
     })
 
-    /*const fillIntl = () => new Promise((resolve) => {
+    /* const fillIntl = () => new Promise((resolve) => {
     if ('Intl' in window) return resolve();
 
     require.ensure([], () => {
@@ -18,7 +18,7 @@ export default function loadPolyfills(cb) {
 
       resolve();
     }, 'Intl');
-  });*/
+  }); */
 
     const fillCoreJs = () => new Promise((resolve) => {
         if (
@@ -40,7 +40,7 @@ export default function loadPolyfills(cb) {
     const doIt = () => Promise.all([
         fillCoreJs()
         , fillFetch()
-        //, fillIntl()
+        // , fillIntl()
     ]).then()
 
     if (!window.Promise) {

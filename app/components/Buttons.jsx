@@ -19,8 +19,10 @@ ResetButton.propTypes = {
     action: PropTypes.func.isRequired
 }
 const Button = ({ action, children }) => (
-    <button className={BUTTON_STYLE}
-        onClick={action}>
+    <button
+        className={BUTTON_STYLE}
+        onClick={action}
+    >
         {children}
     </button>
 )

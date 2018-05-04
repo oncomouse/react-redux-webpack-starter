@@ -11,6 +11,7 @@ const noopReduxMiddleware = () => next => action => next(action)
 const combiner = PERSIST ? require('redux-persist').persistCombineReducers : require('redux').combineReducers
 const storage = PERSIST ? require('redux-persist/es/storage').default : {}
 const persistStore = PERSIST ? require('redux-persist').persistStore : always(null)
+
 const persistConfig = {
     key: APP_TITLE
     , storage
@@ -41,25 +42,25 @@ export default () => {
 
     const store = createStore(reducer, initialStore, enhancer)
     const persistor = persistStore(store)
-    if(SAGAS) {
+    if (SAGAS) {
         sagaMiddleware.run(createDynamicSaga(START_SAGAS, sagas()))
     }
 
     if (module.hot) {
-        module.hot.accept('../reducers/index', () =>
+        module.hot.accept('../reducers/index', () => {
             store.replaceReducer(
                 makeReducer(require('../reducers/index').default)
             )
-        )
-        if(SAGAS){
-            module.hot.accept('../sagas', () =>
+        })
+        if (SAGAS) {
+            module.hot.accept('../sagas', () => {
                 store.dispatch({
                     type: START_SAGAS
                     , payload: {
                         sagas: [...require('../sagas').default()]
                     }
                 })
-            )
+            })
         }
     }
     return { store, persistor }

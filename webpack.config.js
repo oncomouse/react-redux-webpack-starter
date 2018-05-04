@@ -36,7 +36,7 @@ const postCSSplugins = function() {
 }
 
 var webpackConfig = {
-  devtool: isProd ? 'hidden-source-map' : 'eval'
+  devtool: isProd ? 'hidden-source-map' : 'cheap-module-source-map'
   , entry: {
     js: isProd ? [
 			'stylesheets/global.scss'

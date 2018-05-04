@@ -57,7 +57,10 @@ module.exports = {
       ERROR
       , 'never'
     ]
-    , 'chai-friendly/no-unused-expressions': ERROR
+    , 'chai-friendly/no-unused-expressions': [
+      ERROR,
+      { "allowTaggedTemplates": true } 
+    ]
     , 'import/no-extraneous-dependencies': OFF
     , 'react/jsx-indent': [
       ERROR

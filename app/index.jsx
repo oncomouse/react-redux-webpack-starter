@@ -19,8 +19,7 @@ noopReactComponent.propTypes = {
 }
 
 // Load HMR and Error Handling dev tooling:
-const AppContainer = process.env.NODE_ENV !== 'production' ? require('react-hot-loader').AppContainer : noopReactComponent
-const RedBox = process.env.NODE_ENV !== 'production' ? require('redbox-react').default : noopReactComponent
+const ErrorBoundary = process.env.NODE_ENV !== 'production' ? require('./components/util/Error').default : noopReactComponent
 
 // Only load a Persist Gate if project uses a persistent store:
 const PersistGate = PERSIST ? require('redux-persist/lib/integration/react').PersistGate : noopReactComponent
@@ -28,14 +27,14 @@ const PersistGate = PERSIST ? require('redux-persist/lib/integration/react').Per
 // React Hot Loading!
 const output = document.getElementById('react')
 const render = (Component) => {
-    ReactDOM.render(
-        <AppContainer errorReporter={RedBox}>
-            <PersistGate persistor={persistor}>
-                <Provider store={store}>
-                    <Component />
-                </Provider>
-            </PersistGate>
-        </AppContainer>
+	ReactDOM.render(
+		<ErrorBoundary>
+			<PersistGate persistor={persistor}>
+				<Provider store={store}>
+					<Component />
+				</Provider>
+			</PersistGate>
+		</ErrorBoundary>
         , output
     )
 }
@@ -44,4 +43,6 @@ loadPolyfills(() => {
     render(App)
     registerServiceWorker()
 })
-if (module.hot) module.hot.accept(['containers/App'], () => render(App))
+if (module.hot) {
+	module.hot.accept(['containers/App'], () => render(require('./containers/App').default))
+}

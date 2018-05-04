@@ -47,7 +47,7 @@ export default () => {
     }
 
     if (module.hot) {
-        module.hot.accept('../reducers/index', () => {
+        module.hot.accept('../reducers', () => {
             store.replaceReducer(
                 makeReducer(require('../reducers/index').default)
             )

@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import { take, put } from 'redux-saga/effects'
+import { put } from 'redux-saga/effects'
 import { cloneableGenerator } from 'redux-saga/utils'
 import saga from './sample'
 import { sampleAction } from '../actions/sampleActions'
@@ -9,7 +9,7 @@ describe('*sampleSaga()', () => {
     let clone
     before(() => {
         // Run saga up until takeEvery:
-        gen = saga().next().value.FORK.args[1]
+        [,gen] = saga().next().value.FORK.args
     })
     beforeEach(() => {
         // Clone post watch generator:
@@ -19,6 +19,6 @@ describe('*sampleSaga()', () => {
         const noop = put({
             type: 'NOOP'
         })
-        expect(clone.next().value).to.deep.equal(noop)
+        expect(clone.next(sampleAction()).value).to.deep.equal(noop)
     })
 })

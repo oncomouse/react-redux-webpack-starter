@@ -39,7 +39,6 @@
     "html-webpack-plugin": "^2.30.1",
     "identity-obj-proxy": "^3.0.0",
     "imports-loader": "^0.6.5",
-    "localforage": "^1.4.3",
     "node-sass": "^4.9.0",
     "noop-webpack-plugin": "^1.0.1",
     "normalize-scss": "^7.0.1",

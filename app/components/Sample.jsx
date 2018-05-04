@@ -6,7 +6,6 @@ import {
 } from 'ramda'
 import PropTypes from 'prop-types'
 import { AddButton, ResetButton } from './Buttons'
-// You can use CSS Modules if you prefer:
 import style from '../stylesheets/components/Sample.scss'
 
 const Sample = ({ samples, sampleAction, resetAction }) => (
@@ -17,9 +16,9 @@ const Sample = ({ samples, sampleAction, resetAction }) => (
                     values
                     , mapObjIndexed((sample, id) => (
                         <li
-							key={id}
-							className={style.element}
-						>
+                            key={id}
+                            className={style.element}
+                        >
                             {sample}
                         </li>
                     ))

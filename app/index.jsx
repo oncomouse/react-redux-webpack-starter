@@ -1,5 +1,6 @@
 import ReactDOM from 'react-dom';
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
 import { PERSIST } from './features';
 import configStore from './store/configStore';
@@ -9,28 +10,31 @@ import registerServiceWorker from './utilities/registerServiceWorker';
 
 const { store, persistor } = configStore();
 
-// eslint-disable-next-line react/prop-types
 const noopReactComponent = ({ children }) => (<span>{children}</span>);
+noopReactComponent.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]).isRequired,
+};
 
 // Load HMR and Error Handling dev tooling:
-// eslint-disable-next-line import/no-extraneous-dependencies
-const AppContainer = process.env.NODE_ENV !== 'production' ? require('react-hot-loader').AppContainer : noopReactComponent;
-// eslint-disable-next-line import/no-extraneous-dependencies
-const RedBox = process.env.NODE_ENV !== 'production' ? require('redbox-react').default : noopReactComponent;
+const ErrorBoundary = process.env.NODE_ENV !== 'production' ? require('./components/util/Error').default : noopReactComponent;
 
+// Only load a Persist Gate if project uses a persistent store:
 const PersistGate = PERSIST ? require('redux-persist/lib/integration/react').PersistGate : noopReactComponent;
 
 // React Hot Loading!
 const output = document.getElementById('react');
 const render = (Component) => {
   ReactDOM.render(
-    <AppContainer errorReporter={RedBox}>
+    <ErrorBoundary>
       <PersistGate persistor={persistor}>
         <Provider store={store}>
           <Component />
         </Provider>
       </PersistGate>
-    </AppContainer>
+    </ErrorBoundary>
     , output,
   );
 };
@@ -39,4 +43,7 @@ loadPolyfills(() => {
   render(App);
   registerServiceWorker();
 });
-if (module.hot) module.hot.accept(['containers/App'], () => render(App));
+if (module.hot) {
+  // eslint-disable-next-line global-require
+  module.hot.accept(['containers/App'], () => render(require('./containers/App').default));
+}

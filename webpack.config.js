@@ -38,14 +38,10 @@ const postCSSplugins = function() {
 var webpackConfig = {
   devtool: isProd ? 'hidden-source-map' : 'cheap-module-source-map'
   , entry: {
-    js: isProd ? [
+    js: [
 			'stylesheets/global.scss'
 			, 'index'
-		] : [
-      'react-hot-loader/patch'
-      , 'stylesheets/global.scss'
-      , 'index'
-    ]
+		]
   }
   , output: {
     path: path.join(__dirname, 'build')

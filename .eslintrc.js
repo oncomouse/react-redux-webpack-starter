@@ -1,6 +1,5 @@
 const INDENT_SPACES = 4
 const LINE_LENGTH = 100
-const PROPS_PER_LINE = 1
 const OFF = 'off'
 const WARN = 'warn'
 const ERROR = 'error'

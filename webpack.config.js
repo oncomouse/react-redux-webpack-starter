@@ -68,7 +68,7 @@ var webpackConfig = {
 			*/
       , {
         test: /\.css$/
-        , use: ExtractTextPlugin.extract({
+        , use: ['extracted-loader'].concat(ExtractTextPlugin.extract({
           fallback: 'style-loader'
           , use: [
             'css-loader'
@@ -79,7 +79,7 @@ var webpackConfig = {
               }
             }
           ]
-        })
+        }))
       }
       /*
 				SASS loader code for the module files (in
@@ -94,7 +94,7 @@ var webpackConfig = {
       , {
         test: /\.scss$/
         , exclude: /global\.scss$/
-        , use: ExtractTextPlugin.extract({
+        , use: ['extracted-loader'].concat(ExtractTextPlugin.extract({
           fallback: 'style-loader'
           , use: [
             {
@@ -113,7 +113,7 @@ var webpackConfig = {
             }
             , 'sass-loader'
           ]
-        })
+        }))
       }
       /*
 				Loader code for a universal SCSS file. These styles will
@@ -128,7 +128,7 @@ var webpackConfig = {
       , {
         test: /\.scss$/
         , include: /global\.scss$/
-        , use: ExtractTextPlugin.extract({
+        , use: ['extracted-loader'].concat(ExtractTextPlugin.extract({
           fallback: 'style-loader'
           , use: [
             'css-loader'
@@ -140,7 +140,7 @@ var webpackConfig = {
             }
             , 'sass-loader'
           ]
-        })
+        }))
       }
       /*
 				Webfont loaders for Bootsrap and the like.

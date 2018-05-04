@@ -91,10 +91,12 @@
   },
   "nyc": {
     "include": [
-      "app/**/*.js"
+      "app/**/*.js",
+      "app/**/*.jsx"
     ],
     "exclude": [
       "**/*.spec.js",
+      "**/*.spec.jsx",
       "build"
     ],
     "instrument": false,

@@ -229,7 +229,7 @@ var webpackConfig = {
         , PUBLIC_URL: JSON.stringify(PUBLIC_URL)
       }
       , APP_TITLE: JSON.stringify(APP_TITLE)
-
+      
     })
     // Loader option plugin for SASS and PostCSS:
     , new webpack.LoaderOptionsPlugin({

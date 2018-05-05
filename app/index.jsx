@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
 import { PERSIST } from './features';
+import ErrorBoundary from './components/util/Error';
 import configStore from './store/configStore';
 import App from './containers/App';
 import loadPolyfills from './utilities/loadPolyfills';
@@ -17,9 +18,6 @@ noopReactComponent.propTypes = {
     PropTypes.node,
   ]).isRequired,
 };
-
-// Load HMR and Error Handling dev tooling:
-const ErrorBoundary = process.env.NODE_ENV !== 'production' ? require('./components/util/Error').default : noopReactComponent;
 
 // Only load a Persist Gate if project uses a persistent store:
 const PersistGate = PERSIST ? require('redux-persist/lib/integration/react').PersistGate : noopReactComponent;

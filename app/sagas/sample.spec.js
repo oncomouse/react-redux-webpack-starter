@@ -9,7 +9,7 @@ describe('*sampleSaga()', () => {
     let clone
     before(() => {
         // Run saga up until takeEvery:
-        [,gen] = saga().next().value.FORK.args
+        [, gen] = saga().next().value.FORK.args
     })
     beforeEach(() => {
         // Clone post watch generator:

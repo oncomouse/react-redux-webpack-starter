@@ -5,8 +5,8 @@ import {
     , mapObjIndexed
 } from 'ramda'
 import PropTypes from 'prop-types'
-import { AddButton, ResetButton } from './Buttons'
 import styled from 'styled-components'
+import { AddButton, ResetButton } from './Buttons'
 
 const List = styled.ul`
     list-style: none;

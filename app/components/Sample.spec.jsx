@@ -22,10 +22,10 @@ describe('<Sample/>', () => {
     expect(wrapper.is('Sample')).to.be.true;
   });
   it('should render a div as the first child', () => {
-    expect(wrapper.childAt(0).type()).to.equal('div');
+    expect(wrapper.childAt(0).name()).to.equal('div');
   });
   it('should render a ul as the first child of the first child div', () => {
-    expect(wrapper.childAt(0).childAt(0).type()).to.equal('ul');
+    expect(wrapper.childAt(0).childAt(0).name()).to.equal('ul');
   });
   it(`should render ${NUMBER_OF_BUTTONS} buttons`, () => {
     expect(wrapper.find('Button')).to.have.length(NUMBER_OF_BUTTONS);

@@ -6,7 +6,6 @@ import { injectGlobal } from 'styled-components'
 import { normalize } from 'polished'
 import { PERSIST } from './features'
 import configStore from './store/configStore'
-import ErrorBoundary from './components/util/Error'
 import App from './containers/App'
 import loadPolyfills from './utilities/loadPolyfills'
 import registerServiceWorker from './utilities/registerServiceWorker'
@@ -26,6 +25,7 @@ noopReactComponent.propTypes = {
 }
 
 // Only load a Persist Gate if project uses a persistent store:
+const ErrorBoundary = process.env.NODE_ENV !== 'production' ? require('./components/util/Error').default : noopReactComponent
 const PersistGate = PERSIST ? require('redux-persist/lib/integration/react').PersistGate : noopReactComponent
 
 // React Hot Loading!

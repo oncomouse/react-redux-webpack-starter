@@ -11,9 +11,11 @@ import { AddButton, ResetButton } from './Buttons'
 const List = styled.ul`
     list-style: none;
 `
+List.displayName = 'List'
 const ListItem = styled.li`
     
 `
+ListItem.displayName = 'ListItem'
 
 const Sample = ({ samples, sampleAction, resetAction }) => (
     <div>

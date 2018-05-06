@@ -6,7 +6,7 @@
     "type": "git",
     "url": "https://github.com/oncomouse/react-redux-webpack-starter.git"
   },
-  "main": "app/index.js",
+  "main": "app/index.jsx",
   "title": "Sample React-Redux App",
   "scripts": {
     "cover": "cross-env BABEL_ENV=test NODE_ENV=coverage nyc -r text -r lcov yon run mocha",

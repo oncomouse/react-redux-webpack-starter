@@ -2,12 +2,18 @@ import ReactDOM from 'react-dom'
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Provider } from 'react-redux'
+import { injectGlobal } from 'styled-components'
+import { normalize } from 'polished'
 import { PERSIST } from './features'
 import configStore from './store/configStore'
 import ErrorBoundary from './components/util/Error'
 import App from './containers/App'
 import loadPolyfills from './utilities/loadPolyfills'
 import registerServiceWorker from './utilities/registerServiceWorker'
+
+injectGlobal`
+  ${normalize()}
+`
 
 const { store, persistor } = configStore()
 

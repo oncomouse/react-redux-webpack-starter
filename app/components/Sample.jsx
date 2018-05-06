@@ -6,25 +6,29 @@ import {
 } from 'ramda'
 import PropTypes from 'prop-types'
 import { AddButton, ResetButton } from './Buttons'
-import style from '../stylesheets/components/Sample.scss'
+import styled from 'styled-components'
+
+const List = styled.ul`
+    list-style: none;
+`
+const ListItem = styled.li`
+    
+`
 
 const Sample = ({ samples, sampleAction, resetAction }) => (
     <div>
-        <ul className={style.list}>
+        <List>
             {
                 compose(
                     values
                     , mapObjIndexed((sample, id) => (
-                        <li
-                            key={id}
-                            className={style.element}
-                        >
+                        <ListItem key={id}>
                             {sample}
-                        </li>
+                        </ListItem>
                     ))
                 )(samples)
             }
-        </ul>
+        </List>
         <AddButton action={sampleAction} />
         <ResetButton action={resetAction} />
     </div>

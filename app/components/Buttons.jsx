@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import style from '../stylesheets/components/Button.scss'
+import styled from 'styled-components'
 
 export const AddButton = ({ action }) => (
     <Button action={action}>
@@ -18,13 +18,25 @@ export const ResetButton = ({ action }) => (
 ResetButton.propTypes = {
     action: PropTypes.func.isRequired
 }
-const Button = ({ action, children }) => (
-    <button
-        className={style.button}
-        onClick={action}
-    >
+
+const Element = styled.button`
+  background: #fff;
+  border: 1px solid ${props => props.color};
+  color: ${props => props.color};
+  padding: 10px 30px;
+  margin: 0 10px;
+  outline: none;
+  cursor: pointer;
+  border-radius: 5px;
+  &:hover {
+    color: #fff;
+    background-color: ${props => props.color};
+  }
+`
+const Button = ({ action, children, color }) => (
+    <Element onClick={action} color={color}>
         {children}
-    </button>
+    </Element>
 )
 Button.displayName = 'Button'
 Button.propTypes = {
@@ -33,4 +45,8 @@ Button.propTypes = {
         PropTypes.arrayOf(PropTypes.node)
         , PropTypes.node
     ]).isRequired
+    , color: PropTypes.string
+}
+Button.defaultProps = {
+    color: '#673AB7'
 }

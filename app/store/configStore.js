@@ -47,9 +47,9 @@ export default () => {
     }
 
     if (module.hot) {
-        module.hot.accept('../reducers', () => {
+        module.hot.accept('../ducks', () => {
             store.replaceReducer(
-                makeReducer(require('../reducers/index').default)
+                makeReducer(require('../ducks').default)
             )
         })
         if (SAGAS) {

@@ -1,16 +1,14 @@
 import { expect } from 'chai'
 import { put } from 'redux-saga/effects'
 import { cloneableGenerator } from 'redux-saga/utils'
-import { saga } from './Samples'
-import reducer from './Samples'
-import { sampleAction, resetAction } from './Samples'
+import reducer, { saga, sampleAction, resetAction } from './Samples'
 
 describe('*sampleSaga()', () => {
     let gen
     let clone
     before(() => {
         // Run saga up until takeEvery:
-        [,gen] = saga().next().value.FORK.args
+        [, gen] = saga().next().value.FORK.args
     })
     beforeEach(() => {
         // Clone post watch generator:

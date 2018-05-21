@@ -1,4 +1,4 @@
-import sampleSaga from '../sagas/sample';
+import { saga as sampleSaga } from '../ducks/Samples';
 
 export default () => [
   sampleSaga(),

@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import { always } from 'ramda';
 import { PERSIST, SAGAS } from '../features';
-import reducers from '../reducers';
+import reducers from '../ducks';
 
 const noopReduxMiddleware = () => next => action => next(action);
 
@@ -43,8 +43,8 @@ export default () => {
   }
 
   if (module.hot) {
-    module.hot.accept('../reducers/index', () =>
-      store.replaceReducer(makeReducer(require('../reducers/index').default)));// eslint-disable-line global-require
+    module.hot.accept('../ducks/index', () =>
+      store.replaceReducer(makeReducer(require('../ducks/index').default)));// eslint-disable-line global-require
     if (SAGAS) {
       module.hot.accept('../sagas', () =>
         store.dispatch({

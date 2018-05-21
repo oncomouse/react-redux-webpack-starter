@@ -1,7 +1,26 @@
 import { expect } from 'chai';
-import reducer from './Samples';
-import { sampleAction, resetAction } from '../actions/sampleActions';
+import { put } from 'redux-saga/effects';
+import { cloneableGenerator } from 'redux-saga/utils';
+import reducer, { saga, sampleAction, resetAction } from './Samples';
 
+describe('*sampleSaga()', () => {
+  let gen;
+  let clone;
+  before(() => {
+    // Run saga up until takeEvery:
+    [, gen] = saga().next().value.FORK.args;
+  });
+  beforeEach(() => {
+    // Clone post watch generator:
+    clone = cloneableGenerator(gen)();
+  });
+  it('should put a NOOP action', () => {
+    const noop = put({
+      type: 'NOOP',
+    });
+    expect(clone.next(sampleAction()).value).to.deep.equal(noop);
+  });
+});
 describe('reducers/Samples', () => {
   const initialState = {};
   it('should return initialState', () => {

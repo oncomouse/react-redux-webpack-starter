@@ -3,7 +3,7 @@ import {
     always
 } from 'ramda'
 import { PERSIST, SAGAS } from '../features'
-import reducers from '../reducers'
+import reducers from '../ducks'
 
 const noopReduxMiddleware = () => next => action => next(action)
 

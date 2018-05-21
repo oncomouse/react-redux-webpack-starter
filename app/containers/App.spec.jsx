@@ -4,7 +4,7 @@ import sinon from 'sinon'
 import { mount } from 'enzyme'
 import configureStore from 'redux-mock-store'
 import App from './App'
-import { sampleAction, resetAction } from '../actions/sampleActions'
+import { sampleAction, resetAction } from '../ducks/Samples'
 
 describe('<App/>', () => {
     let store

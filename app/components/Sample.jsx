@@ -1,21 +1,21 @@
-import React from 'react'
+import React from 'react';
 import {
     compose
     , values
     , mapObjIndexed
-} from 'ramda'
-import PropTypes from 'prop-types'
-import styled from 'styled-components'
-import { AddButton, ResetButton } from './Buttons'
+} from 'ramda';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import { AddButton, ResetButton } from './Buttons';
 
 const List = styled.ul`
     list-style: none;
-`
-List.displayName = 'List'
+`;
+List.displayName = 'List';
 const ListItem = styled.li`
     
-`
-ListItem.displayName = 'ListItem'
+`;
+ListItem.displayName = 'ListItem';
 
 const Sample = ({ samples, sampleAction, resetAction }) => (
     <div>
@@ -34,12 +34,12 @@ const Sample = ({ samples, sampleAction, resetAction }) => (
         <AddButton action={sampleAction} />
         <ResetButton action={resetAction} />
     </div>
-)
+);
 Sample.propTypes = {
     samples: PropTypes.objectOf(PropTypes.string).isRequired
     , sampleAction: PropTypes.func.isRequired
     , resetAction: PropTypes.func.isRequired
-}
-Sample.displayName = 'Sample' // Useful for testing with enzyme
+};
+Sample.displayName = 'Sample'; // Useful for testing with enzyme
 
-export default Sample
+export default Sample;

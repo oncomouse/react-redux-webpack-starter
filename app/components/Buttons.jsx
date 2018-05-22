@@ -1,23 +1,23 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
 export const AddButton = ({ action }) => (
     <Button action={action}>
         Click Me!
     </Button>
-)
+);
 AddButton.propTypes = {
     action: PropTypes.func.isRequired
-}
+};
 export const ResetButton = ({ action }) => (
     <Button action={action}>
         Reset List
     </Button>
-)
+);
 ResetButton.propTypes = {
     action: PropTypes.func.isRequired
-}
+};
 
 const Element = styled.button`
   background: #fff;
@@ -32,13 +32,13 @@ const Element = styled.button`
     color: #fff;
     background-color: ${props => props.color};
   }
-`
+`;
 const Button = ({ action, children, color }) => (
     <Element onClick={action} color={color}>
         {children}
     </Element>
-)
-Button.displayName = 'Button'
+);
+Button.displayName = 'Button';
 Button.propTypes = {
     action: PropTypes.func.isRequired
     , children: PropTypes.oneOfType([
@@ -46,7 +46,7 @@ Button.propTypes = {
         , PropTypes.node
     ]).isRequired
     , color: PropTypes.string
-}
+};
 Button.defaultProps = {
     color: '#673AB7'
-}
+};

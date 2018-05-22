@@ -1,8 +1,10 @@
 import React from 'react'
 import { expect } from 'chai'
 import sinon from 'sinon'
+import fetchMock from 'fetch-mock'
 import { mount } from 'enzyme'
 import configureStore from 'redux-mock-store'
+import thunk from 'redux-thunk'
 import App from './App'
 import { sampleAction, resetAction } from '../ducks/Samples'
 
@@ -11,8 +13,9 @@ describe('<App/>', () => {
         , wrapper
         , mockStore
     before(() => {
-        mockStore = configureStore()
+        mockStore = configureStore([thunk])
         sinon.spy(App.prototype, 'componentDidMount')
+        fetchMock.get('*', { hello: 'world' })
     })
     beforeEach(() => {
         store = mockStore({
@@ -27,12 +30,14 @@ describe('<App/>', () => {
     })
     after(() => {
         App.prototype.componentDidMount.restore()
+        fetchMock.reset()
+        fetchMock.restore()
     })
     it('should render without crashing', () => {
         expect(App.prototype.componentDidMount.calledOnce).to.equal(true)
     })
-    it('should trigger a sampleAction when first button clicked', () => {
-        const expectedPayload = sampleAction()
+    it('should trigger a sampleAction when first button clicked', async () => {
+        const expectedPayload = await sampleAction()(store.dispatch, store.getState)
         wrapper.find('button').first().simulate('click')
         expect(store.getActions()).to.deep.equal([expectedPayload])
     })

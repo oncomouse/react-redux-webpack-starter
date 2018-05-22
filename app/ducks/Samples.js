@@ -1,11 +1,8 @@
 // https://github.com/erikras/ducks-modular-redux
 import {
     assoc
-    , compose
     , identity
-    , tap
 } from 'ramda'
-import { takeEvery, put } from 'redux-saga/effects'
 // import { REHYDRATE } from 'redux-persist/constants'
 import createReducer from '../utilities/createReducer'
 
@@ -14,6 +11,7 @@ const SAMPLE_ACTION = Symbol('SAMPLE_ACTION')
 const RESET_STATE = Symbol('RESET_STATE')
 const ERROR = Symbol('ERROR')
 
+// Reducers:
 const SAMPLE_LENGTH = 36
 const STRING_LENGTH = 8
 
@@ -26,10 +24,7 @@ const actionMaps = {
             .substr(0, STRING_LENGTH - 1)
         return assoc(randomString, randomString, state)
     }
-    , [ERROR]: (state, {payload: {error}}) => {
-        console.log(error)
-        return state
-    }
+    , [ERROR]: identity
     , [RESET_STATE]: (state, action) => initialState // eslint-disable-line no-unused-vars
     // Do something at REHYDRATE (when persisted store loads from storage)
     // [REHYDRATE]: (state, action) => {
@@ -37,19 +32,19 @@ const actionMaps = {
     // }
 }
 
+// Actions:
 const sampleResultAction = () => ({
     type: SAMPLE_ACTION
 })
 export const resetAction = () => ({
     type: RESET_STATE
 })
-export const sampleAction = () => dispatch => {
-    return fetch('http://localhost:8080')
-        .then(res => dispatch(sampleResultAction()))
-        .catch(error => dispatch({
-            type: ERROR
-            , payload: { error }
-        }))
-}
+export const sampleAction = () => dispatch => fetch('http://localhost:8080')
+    .then(() => dispatch(sampleResultAction()))
+    .catch(error => dispatch({
+        type: ERROR
+        , payload: { error }
+    }))
 
+// Create and export our reducer:
 export default createReducer(initialState, actionMaps)

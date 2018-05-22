@@ -16,9 +16,11 @@ const ListItem = styled.li`
     
 `;
 ListItem.displayName = 'ListItem';
-
+const Element = styled.div`
+    
+`
 const Sample = ({ samples, sampleAction, resetAction }) => (
-    <div>
+    <Element>
         <List>
             {
                 compose(
@@ -33,7 +35,7 @@ const Sample = ({ samples, sampleAction, resetAction }) => (
         </List>
         <AddButton action={sampleAction} />
         <ResetButton action={resetAction} />
-    </div>
+    </Element>
 );
 Sample.propTypes = {
     samples: PropTypes.objectOf(PropTypes.string).isRequired

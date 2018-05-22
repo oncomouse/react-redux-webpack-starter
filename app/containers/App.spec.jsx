@@ -1,21 +1,20 @@
 import React from 'react';
 import { expect } from 'chai';
 import sinon from 'sinon';
+import fetchMock from 'fetch-mock';
 import { mount } from 'enzyme';
 import configureStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
 import App from './App';
 import { sampleAction, resetAction } from '../ducks/Samples';
 
 describe('<App/>', () => {
   let store;
   let wrapper;
-  let mockStore;
-  after(() => {
-    App.prototype.componentDidMount.restore();
-  });
+  const mockStore = configureStore([thunk]);
   before(() => {
-    mockStore = configureStore();
     sinon.spy(App.prototype, 'componentDidMount');
+    fetchMock.get('*', { hello: 'world' });
   });
   beforeEach(() => {
     store = mockStore({
@@ -23,14 +22,19 @@ describe('<App/>', () => {
     });
     wrapper = mount(<App
       store={store}
-      actions={{ sampleAction, resetAction }}
+      actions={{ resetAction, sampleAction }}
     />);
   });
-  it('should render without crashing', () => {
-    expect(App.prototype.componentDidMount.calledOnce).to.be.true;
+  after(() => {
+    App.prototype.componentDidMount.restore();
+    fetchMock.reset();
+    fetchMock.restore();
   });
-  it('should trigger a sampleAction when first button clicked', () => {
-    const expectedPayload = sampleAction();
+  it('should render without crashing', () => {
+    expect(App.prototype.componentDidMount.calledOnce).to.equal(true);
+  });
+  it('should trigger a sampleAction when first button clicked', async () => {
+    const expectedPayload = await sampleAction()(store.dispatch, store.getState);
     wrapper.find('button').first().simulate('click');
     expect(store.getActions()).to.deep.equal([expectedPayload]);
   });

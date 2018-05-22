@@ -1,15 +1,18 @@
 // https://github.com/erikras/ducks-modular-redux
 import {
     assoc
+    , compose
+    , identity
+    , tap
 } from 'ramda'
 import { takeEvery, put } from 'redux-saga/effects'
 // import { REHYDRATE } from 'redux-persist/constants'
 import createReducer from '../utilities/createReducer'
 
 // Symbols:
-
 const SAMPLE_ACTION = Symbol('SAMPLE_ACTION')
 const RESET_STATE = Symbol('RESET_STATE')
+const ERROR = Symbol('ERROR')
 
 const SAMPLE_LENGTH = 36
 const STRING_LENGTH = 8
@@ -23,6 +26,10 @@ const actionMaps = {
             .substr(0, STRING_LENGTH - 1)
         return assoc(randomString, randomString, state)
     }
+    , [ERROR]: (state, {payload: {error}}) => {
+        console.log(error)
+        return state
+    }
     , [RESET_STATE]: (state, action) => initialState // eslint-disable-line no-unused-vars
     // Do something at REHYDRATE (when persisted store loads from storage)
     // [REHYDRATE]: (state, action) => {
@@ -30,25 +37,19 @@ const actionMaps = {
     // }
 }
 
-export const sampleAction = () => ({
+const sampleResultAction = () => ({
     type: SAMPLE_ACTION
 })
 export const resetAction = () => ({
     type: RESET_STATE
 })
-
-function* sampleActionSaga() {
-    yield put({
-        type: 'NOOP'
-    })
-}
-
-/*
-    This is the saga's origin. It just needs to be a collection
-    of takeEvery calls for each action the saga will be observing.
-*/
-export function* saga() {
-    yield takeEvery(SAMPLE_ACTION, sampleActionSaga)
+export const sampleAction = () => dispatch => {
+    return fetch('http://localhost:8080')
+        .then(res => dispatch(sampleResultAction()))
+        .catch(error => dispatch({
+            type: ERROR
+            , payload: { error }
+        }))
 }
 
 export default createReducer(initialState, actionMaps)

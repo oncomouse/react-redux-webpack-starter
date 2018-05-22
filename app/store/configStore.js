@@ -2,8 +2,9 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import {
     always
 } from 'ramda'
-import { PERSIST, SAGAS } from '../features'
-import reducers from '../reducers'
+import thunk from 'redux-thunk'
+import { PERSIST } from '../features'
+import reducers from '../ducks'
 
 const noopReduxMiddleware = () => next => action => next(action)
 
@@ -17,11 +18,6 @@ const persistConfig = {
     , storage
 }
 
-// Dynamically load redux-saga if it is required for this project:
-const createSagaMiddleware = SAGAS ? require('redux-saga').default : always(noopReduxMiddleware)
-const sagas = SAGAS ? require('../sagas').default : always({})
-const { START_SAGAS, createDynamicSaga } = SAGAS ? require('../utilities/createDynamicSaga') : { START_SAGAS: 'START_SAGAS', createDynamicSaga: always(null) }
-
 // Only include redux-logger if we are in development
 const loggerMiddleware = process.env.NODE_ENV !== 'production' ? require('redux-logger').default : noopReduxMiddleware
 
@@ -30,10 +26,9 @@ const makeReducer = PERSIST ?
     : reducerObject => combiner(reducerObject)
 
 export default () => {
-    const sagaMiddleware = createSagaMiddleware()
     const enhancer = compose(
         applyMiddleware(
-            sagaMiddleware
+            thunk
             , loggerMiddleware
         )
     )
@@ -42,26 +37,13 @@ export default () => {
 
     const store = createStore(reducer, initialStore, enhancer)
     const persistor = persistStore(store)
-    if (SAGAS) {
-        sagaMiddleware.run(createDynamicSaga(START_SAGAS, sagas()))
-    }
 
     if (module.hot) {
-        module.hot.accept('../reducers', () => {
+        module.hot.accept('../ducks/index', () => {
             store.replaceReducer(
-                makeReducer(require('../reducers/index').default)
+                makeReducer(require('../ducks/index').default)
             )
         })
-        if (SAGAS) {
-            module.hot.accept('../sagas', () => {
-                store.dispatch({
-                    type: START_SAGAS
-                    , payload: {
-                        sagas: [...require('../sagas').default()]
-                    }
-                })
-            })
-        }
     }
     return { store, persistor }
 }

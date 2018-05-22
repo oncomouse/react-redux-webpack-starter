@@ -1,10 +1,10 @@
 # react-redux-webpack-starter
 
-This is my starter app for [React](https://reactjs.org/), [Redux](https://redux.js.org/), and [Webpack](https://webpack.js.org/). It includes [redux-saga](https://github.com/redux-saga/redux-saga) for side effects, including calls to APIs. It also includes support for a [persistent](https://github.com/rt2zz/redux-persist) store. The development server supports hot reloading.
+This is my starter app for [React](https://reactjs.org/), [Redux](https://redux.js.org/), and [Webpack](https://webpack.js.org/). It includes [redux-thunk](https://github.com/reduxjs/redux-thunk) for side effects, including calls to APIs. It also includes support for a [persistent](https://github.com/rt2zz/redux-persist) store. The development server supports hot reloading.
 
 The starter includes [Ramda](https://ramdajs.org) for functional programming. ES2015+ features are available via [Babel](https://babeljs.io).
 
-For stylesheets, [node-sass](https://github.com/sass/node-sass) and a variety of [PostCSS](http://postcss.org/) plugins are installed. You can use [CSS modules](https://github.com/css-modules/css-modules) or [tachyons](https://www.tachyons.io/) for styling components.
+For stylesheets, [node-sass](https://github.com/sass/node-sass) and a variety of [PostCSS](http://postcss.org/) plugins are installed. You can use [CSS modules](https://github.com/css-modules/css-modules) for styling components.
 
 Testing is supported through the [Mocha](https://mochajs.org/) framework (with help from [zinserjan/mocha-webpack](https://github.com/zinserjan/mocha-webpack/)). [Chai](http://chaijs.com/) (for assertions), [Sinon](http://sinonjs.org/) (for spies, mocks, and stubs), and [Enzyme](http://airbnb.io/enzyme/) (for React testing) are all also provided. Check the `.spec.js` files in `components/`, 	`containers/`, and `reducers/` to see some examples to get started writing unit tests.
 

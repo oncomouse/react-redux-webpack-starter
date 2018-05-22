@@ -1,30 +1,30 @@
-import ReactDOM from 'react-dom'
-import React from 'react'
-import PropTypes from 'prop-types'
-import { Provider } from 'react-redux'
-import { PERSIST } from './features'
-import configStore from './store/configStore'
-import App from './containers/App'
-import loadPolyfills from './utilities/loadPolyfills'
-import registerServiceWorker from './utilities/registerServiceWorker'
+import ReactDOM from 'react-dom';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Provider } from 'react-redux';
+import { PERSIST } from './features';
+import configStore from './store/configStore';
+import App from './containers/App';
+import loadPolyfills from './utilities/loadPolyfills';
+import registerServiceWorker from './utilities/registerServiceWorker';
 
-const { store, persistor } = configStore()
+const { store, persistor } = configStore();
 
-const noopReactComponent = ({ children }) => (<span>{children}</span>)
+const noopReactComponent = ({ children }) => (<span>{children}</span>);
 noopReactComponent.propTypes = {
     children: PropTypes.oneOfType([
         PropTypes.arrayOf(PropTypes.node)
         , PropTypes.node
     ]).isRequired
-}
+};
 
 // Only load ErrorBoundary in development mode
-const ErrorBoundary = process.env.NODE_ENV !== 'production' ? require('./components/util/Error').default : noopReactComponent
+const ErrorBoundary = process.env.NODE_ENV !== 'production' ? require('./components/util/Error').default : noopReactComponent;
 // Only load a Persist Gate if project uses a persistent store:
-const PersistGate = PERSIST ? require('redux-persist/lib/integration/react').PersistGate : noopReactComponent
+const PersistGate = PERSIST ? require('redux-persist/lib/integration/react').PersistGate : noopReactComponent;
 
 // React Hot Loading!
-const output = document.getElementById('react')
+const output = document.getElementById('react');
 const render = (Component) => {
     ReactDOM.render(
         <ErrorBoundary>
@@ -35,12 +35,12 @@ const render = (Component) => {
             </PersistGate>
         </ErrorBoundary>
         , output
-    )
-}
+    );
+};
 loadPolyfills(() => {
-    render(App)
-    registerServiceWorker()
-})
+    render(App);
+    registerServiceWorker();
+});
 if (module.hot) {
-    module.hot.accept(['containers/App'], () => render(require('./containers/App').default))
+    module.hot.accept(['containers/App'], () => render(require('./containers/App').default));
 }

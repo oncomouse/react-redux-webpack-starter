@@ -55,7 +55,7 @@ module.exports = {
     , 'one-var': OFF
     , 'semi': [
       ERROR
-      , 'never'
+      , 'always'
     ]
     , 'chai-friendly/no-unused-expressions': [
       ERROR,

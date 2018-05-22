@@ -1,12 +1,12 @@
-import React from 'react'
+import React from 'react';
 import {
     compose
     , values
     , mapObjIndexed
-} from 'ramda'
-import PropTypes from 'prop-types'
-import { AddButton, ResetButton } from './Buttons'
-import style from '../stylesheets/components/Sample.scss'
+} from 'ramda';
+import PropTypes from 'prop-types';
+import { AddButton, ResetButton } from './Buttons';
+import style from '../stylesheets/components/Sample.scss';
 
 const Sample = ({ samples, sampleAction, resetAction }) => (
     <div>
@@ -28,12 +28,12 @@ const Sample = ({ samples, sampleAction, resetAction }) => (
         <AddButton action={sampleAction} />
         <ResetButton action={resetAction} />
     </div>
-)
+);
 Sample.propTypes = {
     samples: PropTypes.objectOf(PropTypes.string).isRequired
     , sampleAction: PropTypes.func.isRequired
     , resetAction: PropTypes.func.isRequired
-}
-Sample.displayName = 'Sample' // Useful for testing with enzyme
+};
+Sample.displayName = 'Sample'; // Useful for testing with enzyme
 
-export default Sample
+export default Sample;

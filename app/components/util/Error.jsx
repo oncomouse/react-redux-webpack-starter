@@ -1,7 +1,7 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import RedBox from 'redbox-react'
-import { equals } from 'ramda'
+import React from 'react';
+import PropTypes from 'prop-types';
+import RedBox from 'redbox-react';
+import { equals } from 'ramda';
 
 class ErrorBoundary extends React.Component {
     static propTypes = {
@@ -19,17 +19,17 @@ class ErrorBoundary extends React.Component {
             this.setState({
                 hasError: false
                 , error: null
-            })
+            });
         }
     }
     componentDidCatch(error) {
-        this.setState({ hasError: true, error })
+        this.setState({ hasError: true, error });
     }
     render() {
         if (this.state.hasError) {
-            return <RedBox error={this.state.error} />
+            return <RedBox error={this.state.error} />;
         }
-        return this.props.children
+        return this.props.children;
     }
 }
-export default ErrorBoundary
+export default ErrorBoundary;

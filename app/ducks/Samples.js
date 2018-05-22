@@ -1,3 +1,4 @@
+// https://github.com/erikras/ducks-modular-redux
 import {
     assoc
 } from 'ramda'

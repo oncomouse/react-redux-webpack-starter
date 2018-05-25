@@ -5,6 +5,7 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 const noop = require('noop-webpack-plugin')
 const path = require('path')
 const fs = require('fs')
+const url = require('url')
 
 const { ANALYZE } = process.env
 
@@ -24,7 +25,7 @@ const PUBLIC_URL = (
 const APP_TITLE = (
   Object.prototype.hasOwnProperty.call(packageJSON, 'title')
 ) ? packageJSON['title'] : 'My Sample App'
-
+const publicPath = PUBLIC_URL ? url.parse(PUBLIC_URL).pathname : ''
 
 var webpackConfig = {
   devtool: isProd ? 'hidden-source-map' : 'cheap-module-source-map'
@@ -36,6 +37,7 @@ var webpackConfig = {
   , output: {
     path: path.join(__dirname, 'build')
     , filename: 'bundle.js'
+    , publicPath
   }
   , module: {
     rules: [

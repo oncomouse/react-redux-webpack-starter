@@ -8,7 +8,6 @@ import configStore from './store/configStore';
 import App from './containers/App';
 import ErrorBoundary from './components/util/Error';
 import loadPolyfills from './utilities/loadPolyfills';
-import registerServiceWorker from './utilities/registerServiceWorker';
 
 /*
     To disable redux-persist:
@@ -43,7 +42,6 @@ const render = (Component) => {
 };
 loadPolyfills(() => {
     render(App);
-    registerServiceWorker();
 });
 if (module.hot) {
     module.hot.accept(['containers/App'], () => render(require('./containers/App').default));

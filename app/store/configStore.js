@@ -1,15 +1,23 @@
-import { createStore, applyMiddleware, compose } from 'redux';
-import { always } from 'ramda';
+import { createStore, applyMiddleware } from 'redux'; // combineReducers
 import thunk from 'redux-thunk';
-import { PERSIST } from '../features';
+import storage from 'redux-persist/es/storage';
+import { persistCombineReducers, persistStore } from 'redux-persist';
 import reducers from '../ducks';
 
-const noopReduxMiddleware = () => next => action => next(action);
+/*
+    To disable redux-persist:
 
-// Dynamically load redux-persist, if it is required for this project:
-const combiner = PERSIST ? require('redux-persist').persistCombineReducers : require('redux').combineReducers;
-const storage = PERSIST ? require('redux-persist/es/storage').default : {};
-const persistStore = PERSIST ? require('redux-persist').persistStore : always(null);
+    1. Import combineReducers in the 'redux' import;
+    2. Remove the two import statements from redux-persist;
+    3. Remove persistConfig object;
+    4. Change makeReducer to equal r => combineReducers(r);
+    5. Remove call to persistStore;
+    6. Change the return statement to { store };
+
+    Also, make changes in ../index.jsx
+*/
+
+const noopReduxMiddleware = () => next => action => next(action);
 
 const persistConfig = {
   key: APP_TITLE,
@@ -19,24 +27,25 @@ const persistConfig = {
 // Only include redux-logger if we are in development
 const loggerMiddleware = process.env.NODE_ENV !== 'production' ? require('redux-logger').default : noopReduxMiddleware; // eslint-disable-line import/no-extraneous-dependencies
 
-const makeReducer = PERSIST ?
-  reducerObject => combiner(persistConfig, reducerObject)
-  : reducerObject => combiner(reducerObject);
+// We do this to make it easier to switch off redux-persist:
+const makeReducer = r => persistCombineReducers(persistConfig, r);
 
 export default () => {
-  const enhancer = compose(applyMiddleware(
+  const enhancer = applyMiddleware(
     thunk
     , loggerMiddleware,
-  ));
-  const reducer = makeReducer(reducers);
+  );
   const initialStore = {};
-
+  const reducer = makeReducer(reducers);
   const store = createStore(reducer, initialStore, enhancer);
+  // Remove this to turn off redux-persist:
   const persistor = persistStore(store);
 
   if (module.hot) {
-    module.hot.accept('../ducks/index', () =>
-      store.replaceReducer(makeReducer(require('../ducks/index').default)));// eslint-disable-line global-require
+    module.hot.accept('../ducks/index', () => {
+      store.replaceReducer(makeReducer(require('../ducks/index').default)); // eslint-disable-line global-require
+    });
   }
+  // Only export { store }:
   return { store, persistor };
 };

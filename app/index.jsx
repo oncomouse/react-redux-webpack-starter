@@ -1,27 +1,25 @@
 import ReactDOM from 'react-dom';
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
-import { PERSIST } from './features';
+import { PersistGate } from 'redux-persist/lib/integration/react';
 import configStore from './store/configStore';
 import App from './containers/App';
+import ErrorBoundary from './components/util/Error';
 import loadPolyfills from './utilities/loadPolyfills';
 import registerServiceWorker from './utilities/registerServiceWorker';
 
+/*
+    To disable redux-persist:
+
+    1. Remove import of PeristGate;
+    2. Change line that calls configStore to const {store} = configStore();
+    3. Remove <PersistGate persistor={persistor}>;
+    4. Remove </PersistGate>;
+
+    Also, make changes in ../store/configStore.js
+*/
+
 const { store, persistor } = configStore();
-
-const noopReactComponent = ({ children }) => (<span>{children}</span>);
-noopReactComponent.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]).isRequired,
-};
-
-// Only load ErrorBoundary in development mode
-const ErrorBoundary = process.env.NODE_ENV !== 'production' ? require('./components/util/Error').default : noopReactComponent;
-// Only load a Persist Gate if project uses a persistent store:
-const PersistGate = PERSIST ? require('redux-persist/lib/integration/react').PersistGate : noopReactComponent;
 
 // React Hot Loading!
 const output = document.getElementById('react');
@@ -37,7 +35,6 @@ const render = (Component) => {
     , output,
   );
 };
-// loadPolyfills().then(() => render(App)).then(() => registerServiceWorker())
 loadPolyfills(() => {
   render(App);
   registerServiceWorker();

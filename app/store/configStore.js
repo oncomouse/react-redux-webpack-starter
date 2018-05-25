@@ -48,6 +48,6 @@ export default () => {
             );
         });
     }
-    // Only export { store }:
+    // Only export { store } if not using redux-persist:
     return { store, persistor };
 };

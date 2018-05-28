@@ -19,6 +19,7 @@ const packageJSON = JSON.parse(
   )
 )
 
+<<<<<<< HEAD
 const postCSSplugins = function() {
   return [
     require('autoprefixer')({ browsers: 'last 3 versions' })
@@ -29,6 +30,9 @@ const postCSSplugins = function() {
 }
 
 const PUBLIC_URL = process.env.PUBLIC_URL || (
+=======
+const PUBLIC_URL = (
+>>>>>>> 8a659681389706c6dff63000cdaac6e8f1d4b6b6
   isProd
   && Object.prototype.hasOwnProperty.call(packageJSON, 'homepage')
 ) ? packageJSON['homepage'] : undefined
@@ -37,11 +41,20 @@ const APP_TITLE = (
 ) ? packageJSON['title'] : 'My Sample App'
 const publicPath = PUBLIC_URL ? url.parse(PUBLIC_URL).pathname : ''
 
+const postCSSplugins = function() {
+  return [
+    require('autoprefixer')({ browsers: 'last 3 versions' })
+    , require('postcss-easings')
+    , require('css-mqpacker')
+    , require('postcss-clearfix')
+  ]
+}
+
 var webpackConfig = {
   devtool: isProd ? 'hidden-source-map' : 'cheap-module-source-map'
   , entry: {
     js: [
-      'stylesheets/global.scss'
+			'stylesheets/global.scss'
 			, 'index'
 		]
   }
@@ -90,6 +103,7 @@ var webpackConfig = {
 				app/stylesheets/components). These are intended to be
 				styles for individual React components, which will have a
 				unique name space.
+
 				As above (with the CSS loader), we use style-loader for
 				HMR support in development and switch to ExtractTextPlugin
 				for production.
@@ -123,6 +137,7 @@ var webpackConfig = {
 				be (as long as you remember to import them into
 				app/index.js) loaded for every component and are not
 				uniquely namespaced as the module SCSS code above is.
+
 				This file lives in app/stylesheets/global.scss. As above,
 				we use style-loader for HMR in development and
 				ExtractTextPlugin in production.
@@ -199,6 +214,10 @@ var webpackConfig = {
       }
       , sourceMap: false
     }) : noop()
+    , new ExtractTextPlugin({
+      filename: 'style.css'
+      , allChunks: true
+    })
     , isProd ? new webpack.optimize.AggressiveMergingPlugin() : noop()
     , isProd ? new webpack.optimize.OccurrenceOrderPlugin : noop()
     , new webpack.DefinePlugin({
@@ -208,6 +227,20 @@ var webpackConfig = {
       }
       , APP_TITLE: JSON.stringify(APP_TITLE)
 
+    })
+    // Loader option plugin for SASS and PostCSS:
+    , new webpack.LoaderOptionsPlugin({
+      test: /\.s{0,1}css$/
+      , options: {
+        context: __dirname
+        , sassLoader: {
+          includePaths: [
+            './node_modules'
+            , './bower_components'
+            , './app/stylesheets'
+          ]
+        }
+      }
     })
   ]
   , optimization: {

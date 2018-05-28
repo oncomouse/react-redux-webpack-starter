@@ -19,20 +19,7 @@ const packageJSON = JSON.parse(
   )
 )
 
-<<<<<<< HEAD
-const postCSSplugins = function() {
-  return [
-    require('autoprefixer')({ browsers: 'last 3 versions' })
-    , require('postcss-easings')
-    , require('css-mqpacker')
-    , require('postcss-clearfix')
-  ]
-}
-
 const PUBLIC_URL = process.env.PUBLIC_URL || (
-=======
-const PUBLIC_URL = (
->>>>>>> 8a659681389706c6dff63000cdaac6e8f1d4b6b6
   isProd
   && Object.prototype.hasOwnProperty.call(packageJSON, 'homepage')
 ) ? packageJSON['homepage'] : undefined
@@ -214,10 +201,6 @@ var webpackConfig = {
       }
       , sourceMap: false
     }) : noop()
-    , new ExtractTextPlugin({
-      filename: 'style.css'
-      , allChunks: true
-    })
     , isProd ? new webpack.optimize.AggressiveMergingPlugin() : noop()
     , isProd ? new webpack.optimize.OccurrenceOrderPlugin : noop()
     , new webpack.DefinePlugin({

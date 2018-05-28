@@ -41,10 +41,11 @@ var webpackConfig = {
   devtool: isProd ? 'hidden-source-map' : 'cheap-module-source-map'
   , entry: {
     js: [
-			'stylesheets/global.scss'
+      'stylesheets/global.scss'
 			, 'index'
 		]
   }
+  , mode: isProd ? 'production' : 'development'
   , output: {
     path: path.join(__dirname, 'build')
     , filename: 'bundle.js'
@@ -89,7 +90,6 @@ var webpackConfig = {
 				app/stylesheets/components). These are intended to be
 				styles for individual React components, which will have a
 				unique name space.
-
 				As above (with the CSS loader), we use style-loader for
 				HMR support in development and switch to ExtractTextPlugin
 				for production.
@@ -123,7 +123,6 @@ var webpackConfig = {
 				be (as long as you remember to import them into
 				app/index.js) loaded for every component and are not
 				uniquely namespaced as the module SCSS code above is.
-
 				This file lives in app/stylesheets/global.scss. As above,
 				we use style-loader for HMR in development and
 				ExtractTextPlugin in production.
@@ -145,13 +144,7 @@ var webpackConfig = {
           ]
         }))
       }
-      /*
-				Webfont loaders for Bootsrap and the like.
-			*/
-      , { test: /\.woff(2)?(\?v=\d+\.\d+\.\d+)?$/, use: [{ loader: 'url-loader', options: { limit: 10000, mimetype: 'application/font-woff' } }] }
-      , { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, use: [{ loader: 'url-loader', options: { limit: 10000, mimetype: 'application/octet-stream' } }] }
-      , { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, use: 'file-loader' }, { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, use: [{ loader: 'url-loader', options: { limit: 10000, mimetype: 'application/svg-xml' } }] }
-    ],
+    ]
   }
   , resolve: {
     extensions: ['.js', '.jsx']
@@ -177,9 +170,9 @@ var webpackConfig = {
       , analyzerPort: 8888
       , openAnalyzer: true
     }) : noop()
-    , new webpack.optimize.CommonsChunkPlugin({
-      name: 'common'
-      , filename: 'common.js'
+    , new ExtractTextPlugin({
+      filename: 'style.css'
+      , allChunks: true
     })
     // Build the HTML file without having to include it in the app:
     , new HtmlWebpackPlugin({
@@ -201,10 +194,6 @@ var webpackConfig = {
     })
     // Hot Module Replacement (HMR) plugins. They only load in development:
     , isProd ? noop() : new webpack.HotModuleReplacementPlugin()
-    , isProd ? noop() : new webpack.NamedModulesPlugin()
-    , isProd ? noop() : new webpack.NoEmitOnErrorsPlugin()
-    // Production plugins:
-    , isProd ? new webpack.optimize.ModuleConcatenationPlugin() : noop()
     , isProd ? new webpack.LoaderOptionsPlugin({
       minimize: true
       , debug: false
@@ -249,6 +238,15 @@ var webpackConfig = {
       }
     })
   ]
+  , optimization: {
+    splitChunks: {
+      name: 'common',
+      minChunks: 2
+    }
+    , noEmitOnErrors: !isProd
+    , concatenateModules: isProd
+    , namedModules: !isProd
+  }
   , devServer: {
     contentBase: './app'
     , noInfo: false

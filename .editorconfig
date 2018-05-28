@@ -2,11 +2,7 @@
 indent_style = tab
 charset = utf-8
 
-[*.js]
-indent_style = space
-indent_size = 2
-
-[*.jsx]
+[*.{js,css,scss,sass,jsx}]
 indent_style = space
 indent_size = 2
 

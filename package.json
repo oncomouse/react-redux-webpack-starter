@@ -16,7 +16,9 @@
     "start": "webpack-dev-server",
     "build": "cross-env NODE_ENV=production webpack",
     "analyze": "cross-env ANALYZE=1 NODE_ENV=production webpack",
-    "lint": "eslint --ext .js --ext .jsx app/"
+    "lint": "npm-run-all \"lint:* -- {@}\" --",
+    "lint:js": "eslint --ext .js --ext .jsx app/",
+    "lint:css": "stylelint \"app/stylesheets/**/*.scss\" --cache --cache-location \"./.stylelintcache\""
   },
   "author": "Andrew Pilsch <apilsch@tamu.edu> (https://andrew.pilsch.com)",
   "license": "ISC",
@@ -82,10 +84,14 @@
     "jsdom-global": "^3.0.2",
     "mocha": "^5.0.0",
     "mocha-webpack": "^1.1.0",
+    "npm-run-all": "^4.1.3",
     "nyc": "^11.4.1",
     "redux-logger": "^3.0.6",
     "redux-mock-store": "^1.5.0",
     "sinon": "^4.2.1",
+    "stylelint": "^9.2.1",
+    "stylelint-order": "^0.8.1",
+    "stylelint-scss": "^3.1.0",
     "webpack-bundle-analyzer": "^2.9.0",
     "webpack-dev-server": "^2.11.0",
     "webpack-node-externals": "^1.6.0"

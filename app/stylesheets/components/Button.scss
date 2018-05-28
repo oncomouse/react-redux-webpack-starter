@@ -1,15 +1,17 @@
 $buttonColor: #673AB7;
+
 .button {
-	background: #fff;
-	border: 1px solid $buttonColor;
-	color: $buttonColor;
-	padding: 10px 30px;
-	margin: 0 10px;
-	outline: none;
-	cursor: pointer;
-	border-radius: 5px;
-	&:hover {
-		color: #fff;
-		background-color: $buttonColor;
-	}
+  background: #fff;
+  border: 1px solid $buttonColor;
+  color: $buttonColor;
+  padding: 10px 30px;
+  margin: 0 10px;
+  outline: none;
+  cursor: pointer;
+  border-radius: 5px;
+
+  &:hover {
+    color: #fff;
+    background-color: $buttonColor;
+  }
 }

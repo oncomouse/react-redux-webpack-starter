@@ -1,5 +1,6 @@
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 const noop = require('noop-webpack-plugin')
@@ -18,7 +19,7 @@ const packageJSON = JSON.parse(
   )
 )
 
-const PUBLIC_URL = process.env.PUBLIC_URL || (
+const PUBLIC_URL = (
   isProd
   && Object.prototype.hasOwnProperty.call(packageJSON, 'homepage')
 ) ? packageJSON['homepage'] : undefined
@@ -27,11 +28,21 @@ const APP_TITLE = (
 ) ? packageJSON['title'] : 'My Sample App'
 const publicPath = PUBLIC_URL ? url.parse(PUBLIC_URL).pathname : ''
 
+const postCSSplugins = function() {
+  return [
+    require('autoprefixer')({ browsers: 'last 3 versions' })
+    , require('postcss-easings')
+    , require('css-mqpacker')
+    , require('postcss-clearfix')
+  ]
+}
+
 var webpackConfig = {
   devtool: isProd ? 'hidden-source-map' : 'cheap-module-source-map'
   , entry: {
     js: [
-			'index'
+			'stylesheets/global.scss'
+			, 'index'
 		]
   }
   , output: {
@@ -53,6 +64,93 @@ var webpackConfig = {
           }
         ],
       }
+      /*
+				Loader code for .css files. We use style-loader in
+				development to get HMR support. In production, we use
+				ExtractTextPlugin to get a pre-built CSS file.
+			*/
+      , {
+        test: /\.css$/
+        , use: ['extracted-loader'].concat(ExtractTextPlugin.extract({
+          fallback: 'style-loader'
+          , use: [
+            'css-loader'
+            , {
+              loader: 'postcss-loader'
+              , options: {
+                plugins: postCSSplugins
+              }
+            }
+          ]
+        }))
+      }
+      /*
+				SASS loader code for the module files (in
+				app/stylesheets/components). These are intended to be
+				styles for individual React components, which will have a
+				unique name space.
+
+				As above (with the CSS loader), we use style-loader for
+				HMR support in development and switch to ExtractTextPlugin
+				for production.
+			*/
+      , {
+        test: /\.scss$/
+        , exclude: /global\.scss$/
+        , use: ['extracted-loader'].concat(ExtractTextPlugin.extract({
+          fallback: 'style-loader'
+          , use: [
+            {
+              loader: 'css-loader'
+              , options: {
+                modules: true
+                , importLoaders: 1
+                , localIdentName: '[name]__[local]___[hash:base64:5]'
+              }
+            }
+            , {
+              loader: 'postcss-loader'
+              , options: {
+                plugins: postCSSplugins
+              }
+            }
+            , 'sass-loader'
+          ]
+        }))
+      }
+      /*
+				Loader code for a universal SCSS file. These styles will
+				be (as long as you remember to import them into
+				app/index.js) loaded for every component and are not
+				uniquely namespaced as the module SCSS code above is.
+
+				This file lives in app/stylesheets/global.scss. As above,
+				we use style-loader for HMR in development and
+				ExtractTextPlugin in production.
+			*/
+      , {
+        test: /\.scss$/
+        , include: /global\.scss$/
+        , use: ['extracted-loader'].concat(ExtractTextPlugin.extract({
+          fallback: 'style-loader'
+          , use: [
+            'css-loader'
+            , {
+              loader: 'postcss-loader'
+              , options: {
+                plugins: postCSSplugins
+              }
+            }
+            , 'sass-loader'
+          ]
+        }))
+      }
+      /*
+				Webfont loaders for Bootsrap and the like.
+			*/
+      , { test: /\.woff(2)?(\?v=\d+\.\d+\.\d+)?$/, use: [{ loader: 'url-loader', options: { limit: 10000, mimetype: 'application/font-woff' } }] }
+      , { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, use: [{ loader: 'url-loader', options: { limit: 10000, mimetype: 'application/octet-stream' } }] }
+      , { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, use: 'file-loader' }, { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, use: [{ loader: 'url-loader', options: { limit: 10000, mimetype: 'application/svg-xml' } }] }
     ],
   }
   , resolve: {
@@ -61,6 +159,16 @@ var webpackConfig = {
       path.resolve('./app/')
       , path.resolve('./node_modules')
     ]
+    // Uncomment to use preact-compat
+    // Don't forget to install preact and preact-compat
+    // (and uninstall react and react-dom)
+    /*, alias: {
+      'preact-compat': 'preact-compat/dist/preact-compat'
+      , 'react': 'preact-compat'
+      , 'react-dom': 'preact-compat'
+      // Not necessary unless you consume a module using `createClass`
+      , 'create-react-class': 'preact-compat/lib/create-react-class'
+    }*/
   }
   , plugins: [
     ANALYZE ? new BundleAnalyzerPlugin({
@@ -76,13 +184,17 @@ var webpackConfig = {
     // Build the HTML file without having to include it in the app:
     , new HtmlWebpackPlugin({
       files: {
-        js: ['common.js', 'bundle.js']
+        css: isProd ? ['style.css'] : []
+        , js: ['common.js', 'bundle.js']
       }
       , title: APP_TITLE
       , template: './app/template/index.ejs'
       , chunksSortMode: 'dependency'
       , chunks: {
-        main: {
+        head: {
+          css: isProd ? ['style.css'] : []
+        }
+        , main: {
           entry: ['common.js', 'bundle.js']
         }
       }
@@ -108,6 +220,10 @@ var webpackConfig = {
       }
       , sourceMap: false
     }) : noop()
+    , new ExtractTextPlugin({
+      filename: 'style.css'
+      , allChunks: true
+    })
     , isProd ? new webpack.optimize.AggressiveMergingPlugin() : noop()
     , isProd ? new webpack.optimize.OccurrenceOrderPlugin : noop()
     , new webpack.DefinePlugin({
@@ -117,6 +233,20 @@ var webpackConfig = {
       }
       , APP_TITLE: JSON.stringify(APP_TITLE)
 
+    })
+    // Loader option plugin for SASS and PostCSS:
+    , new webpack.LoaderOptionsPlugin({
+      test: /\.s{0,1}css$/
+      , options: {
+        context: __dirname
+        , sassLoader: {
+          includePaths: [
+            './node_modules'
+            , './bower_components'
+            , './app/stylesheets'
+          ]
+        }
+      }
     })
   ]
   , devServer: {

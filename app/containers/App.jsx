@@ -1,7 +1,5 @@
 import React from 'react';
-import {
-    mergeAll
-} from 'ramda';
+import { mergeAll } from 'ramda';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';

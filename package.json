@@ -23,14 +23,9 @@
   "author": "Andrew Pilsch <apilsch@tamu.edu> (https://andrew.pilsch.com)",
   "license": "ISC",
   "dependencies": {
-<<<<<<< HEAD
-    "autoprefixer": "^6.3.6",
-    "babel-core": "^6.26.0",
-=======
     "autoprefixer": "^6.7.7",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.4",
->>>>>>> 8b3a1d0... Webpack4
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-ramda": "^1.2.0",
     "babel-plugin-tailcall-optimization": "^1.0.11",
@@ -52,12 +47,8 @@
     "normalize-scss": "^7.0.1",
     "postcss-clearfix": "^1.0.0",
     "postcss-easings": "^0.3.0",
-<<<<<<< HEAD
-    "postcss-loader": "^2.0.6",
-=======
     "postcss-loader": "^2.1.5",
     "postcss-syntax": "^0.26.1",
->>>>>>> 8b3a1d0... Webpack4
     "promise-polyfill": "^6.1.0",
     "prop-types": "^15.5.10",
     "ramda": "^0.25",

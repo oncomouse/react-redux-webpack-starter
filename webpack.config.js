@@ -19,7 +19,7 @@ const packageJSON = JSON.parse(
   )
 )
 
-const PUBLIC_URL = (
+const PUBLIC_URL = process.env.PUBLIC_URL || (
   isProd
   && Object.prototype.hasOwnProperty.call(packageJSON, 'homepage')
 ) ? packageJSON['homepage'] : undefined

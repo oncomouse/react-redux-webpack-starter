@@ -1,6 +1,7 @@
 @import "~normalize-scss/sass/normalize";
-@include normalize();
 @import "variables";
+
+@include normalize();
 
 html {
 	font-family: $base-font;

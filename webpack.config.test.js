@@ -4,8 +4,9 @@ const nodeExternals = require('webpack-node-externals')
 const isCoverage = process.env.NODE_ENV === 'coverage';
 
 const config = {}
+config.mode = 'development';
 config.module = {
-	rules: [
+    rules: [
 		isCoverage ? {
 		  test: /\.(js|jsx)$/
 		  , include: path.resolve('app') // instrument only testing sources with Istanbul, after ts-loader runs

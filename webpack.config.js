@@ -1,5 +1,6 @@
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 const noop = require('noop-webpack-plugin')
@@ -18,6 +19,15 @@ const packageJSON = JSON.parse(
   )
 )
 
+const postCSSplugins = function() {
+  return [
+    require('autoprefixer')({ browsers: 'last 3 versions' })
+    , require('postcss-easings')
+    , require('css-mqpacker')
+    , require('postcss-clearfix')
+  ]
+}
+
 const PUBLIC_URL = process.env.PUBLIC_URL || (
   isProd
   && Object.prototype.hasOwnProperty.call(packageJSON, 'homepage')
@@ -31,9 +41,11 @@ var webpackConfig = {
   devtool: isProd ? 'hidden-source-map' : 'cheap-module-source-map'
   , entry: {
     js: [
-			'index'
+      'stylesheets/global.scss'
+			, 'index'
 		]
   }
+  , mode: isProd ? 'production' : 'development'
   , output: {
     path: path.join(__dirname, 'build')
     , filename: 'bundle.js'
@@ -53,7 +65,86 @@ var webpackConfig = {
           }
         ],
       }
-    ],
+      /*
+				Loader code for .css files. We use style-loader in
+				development to get HMR support. In production, we use
+				ExtractTextPlugin to get a pre-built CSS file.
+			*/
+      , {
+        test: /\.css$/
+        , use: ['extracted-loader'].concat(ExtractTextPlugin.extract({
+          fallback: 'style-loader'
+          , use: [
+            'css-loader'
+            , {
+              loader: 'postcss-loader'
+              , options: {
+                plugins: postCSSplugins
+              }
+            }
+          ]
+        }))
+      }
+      /*
+				SASS loader code for the module files (in
+				app/stylesheets/components). These are intended to be
+				styles for individual React components, which will have a
+				unique name space.
+				As above (with the CSS loader), we use style-loader for
+				HMR support in development and switch to ExtractTextPlugin
+				for production.
+			*/
+      , {
+        test: /\.scss$/
+        , exclude: /global\.scss$/
+        , use: ['extracted-loader'].concat(ExtractTextPlugin.extract({
+          fallback: 'style-loader'
+          , use: [
+            {
+              loader: 'css-loader'
+              , options: {
+                modules: true
+                , importLoaders: 1
+                , localIdentName: '[name]__[local]___[hash:base64:5]'
+              }
+            }
+            , {
+              loader: 'postcss-loader'
+              , options: {
+                plugins: postCSSplugins
+              }
+            }
+            , 'sass-loader'
+          ]
+        }))
+      }
+      /*
+				Loader code for a universal SCSS file. These styles will
+				be (as long as you remember to import them into
+				app/index.js) loaded for every component and are not
+				uniquely namespaced as the module SCSS code above is.
+				This file lives in app/stylesheets/global.scss. As above,
+				we use style-loader for HMR in development and
+				ExtractTextPlugin in production.
+			*/
+      , {
+        test: /\.scss$/
+        , include: /global\.scss$/
+        , use: ['extracted-loader'].concat(ExtractTextPlugin.extract({
+          fallback: 'style-loader'
+          , use: [
+            'css-loader'
+            , {
+              loader: 'postcss-loader'
+              , options: {
+                plugins: postCSSplugins
+              }
+            }
+            , 'sass-loader'
+          ]
+        }))
+      }
+    ]
   }
   , resolve: {
     extensions: ['.js', '.jsx']
@@ -69,30 +160,30 @@ var webpackConfig = {
       , analyzerPort: 8888
       , openAnalyzer: true
     }) : noop()
-    , new webpack.optimize.CommonsChunkPlugin({
-      name: 'common'
-      , filename: 'common.js'
+    , new ExtractTextPlugin({
+      filename: 'style.css'
+      , allChunks: true
     })
     // Build the HTML file without having to include it in the app:
     , new HtmlWebpackPlugin({
       files: {
-        js: ['common.js', 'bundle.js']
+        css: isProd ? ['style.css'] : []
+        , js: ['common.js', 'bundle.js']
       }
       , title: APP_TITLE
       , template: './app/template/index.ejs'
       , chunksSortMode: 'dependency'
       , chunks: {
-        main: {
+        head: {
+          css: isProd ? ['style.css'] : []
+        }
+        , main: {
           entry: ['common.js', 'bundle.js']
         }
       }
     })
     // Hot Module Replacement (HMR) plugins. They only load in development:
     , isProd ? noop() : new webpack.HotModuleReplacementPlugin()
-    , isProd ? noop() : new webpack.NamedModulesPlugin()
-    , isProd ? noop() : new webpack.NoEmitOnErrorsPlugin()
-    // Production plugins:
-    , isProd ? new webpack.optimize.ModuleConcatenationPlugin() : noop()
     , isProd ? new webpack.LoaderOptionsPlugin({
       minimize: true
       , debug: false
@@ -119,6 +210,15 @@ var webpackConfig = {
 
     })
   ]
+  , optimization: {
+    splitChunks: {
+      name: 'common',
+      minChunks: 2
+    }
+    , noEmitOnErrors: !isProd
+    , concatenateModules: isProd
+    , namedModules: !isProd
+  }
   , devServer: {
     contentBase: './app'
     , noInfo: false

@@ -1,7 +1,5 @@
 // https://github.com/erikras/ducks-modular-redux
-import {
-  assoc,
-} from 'ramda';
+import { assoc } from 'ramda';
 // import { REHYDRATE } from 'redux-persist/constants'
 import createReducer from '../utilities/createReducer';
 

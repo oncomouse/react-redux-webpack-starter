@@ -11,32 +11,37 @@ import { sampleAction, resetAction } from '../ducks/Samples';
 describe('<App/>', () => {
   let store;
   let wrapper;
-  const mockStore = configureStore([thunk]);
+  let mockStore;
   before(() => {
-    sinon.spy(App.prototype, 'componentDidMount');
+    mockStore = configureStore([thunk]);
     fetchMock.get('*', { hello: 'world' });
   });
   beforeEach(() => {
     store = mockStore({
       Samples: {},
     });
+    sinon.spy(App.prototype, 'componentDidMount');
     wrapper = mount(<App
       store={store}
       actions={{ resetAction, sampleAction }}
     />);
   });
   after(() => {
-    App.prototype.componentDidMount.restore();
     fetchMock.reset();
     fetchMock.restore();
   });
-  it('should render without crashing', () => {
-    expect(App.prototype.componentDidMount.calledOnce).to.equal(true);
+  afterEach(() => {
+    App.prototype.componentDidMount.restore();
   });
-  it('should trigger a sampleAction when first button clicked', async () => {
-    const expectedPayload = await sampleAction()(store.dispatch, store.getState);
-    wrapper.find('button').first().simulate('click');
-    expect(store.getActions()).to.deep.equal([expectedPayload]);
+  it('should render without crashing', () => {
+    expect(App.prototype.componentDidMount).to.be.calledOnce;
+  });
+  it('should trigger a sampleAction when first button clicked', (done) => {
+    sampleAction()(store.dispatch, store.getState).then((expectedPayload) => {
+      wrapper.find('button').first().simulate('click');
+      expect(store.getActions()).to.deep.equal([expectedPayload]);
+      done();
+    });
   });
   it('should trigger a resetAction when last button clicked', () => {
     const expectedPayload = resetAction();

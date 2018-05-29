@@ -32,19 +32,32 @@ const actionMaps = {
     // }
 };
 
+// Cause fetch to error:
+function checkStatus(response) {
+  if (response.status >= 200 && response.status < 300) {
+    return response
+  } else {
+    var error = new Error(response.statusText)
+    error.response = response
+    throw error
+  }
+}
+
 // Actions:
 const sampleResultAction = () => ({
     type: SAMPLE_ACTION
 });
+export const errorAction = error => ({
+    type: ERROR,
+    payload: {error}
+})
 export const resetAction = () => ({
     type: RESET_STATE
 });
 export const sampleAction = () => dispatch => fetch('http://localhost:8080')
+    .then(checkStatus)
     .then(() => dispatch(sampleResultAction()))
-    .catch(error => dispatch({
-        type: ERROR
-        , payload: { error }
-    }));
+    .catch(error => dispatch(errorAction(error)));
 
 // Create and export our reducer:
 export default createReducer(initialState, actionMaps);

@@ -9,7 +9,6 @@ import App from './App';
 
 describe('<App/>', () => {
     let store;
-    let wrapper;
     let mockStore;
     before(() => {
         mockStore = configureStore([thunk]);
@@ -19,13 +18,13 @@ describe('<App/>', () => {
             Samples: {}
         });
         sinon.spy(App.prototype, 'componentDidMount');
-        wrapper = mount(
+        mount(
             <Provider store={store}><App /></Provider>
         );
     });
     afterEach(() => {
         App.prototype.componentDidMount.restore();
-    })
+    });
     it('should render without crashing', () => {
         expect(App.prototype.componentDidMount).to.be.calledOnce;
     });

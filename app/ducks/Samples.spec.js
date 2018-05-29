@@ -24,8 +24,8 @@ describe('ducks/Samples', () => {
     it('should return initialState', () => {
         expect(reducer(undefined, {})).to.deep.equal(initialState);
     });
-    it('should handle a sampleAction', done => {
-        sampleAction()(store.dispatch, store.getState).then(action => {
+    it('should handle a sampleAction', (done) => {
+        sampleAction()(store.dispatch, store.getState).then((action) => {
             const result = reducer(initialState, action);
             expect(result).to.be.an('object');
             expect(Object.keys(result).length).to.equal(1);
@@ -35,8 +35,8 @@ describe('ducks/Samples', () => {
             done();
         });
     });
-    it('should handle a resetAction', done => {
-        sampleAction()(store.dispatch, store.getState).then(sampleActionResult => {
+    it('should handle a resetAction', (done) => {
+        sampleAction()(store.dispatch, store.getState).then((sampleActionResult) => {
             const result = reducer(
                 reducer(initialState, sampleActionResult)
                 , resetAction()
@@ -44,6 +44,6 @@ describe('ducks/Samples', () => {
             expect(result).to.deep.equal(initialState);
             expect(store.dispatch).to.be.calledOnce;
             done();
-        })
+        });
     });
 });
